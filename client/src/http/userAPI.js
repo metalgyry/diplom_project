@@ -6,6 +6,20 @@ export const signin = async (login, password) => {
 };
 
 export const listLobby = async () => {
-    const response = await $authHost.get("lobby/");
+    const response = await $authHost.get("main/");
+    return response;
+};
+
+/*
+export const refresh = async () => {
+    const response = await $authHost.get("/auth/refresh/");
+    return response;
+};
+*/
+
+export const signout = async () => {
+    const response = await $authHost.get("/auth/logout/");
+    localStorage.clear();
+    console.log("clear");
     return response;
 };

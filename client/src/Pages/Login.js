@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Context } from '../index';
-import ErrorMessage from '../Components/ErrorMessage';
+import ErrorMessage from '../Components/Page_parts/ErrorMessage';
 import { regPassword, regLogin } from '../Components/regular';
 import { signin } from '../http/userAPI';
 import '../styles/all_style.css';
 
 export default function Login() {
-  const router = useHistory();
+  const navigate = useNavigate();
   const { userStore } = useContext(Context)
+  console.log(userStore.isAuth);
   /*
   if( localStorage.getItem("token") ) {
     router.push("/main");
@@ -19,8 +20,8 @@ export default function Login() {
   const [submitButton, setSubmitButton] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState("metalgyry");
+  const [password, setPassword] = useState("metalgyry");
 
   useEffect(() => {
     if((regexLog.test(login)) && (regexPassword.test(password))) {
@@ -30,19 +31,21 @@ export default function Login() {
     }
   }, [login, password]);
 
-  const loginButton = async () => {
+  const loginButton = async (e) => {
+    e.preventDefault();
+
     try {
       // возможно нужно использовать form, но это потом
       const response = await signin(login, password);
+      console.log(response.data);
       if (response.status === 200) {
-              // ТУТ ЧЕРЕЗ MOBX СОХРАНЕНИЕ ДАННЫХ ДА И ВОЗМОЖНО ЭТОТ МЕТОД БУДЕТ ТУТ, НО ТОКЕН ВРОДЕ КАК ВСЕ РАВНО В ЛОКАЛ STORAGE
-        localStorage.setItem("token", response.data.token);
-        router.push("/main");
+        localStorage.setItem("accessToken", response.data.accessToken);
+        userStore.isAuth = true;
+        userStore.user = response.data.user;
+        navigate("/tasks");
       }
     }catch (e) {
-      //setErrorMessage(e.message);
-            // ТУТ НУЖНО ПОНЯТЬ КАКАЯ ОШИБКА
-      setErrorMessage(e.response.data.detail[0].msg)
+      setErrorMessage(e.response?.data?.error)
     }
   };
 

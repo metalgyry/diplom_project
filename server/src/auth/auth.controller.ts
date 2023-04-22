@@ -21,12 +21,12 @@ export class AuthController {
         @Res({ passthrough: true }) res: Response,
         @Body() userAuth: loginDto,
     ) {
-        const user = await this.authService.login(userAuth);
-        const tokens = await this.authService.generateToken(user);
+        const userData = await this.authService.login(userAuth);
+        const tokens = await this.authService.generateToken(userData);
         res.cookie('refreshToken', tokens.refresh_token, {maxAge: this.configService.get("REFRESH_KEY_TIME"), httpOnly: true});
         //res.setHeader('Set-Cookie', jwtToken);
-        const userNew = new userDto(user);
-        res.json({accessToken: tokens.access_token, userNew});
+        const user = new userDto(userData);
+        res.json({accessToken: tokens.access_token, user});
     }
     
     @HttpCode(HttpStatus.OK)
@@ -38,7 +38,7 @@ export class AuthController {
         res.end();
     }
 
-    @UseGuards(AccessJwtAuthGuard)
+    @UseGuards(RefreshJwtAuthGuard)
     @Get('/refresh')
     async refresh(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
         console.log(req['user']);
@@ -46,6 +46,12 @@ export class AuthController {
         const tokens = await this.authService.generateToken(req['user']);
         res.cookie('refreshToken', tokens.refresh_token, {maxAge: this.configService.get("REFRESH_KEY_TIME"), httpOnly: true});
         res.json({accessToken: tokens.access_token});
+    }
+
+    @UseGuards(AccessJwtAuthGuard)
+    @Get('/tasks')
+    async getTasks(@Req() req: Request){
+        return {message: "tasks page!"};
     }
 
     @HttpCode(HttpStatus.OK)

@@ -3,12 +3,12 @@ import * as ReactDOMClient from 'react-dom/client';
 import App from './App';
 import User from './stores/user.store';
 
-const userStore = new User();
-
-export const Context = createContext({userStore,})
+export const Context = createContext(null)
 
 ReactDOMClient.createRoot(document.getElementById('root')).render(
-    <Context.Provider value={{userStore,}}>
+    <Context.Provider value={{
+        userStore: new User(),
+    }}>
         <App />
     </Context.Provider>
 );

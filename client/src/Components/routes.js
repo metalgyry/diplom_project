@@ -1,4 +1,5 @@
 import Login from "../Pages/Login";
+import Tasks from "../Pages/Tasks";
 
 export const noAuthRouters = [
     {
@@ -9,6 +10,7 @@ export const noAuthRouters = [
 
 export const authRouters = [
     {
-        
+        path: "/tasks",
+        Component: Tasks
     },
 ];
