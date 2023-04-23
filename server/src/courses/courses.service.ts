@@ -1,11 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Courses, Tasks } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CoursesService {
     constructor(private prisma: PrismaService) {}
 
-    async getCourses(id_student: number, id_group: number) { //: Promise<number>
+    async getCourses(id_student: number, id_group: number): Promise<(Courses & {tasks: Tasks[]})[]> {
         try {
             const groupCourses = await this.prisma.groupCourses.findMany({
               where: { id_group: id_group },
@@ -24,7 +25,7 @@ export class CoursesService {
                 return groupCoursesItem.id_course;
             });
             console.log(arrayIdCourses);
-            const tasks =  await this.prisma.courses.findMany({
+            const coursesAndTasks =  await this.prisma.courses.findMany({
                 where: { id_course: { in: arrayIdCourses }},
                 include: {
                     tasks: {
@@ -34,10 +35,9 @@ export class CoursesService {
                     }
                 }
             });
-            console.log(tasks[0].tasks);
-            //console.log(tasks.tasks);
+            console.log(coursesAndTasks);
 
-            return groupCourses;
+            return coursesAndTasks;
           } catch (error) {
             // TODO: Нет возвращаемой ошибки
             console.log(error);

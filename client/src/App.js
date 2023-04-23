@@ -17,16 +17,16 @@ function App() {
         console.log(user);
         userStore.user = user;
         userStore.isAuth = true;
-        setLoaded(true);
       } catch (error) {
         console.log(error);
       }
     }
+    setLoaded(true);
   }, [loaded]);
 
   return (
     <BrowserRouter>
-      <AppRouter/>
+      { loaded ? <AppRouter/> : null}
     </BrowserRouter>
   );
 }
