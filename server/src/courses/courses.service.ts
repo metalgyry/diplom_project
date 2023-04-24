@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Courses, Tasks } from '@prisma/client';
+import { Courses, SubTasks, Tasks } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CoursesService {
     constructor(private prisma: PrismaService) {}
 
-    async getCourses(id_student: number, id_group: number): Promise<(Courses & {tasks: Tasks[]})[]> {
+    async getCourses(id_student: number, id_group: number): Promise<(Courses & {tasks: (Tasks & {subTasks: SubTasks[]})[]})[]> {
         try {
             const groupCourses = await this.prisma.groupCourses.findMany({
               where: { id_group: id_group },
@@ -31,7 +31,10 @@ export class CoursesService {
                     tasks: {
                         where: {
                             id_student: id_student,
-                          }
+                        },
+                        include: {
+                            subTasks: true,
+                        }
                     }
                 }
             });

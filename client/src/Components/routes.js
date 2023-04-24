@@ -1,16 +1,21 @@
-import Login from "../Pages/Login";
-import Tasks from "../Pages/Tasks";
+import LoginPage from "../Pages/LoginPage";
+import Schedule from "../Pages/Schedule";
+import TasksPage from "../Pages/TasksPage";
 
 export const noAuthRouters = [
     {
         path: "/login",
-        Component: Login
+        Component: LoginPage
     },
 ];
 
 export const authRouters = [
     {
         path: "/tasks",
-        Component: Tasks
+        Component: TasksPage
+    },
+    {
+        path: "/schedule",
+        Component: Schedule
     },
 ];
