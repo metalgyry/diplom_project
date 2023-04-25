@@ -1,4 +1,5 @@
 import React from 'react'
+import { priorityList } from '../variables';
 
 export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTaskOrSubTask}) {
 
@@ -19,7 +20,7 @@ export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTas
                 </div>
                 <div className='task_date_priority'>
                     { isTaskOrSubTask ? `Дата: ${task.date} | ` : ''}
-                    Приоритет: {task.priority}
+                    Приоритет: {priorityList[task.priority]}
                 </div>
         </>
     )

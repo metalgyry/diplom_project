@@ -22,18 +22,27 @@ export const allTasks = async () => {
     return response;
 };
 
-export const createTask = async (task) => {
-    const response = await $authHost.post("/tasks/create", task);
+const choiceURL = (isTaskOrSubTask) => {
+    if(isTaskOrSubTask) {
+        return "/tasks";
+    }else {
+        return "/subtasks";
+    }
+}
+
+export const createTaskOrSubTask = async (task, isTaskOrSubTask) => {    
+    const response = await $authHost.post(choiceURL(isTaskOrSubTask) + "/create", task);
     return response;
 };
 
-export const updateTask = async (task) => {
-    // TODO: Удостовериться что правильно передан task на сервер
-    const response = await $authHost.patch(`/tasks/update/`, task);
+export const updateTaskOrSubTask = async (task, isTaskOrSubTask) => {
+    
+    const response = await $authHost.patch(choiceURL(isTaskOrSubTask) + `/update/`, task);
     return response;
 };
 
-export const deleteTask = async (id) => {
-    const response = await $authHost.delete(`/tasks/delete/${id}`);
+export const deleteTaskOrSubTask = async (id, isTaskOrSubTask) => {
+
+    const response = await $authHost.delete(choiceURL(isTaskOrSubTask) + `/delete/${id}`);
     return response;
 };
