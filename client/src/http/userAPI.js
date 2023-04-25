@@ -23,19 +23,17 @@ export const allTasks = async () => {
 };
 
 export const createTask = async (task) => {
-    // TODO: Удостовериться что правильно передан task на сервер
     const response = await $authHost.post("/tasks/create", task);
     return response;
 };
 
-export const updateTask = async (task, id) => {
+export const updateTask = async (task) => {
     // TODO: Удостовериться что правильно передан task на сервер
-    const response = await $authHost.update(`/tasks/update/${id}`, task);
+    const response = await $authHost.patch(`/tasks/update/`, task);
     return response;
 };
 
 export const deleteTask = async (id) => {
-    // TODO: Удостовериться что правильно передан task на сервер
     const response = await $authHost.delete(`/tasks/delete/${id}`);
     return response;
 };

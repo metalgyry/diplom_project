@@ -56,7 +56,7 @@ export default function Login() {
             <div className="login_form">
                 <input type="tel" value={login} minLength="8" className="telephone intext" placeholder="Логин" required onChange={e => setLogin(e.target.value)}/><br/>
                 <input type="password" value={password} minLength="3" className="password intext" placeholder="Пароль" required onChange={e => setPassword(e.target.value)}/><br/>
-                <button type="submit" name="form_button" className="form_button butt" onClick={loginButton} id="submitButton" disabled={submitButton}>Войти</button>
+                <button type="button" name="form_button" className="form_button butt" onClick={loginButton} id="submitButton" disabled={submitButton}>Войти</button>
             </div>
             <ErrorMessage error={errorMessage}/>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import TaskData from './TaskData';
-import UpdateTask from './UpdateTask';
+import AddOrUpdateTask from './AddOrUpdateTask';
 
 export default function SubTask({subTask, updateSubTask, deleteSubTask}) {
     const [isUpdating, setIsUpdating] = useState(false);
@@ -9,7 +9,7 @@ export default function SubTask({subTask, updateSubTask, deleteSubTask}) {
         <div className='task'>
             {
                 isUpdating ?
-                <UpdateTask task={subTask} setIsUpdating={setIsUpdating} updateTask={updateSubTask} isTaskOrSubTask={false}/>
+                <AddOrUpdateTask task={subTask} setIsUpdating={setIsUpdating} methodTask={updateSubTask} isTaskOrSubTask={false} isAddOrUpdate={false}/>
                 :
                 <TaskData task={subTask} setIsUpdating={setIsUpdating} deleteTask={deleteSubTask} isTaskOrSubTask={false}/>
             }

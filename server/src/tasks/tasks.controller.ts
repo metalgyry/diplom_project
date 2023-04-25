@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { AccessJwtAuthGuard } from 'src/auth/guards/auth.guard';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -26,9 +26,9 @@ export class TasksController {
 
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
-    @Put('/update/:id')
-    async updateOneTask(@Param('id') id: string, @Body() taskDto: UpdateTaskDto) {
-        const task = await this.tasksService.updateTask(taskDto, id);
+    @Patch('/update')
+    async updateOneTask(@Body() taskDto: UpdateTaskDto) {// @Param('id') id: string,
+        const task = await this.tasksService.updateTask(taskDto);
         return task;
     }
     

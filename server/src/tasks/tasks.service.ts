@@ -30,7 +30,12 @@ export class TasksService {
     async createTask(dataTask: CreateTaskDto): Promise<Tasks> {
         try {
             // TODO: нужно разобраться с датой в ЗАДАЧАХ
-            const task = await this.prisma.tasks.create({ data: { ...dataTask } });
+            const task = await this.prisma.tasks.create({
+                data: { ...dataTask },
+                include: {
+                    subTasks: true,
+                }
+            });
             return task;
         } catch (error) {
             console.log(error);
@@ -44,11 +49,15 @@ export class TasksService {
         }
     }
 
-    async updateTask(dataTask: UpdateTaskDto, id: string): Promise<Tasks> {
+    async updateTask(dataTask: UpdateTaskDto): Promise<Tasks> { //, id: string
         try {
             const task = await this.prisma.tasks.update({
-                data: { ...dataTask },
-                where: { id_task: Number(id) },
+                data: {
+                    content: dataTask.content,
+                    date: dataTask.date,
+                    priority: dataTask.priority,
+                },
+                where: { id_task: dataTask.id_task }, // Number(id)
             });
             return task;
         } catch (error) {

@@ -51,6 +51,7 @@ h1.main_title {
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px 10px 10px;
+    margin: -10px -10px 0px -10px;
     background-color: lightsteelblue;
 }
 
@@ -88,4 +89,8 @@ h1.main_title {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.task_content {
+    resize: none;
 }

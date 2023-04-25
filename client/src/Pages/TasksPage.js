@@ -12,7 +12,7 @@ export default function Tasks() {
       console.log(data);
       setCoursesAndTasks(data);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

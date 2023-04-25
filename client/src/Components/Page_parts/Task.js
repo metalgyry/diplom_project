@@ -1,37 +1,27 @@
 import React, { useState } from 'react'
-import AddTask from './AddTask';
+import AddOrUpdateTask from './AddOrUpdateTask';
 import SubTask from './SubTask';
 import TaskData from './TaskData';
-import UpdateTask from './UpdateTask';
 
 export default function Task({task, updateTask, deleteTask}) { // использование isTask(Boolean) нельзя по правилам React т.к. нарушится логика работы хуков, поэтому создан SubTask
     const [arraySubTasks, setArraySubTasks] = useState(task.subTasks);
     const [isUpdating, setIsUpdating] = useState(false);
 
-    const createSubTask = (subTask) => {
-        // тут только алгоритм добавления новой задачи при помощи arrayTasks и setArrayTasks
-    };
-
-    const updateSubTask = (subTask) => {
-        // тут только алгоритм удаления задачи при помощи arrayTasks и setArrayTasks
-    };
-
-    const deleteSubTask = (id_subtask) => {
-        // тут только алгоритм удаления задачи при помощи arrayTasks и setArrayTasks
-    };
+    // ТУТ НУЖНО ВСТАВКИ из КОДА КОТОРЫЙ Я ВЫНЕСУ ИЗ COURSE И БУДУ СЮДА EXPORTить ПЕРЕДАВ
+    // ТУДА ТРИ(ЧЕТЫРЕ) ПАРАМЕТРА arraySubTasks, setArraySubTasks, task(id_task), isTaskOrSubTask(тут будет(именно здесь) false)
 
     return (
         <div className='task'>
             {
                 isUpdating ?
-                <UpdateTask task={task} setIsUpdating={setIsUpdating} updateTask={updateTask} isTaskOrSubTask={true}/>
+                <AddOrUpdateTask task={task} setIsUpdating={setIsUpdating} methodTask={updateTask} isTaskOrSubTask={true} isAddOrUpdate={false}/>
                 :
-                <TaskData task={task} setIsUpdating={setIsUpdating} deleteTask={deleteTask} isTaskOrSubTask={true}/>
+                <TaskData task={task} setIsUpdating={setIsUpdating} deleteСurrentTask={deleteTask} isTaskOrSubTask={true}/>
             }
             {arraySubTasks.map((subTask) => {
                 return <SubTask key={subTask.id_subtask} subTask={subTask} updateSubTask={updateSubTask} deleteSubTask={deleteSubTask}/>
             })}
-            <AddTask id={task.id_task} add={createSubTask} isTaskOrSubTask={false}/>
+            <AddOrUpdateTask task={null} setIsUpdating={null} methodTask={createSubTask} isTaskOrSubTask={false} isAddOrUpdate={true}/>
             <br/>
         </div>
     )
