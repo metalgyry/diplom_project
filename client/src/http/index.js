@@ -20,14 +20,19 @@ $authHost.interceptors.request.use(authInterceptor);
 $authHost.interceptors.response.use((config) => {
     return config;
 }, async (error) => {
-    if(error.response.status == 401 && error.config && !error.config.isRetry) {
-        error.config.isRetry = true;
+    if(error.response.status === 403 && error.config) {
         try {
-            const response = await $authHost.get("/auth/refresh/");
+            const response = await $authHost.get("/auth/refresh/", {withCredentials: true});
             localStorage.setItem("accessToken", response.data.accessToken);
             return $authHost.request(error.config);
-        }catch  (e) {
-            console.log(error);
+        }catch (e) {
+            if(e.response.status === 401) {
+                //alert("Ошибка: пользователь не авторизован!");
+                await $authHost.get("/auth/logout");
+                localStorage.clear();
+                return window.location.href = `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_CLIENT_PORT}/login`;
+            }
+            alert(e.response.data.error);
         }
     }
     throw error;

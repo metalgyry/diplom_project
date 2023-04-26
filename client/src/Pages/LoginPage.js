@@ -43,9 +43,11 @@ export default function Login() {
         userStore.isAuth = true;
         userStore.user = response.data.user;
         navigate("/tasks");
+      } else {
+        setErrorMessage("Ошибка: " + response.data.error)
       }
     }catch (e) {
-      setErrorMessage(e.response?.data?.error)
+      setErrorMessage("Ошибка: " + e.response?.data?.error)
     }
   };
 

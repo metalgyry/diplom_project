@@ -1,4 +1,4 @@
-import {CanActivate, ExecutionContext, Injectable, UnauthorizedException} from "@nestjs/common";
+import {CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable, UnauthorizedException} from "@nestjs/common";
 import {Observable} from "rxjs";
 import {JwtService} from "@nestjs/jwt";
 import { userDto } from "../dto/user.dto";
@@ -10,7 +10,7 @@ import { ConfigService } from "@nestjs/config";
 export class AccessJwtAuthGuard implements CanActivate {
     constructor( private jwtService: JwtService,
                  private configService: ConfigService,
-        ) { }
+    ) { }
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         const req = context.switchToHttp().getRequest()
@@ -21,7 +21,13 @@ export class AccessJwtAuthGuard implements CanActivate {
         }
         const fullAccessToken = authHeader.split(' ');
         if(fullAccessToken[0] !== 'Bearer') {
-            throw new UnauthorizedException({'message': 'Отсутствие Bearer access токена(Не тот заголовок)!'});
+            throw new HttpException(
+                {
+                    status: HttpStatus.FORBIDDEN,
+                    error: 'Отсутствие Bearer access токена(Не тот заголовок)!',
+                }, 
+                HttpStatus.FORBIDDEN,
+            );
         }
         const accessToken = fullAccessToken[1];
         /*
@@ -38,7 +44,13 @@ export class AccessJwtAuthGuard implements CanActivate {
         //console.log(this.configService.get("ACCESS_KEY"));
 
         if (!accessToken) {
-            throw new UnauthorizedException({'message': 'Пользователь не авторизован(нет самого Access JWT токена)'});
+            throw new HttpException(
+                {
+                    status: HttpStatus.FORBIDDEN,
+                    error: 'Пользователь не авторизован(нет самого Access JWT токена)',
+                }, 
+                HttpStatus.FORBIDDEN,
+            );
         }
         let user: userDto;
         try {
@@ -48,7 +60,13 @@ export class AccessJwtAuthGuard implements CanActivate {
         }
         
         if(!user) {
-            throw new UnauthorizedException({'message': 'Токен умер(не расшифрован).'});
+            throw new HttpException(
+                {
+                    status: HttpStatus.FORBIDDEN,
+                    error: 'Токен умер(не расшифрован).',
+                }, 
+                HttpStatus.FORBIDDEN,
+            );
         }
 
         //console.log('User:');

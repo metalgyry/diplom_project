@@ -12,7 +12,7 @@ export const createNewTask = async (task, setArray, array, id_student, id_course
             alert("Не удалось создать задачу!"); // измениить вывод из response ошибки по моему стандарту
         }
     } catch (error) {
-        alert(error);
+        alert("Ошибка: " + error.response.data.error);
     }
 };
 
@@ -33,7 +33,7 @@ export const updateCurrentTask = async (changeTask, setArray, array, isTaskOrSub
             alert("Не удалось изменить задачу!"); // измениить вывод из response ошибки по моему стандарту
         }
     } catch (error) {
-        alert(error);
+        alert("Ошибка: " + error.response.data.error);
     }
 };
 
@@ -48,6 +48,6 @@ export const deleteCurrentTask = async (id, setArray, array, isTaskOrSubTask) =>
             alert("Не удалось удалить задачу!"); // измениить вывод из response ошибки по моему стандарту
         }
     } catch (error) {
-        alert(error);
+        alert("Ошибка: " + error.response.data.error);
     }
 };

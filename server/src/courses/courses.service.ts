@@ -11,11 +11,11 @@ export class CoursesService {
             const groupCourses = await this.prisma.groupCourses.findMany({
               where: { id_group: id_group },
             });
-            if (!groupCourses) {
+            if (!groupCourses) { // Возможно придется убрать если самостоятельно студент будет создавать курсы
                 throw new HttpException(
                     {
                         status: HttpStatus.BAD_REQUEST,
-                        error: 'У группы нет курсов!',
+                        error: 'У группы пользователя нет привяззаных курсов!',
                     }, 
                     HttpStatus.BAD_REQUEST,
                 );

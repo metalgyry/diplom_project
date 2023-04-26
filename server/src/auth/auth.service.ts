@@ -28,9 +28,9 @@ export class AuthService {
             console.log(error);
             throw new HttpException(
                 {
-                    status: HttpStatus.FORBIDDEN,
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
                     error: 'Не удалось сгенерировать токены!',
-                }, HttpStatus.FORBIDDEN,
+                }, HttpStatus.INTERNAL_SERVER_ERROR,
                 { cause: error }
             );
         }

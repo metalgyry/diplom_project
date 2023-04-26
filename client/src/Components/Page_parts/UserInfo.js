@@ -10,11 +10,13 @@ function UserInfo() {
         e.preventDefault();
         try {
             const response = await signout();
-
             console.log(response);
-
-            userStore.isAuth = false;
-            userStore.user = {};
+            if(response.status === 200) {
+                userStore.isAuth = false;
+                userStore.user = {};
+            }else {
+                alert("Не удалось выйти!");
+            }
         } catch (error) {
             console.log(error);
             alert(e.response?.data?.error);

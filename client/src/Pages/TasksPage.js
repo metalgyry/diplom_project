@@ -8,11 +8,16 @@ export default function Tasks() {
   const getData = async () => {
     try {
       const response = await getCoursesAndTasks();
-      const data = response.data;
-      console.log(data);
-      setCoursesAndTasks(data);
+      if(response.status === 200) {
+        const data = response.data;
+        console.log(data);
+        setCoursesAndTasks(data);
+      } else {
+        alert("Ошибка: " + response.data.error);
+      }
     } catch (error) {
-      alert(error);
+      console.log(error.response.data.error);
+      alert("Ошибка: " + error.response.data.error);
     }
   };
 

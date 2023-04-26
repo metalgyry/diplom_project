@@ -19,10 +19,10 @@ export class TasksService {
             console.log(error);
             throw new HttpException(
                 {
-                    status: HttpStatus.FORBIDDEN,
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
                     error: 'Ошибка при получении задач!',
                 }, 
-                HttpStatus.FORBIDDEN,
+                HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
     }
@@ -41,10 +41,10 @@ export class TasksService {
             console.log(error);
             throw new HttpException(
                 {
-                    status: HttpStatus.FORBIDDEN,
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
                     error: 'Ошибка при создании задачи!',
                 }, 
-                HttpStatus.FORBIDDEN,
+                HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
     }
@@ -64,10 +64,10 @@ export class TasksService {
             console.log(error);
             throw new HttpException(
                 {
-                    status: HttpStatus.FORBIDDEN,
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
                     error: 'Ошибка при обновлении задачи!',
                 }, 
-                HttpStatus.FORBIDDEN,
+                HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
       }
@@ -82,10 +82,10 @@ export class TasksService {
             console.log(error);
             throw new HttpException(
                 {
-                    status: HttpStatus.FORBIDDEN,
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
                     error: 'Ошибка при удалении задачи!',
                 }, 
-                HttpStatus.FORBIDDEN,
+                HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
       }

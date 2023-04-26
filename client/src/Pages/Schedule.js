@@ -19,7 +19,7 @@ export default function Schedule () {
 
         setCoursesAndTasks(arrayTask);
         } catch (error) {
-        console.log(error);
+        console.log("Ошибка: " + error.response.data.error);
         }
     };
   
