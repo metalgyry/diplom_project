@@ -10,3 +10,10 @@ export const priorityList = [
     'Обычный',
     'Высокий',
 ]
+
+export const periodsSelect = [
+    { value: 0, label: 'День' },
+    { value: 1, label: 'Неделя' },
+    { value: 2, label: 'Месяц' },
+    { value: 3, label: 'Семестр' },
+]

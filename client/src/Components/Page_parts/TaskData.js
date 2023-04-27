@@ -2,7 +2,6 @@ import React from 'react'
 import { priorityList } from '../variables';
 
 export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTaskOrSubTask, isScheduleTask}) {
-    console.log(task);
 
     const deleteTask = () => {
         let id;
@@ -17,7 +16,7 @@ export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTas
 
     return (
         <>
-            <div className='task_main'>
+            <div className='task_data'>
                     <div className='task_content' >
                         {task.content}
                     </div>

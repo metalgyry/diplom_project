@@ -38,7 +38,7 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
         setClickAddOrUpdateButton(false); 
     };
 
-    const createTask = () => {
+    const createOrUpdateTask = () => {
         let currentTask = {content: content, priority: priority};
         if(isTaskOrSubTask) {
             currentTask = {...currentTask, date: date};
@@ -80,7 +80,7 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
                         </div>
                     </div>
                     
-                    <button type="button" className='add_or_update_button' onClick={createTask} disabled={submitButton}>{textAddOrUpdateButton}</button>
+                    <button type="button" className='add_or_update_button' onClick={createOrUpdateTask} disabled={submitButton}>{textAddOrUpdateButton}</button>
                     <button type="button" className='cancel_button' onClick={cancelButton}>Отмена</button>
                 </div>
                 :

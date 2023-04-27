@@ -12,32 +12,32 @@ export class SubTasksController {
     @UseGuards(AccessJwtAuthGuard)
     @Get('/all')
     async getSubTasks(@Req() req: Request) {
-      const tasks = await this.subTasksService.allSubTasks(req['user'].id_student);
-      return tasks;
+      const subTasks = await this.subTasksService.allSubTasks(req['user'].id_student);
+      return subTasks;
     }
 
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Post('/create')
     async createNewSubTask(@Body() subTaskDto: CreateSubTaskDto) {
-        const task = await this.subTasksService.createSubTask(subTaskDto);
-        return task;
+        const SubTask = await this.subTasksService.createSubTask(subTaskDto);
+        return SubTask;
     }
 
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Patch('/update')
     async updateOneSubTask(@Body() subTaskDto: UpdateSubTaskDto) {// @Param('id') id: string,
-        const task = await this.subTasksService.updateSubTask(subTaskDto);
-        return task;
+        const SubTask = await this.subTasksService.updateSubTask(subTaskDto);
+        return SubTask;
     }
     
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Delete('/delete/:id')
-    async deleteOneSubTask(@Param('id') id: string) {
-        const task = await this.subTasksService.deleteSubTask(id);
-        return task;
+    async deleteOneSubTask(@Param('id') id: string, @Req() req: Request) {
+        const deleteSubTaskCount = await this.subTasksService.deleteSubTask(id, req['user'].id_student);
+        return deleteSubTaskCount;
     }
 
 }

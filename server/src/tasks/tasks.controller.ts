@@ -35,9 +35,9 @@ export class TasksController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Delete('/delete/:id')
-    async deleteOneTask(@Param('id') id: string) {
-        const task = await this.tasksService.deleteTask(id);
-        return task;
+    async deleteOneTask(@Param('id') id: string, @Req() req: Request) {
+        const deleteTaskCount = await this.tasksService.deleteTask(id, req['user'].id_student);
+        return deleteTaskCount;
     }
 
 }

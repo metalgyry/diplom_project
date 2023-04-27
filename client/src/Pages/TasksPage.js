@@ -25,17 +25,6 @@ export default function TasksPage() {
     getData();
   }, []);
 
-  /*
-  {coursesAndTasks.map((obj) => {
-    return <div key={obj.id_course}>{obj.name}
-      <div>
-        { obj.tasks.map((task) => {return <div key={task.id_task}>{task.content} - <b>{obj.name}</b></div>}) }
-      </div>
-    </div>
-  })
-  }
-  */
-
   return (
     <div className='tasks_page'>
       {coursesAndTasks.map((obj) => {

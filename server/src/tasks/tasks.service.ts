@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Tasks } from '@prisma/client';
+import { Prisma, Tasks } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -72,15 +72,15 @@ export class TasksService {
         }
       }
     
-      async deleteTask(id: string): Promise<Tasks> {
+      async deleteTask(id: string, id_student: number): Promise<Prisma.BatchPayload> {
         try {
             await this.prisma.subTasks.deleteMany({
-                where: { id_task: Number(id) },
+                where: { id_task: Number(id), id_student: id_student },
             });
-            const task = await this.prisma.tasks.delete({
-                where: { id_task: Number(id) },
+            const deleteTaskCount = await this.prisma.tasks.deleteMany({
+                where: { id_task: Number(id), id_student: id_student },
             });
-            return task;
+            return deleteTaskCount;
         } catch (error) {
             console.log(error);
             throw new HttpException(

@@ -46,3 +46,23 @@ export const deleteTaskOrSubTask = async (id, isTaskOrSubTask) => {
     const response = await $authHost.delete(choiceURL(isTaskOrSubTask) + `/delete/${id}`);
     return response;
 };
+
+export const allProjects = async () => {
+    const response = await $authHost.get("/projects/all");
+    return response;
+};
+
+export const createProject = async (project) => {    
+    const response = await $authHost.post("/projects/create", project);
+    return response;
+};
+
+export const updateProject = async (project) => {
+    const response = await $authHost.patch(`/projects/update/`, project);
+    return response;
+};
+
+export const deleteProject = async (id) => {
+    const response = await $authHost.delete(`/projects/delete/${id}`);
+    return response;
+};

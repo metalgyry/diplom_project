@@ -56,11 +56,12 @@ export const deleteCurrentTask = async (id, setArray, array, isTaskOrSubTask) =>
         console.log(response.data);
         if(response.status === 200) {
             if(isTaskOrSubTask) {
-                setArray(array.filter(task => task.id_task != response.data.id_task));
+                console.log("task");
+                setArray(array.filter(task => task.id_task != id));
             }else {
-                setArray(array.filter(subtask => subtask.id_subtask != response.data.id_subtask));
+                console.log("subtask");
+                setArray(array.filter(subtask => subtask.id_subtask != id));
             }
-            
         }else {
             alert("Не удалось удалить задачу!"); // измениить вывод из response ошибки по моему стандарту
         }

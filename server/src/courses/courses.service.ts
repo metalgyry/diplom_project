@@ -15,7 +15,7 @@ export class CoursesService {
                 throw new HttpException(
                     {
                         status: HttpStatus.BAD_REQUEST,
-                        error: 'У группы пользователя нет привяззаных курсов!',
+                        error: 'У группы пользователя нет привязанных курсов!',
                     }, 
                     HttpStatus.BAD_REQUEST,
                 );
