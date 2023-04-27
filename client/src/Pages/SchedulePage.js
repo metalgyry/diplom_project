@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import TaskInSchedule from '../Components/Page_parts/TaskInSchedule';
 import { getCoursesAndTasks } from '../http/userAPI';
 
-export default function Schedule () {
-    const [coursesAndTasks, setCoursesAndTasks] = useState([]);
+export default function SchedulePage() {
+    const [Tasks, setTasks] = useState([]);
 
     const getData = async () => {
         try {
@@ -17,7 +18,7 @@ export default function Schedule () {
         });
         console.log(arrayTask);
 
-        setCoursesAndTasks(arrayTask);
+        setTasks(arrayTask);
         } catch (error) {
         console.log("Ошибка: " + error.response.data.error);
         }
@@ -29,8 +30,17 @@ export default function Schedule () {
 
 
     return (
-        <div>
-            Schedule
+        <div className='schedule_page'>
+            <div className='period_selection'>
+                ТУТ SELECT ДЛЯ ВЫБОРА ПЕРИОДА
+                "Сделать АККОРДЕОН чтобы скрывать и показывать ПОДзадачи"
+            </div>
+            <br/>
+            <div className='schedule_tasks'>
+                {Tasks.map((task) => {
+                    return <TaskInSchedule key={task.id_task} task={task}/>  })
+                }
+            </div>
         </div>
     )
 }

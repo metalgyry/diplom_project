@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TasksModule } from './tasks/tasks.module';
 import { CoursesModule } from './courses/courses.module';
+import { SubTasksModule } from "./subtasks/subtasks.module";
 
 
 @Module({
@@ -20,6 +21,7 @@ import { CoursesModule } from './courses/courses.module';
         UsersModule,
         AuthModule,
         TasksModule,
+        SubTasksModule,
         CoursesModule,
     ],
     exports: [ PrismaService ]

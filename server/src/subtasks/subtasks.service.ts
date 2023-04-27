@@ -1,92 +1,85 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Tasks } from '@prisma/client';
+import { SubTasks } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { CreateSubTaskDto } from './dto/create-subtask.dto';
+import { UpdateSubTaskDto } from './dto/update-subtask.dto';
 
 @Injectable()
-export class TasksService {
+export class SubTasksService {
     constructor(private prisma: PrismaService) {}
 
-    async allTasks(id_student: number): Promise<Tasks[] | null> {
+    async allSubTasks(id_student: number): Promise<SubTasks[] | null> {
         // у нас может и не быть задач
         try {
-            const tasks = await this.prisma.tasks.findMany({
+            const subtasks = await this.prisma.subTasks.findMany({
                 where: {id_student: id_student },
             });
-            return tasks;
+            return subtasks;
         } catch (error) {
             console.log(error);
             throw new HttpException(
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
-                    error: 'Ошибка при получении задач!',
+                    error: 'Ошибка при получении подзадач!',
                 }, 
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
     }
 
-    async createTask(dataTask: CreateTaskDto): Promise<Tasks> {
+    async createSubTask(dataTask: CreateSubTaskDto): Promise<SubTasks> {
         try {
             // TODO: нужно разобраться с датой в ЗАДАЧАХ
-            const task = await this.prisma.tasks.create({
-                data: { ...dataTask },
-                include: {
-                    subTasks: true,
-                }
+            const subtasks = await this.prisma.subTasks.create({
+                data: { ...dataTask }
             });
-            return task;
+            return subtasks;
         } catch (error) {
             console.log(error);
             throw new HttpException(
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
-                    error: 'Ошибка при создании задачи!',
+                    error: 'Ошибка при создании подзадачи!',
                 }, 
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
     }
 
-    async updateTask(dataTask: UpdateTaskDto): Promise<Tasks> { //, id: string
+    async updateSubTask(dataTask: UpdateSubTaskDto): Promise<SubTasks> { //, id: string
         try {
-            const task = await this.prisma.tasks.update({
+            const subtasks = await this.prisma.subTasks.update({
                 data: {
                     content: dataTask.content,
-                    date: dataTask.date,
                     priority: dataTask.priority,
                 },
-                where: { id_task: dataTask.id_task }, // Number(id)
+                where: { id_subtask: dataTask.id_subtask }, // Number(id)
             });
-            return task;
+            return subtasks;
         } catch (error) {
             console.log(error);
             throw new HttpException(
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
-                    error: 'Ошибка при обновлении задачи!',
+                    error: 'Ошибка при обновлении подзадачи!',
                 }, 
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
       }
     
-      async deleteTask(id: string): Promise<Tasks> {
+      async deleteSubTask(id: string): Promise<SubTasks> {
         try {
-            await this.prisma.subTasks.deleteMany({
-                where: { id_task: Number(id) },
+            const subtasks = await this.prisma.subTasks.delete({
+                where: { id_subtask: Number(id) },
             });
-            const task = await this.prisma.tasks.delete({
-                where: { id_task: Number(id) },
-            });
-            return task;
+            return subtasks;
         } catch (error) {
             console.log(error);
             throw new HttpException(
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
-                    error: 'Ошибка при удалении задачи!',
+                    error: 'Ошибка при удалении подзадачи!',
                 }, 
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );

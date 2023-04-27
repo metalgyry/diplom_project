@@ -6,7 +6,7 @@ import { regPassword, regLogin } from '../Components/regular';
 import { signin } from '../http/userAPI';
 import '../styles/all_style.css';
 
-export default function Login() {
+export default function LoginPage() {
   const navigate = useNavigate();
   const { userStore } = useContext(Context)
   console.log(userStore.isAuth);

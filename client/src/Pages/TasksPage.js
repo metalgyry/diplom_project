@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Course from '../Components/Page_parts/Course';
 import { getCoursesAndTasks } from '../http/userAPI';
 
-export default function Tasks() {
+export default function TasksPage() {
   const [coursesAndTasks, setCoursesAndTasks] = useState([]);
 
   const getData = async () => {

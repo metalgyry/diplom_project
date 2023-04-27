@@ -1,5 +1,6 @@
 import LoginPage from "../Pages/LoginPage";
-import Schedule from "../Pages/Schedule";
+import ProjectsPage from "../Pages/ProjectsPage";
+import SchedulePage from "../Pages/SchedulePage";
 import TasksPage from "../Pages/TasksPage";
 
 export const noAuthRouters = [
@@ -16,6 +17,10 @@ export const authRouters = [
     },
     {
         path: "/schedule",
-        Component: Schedule
+        Component: SchedulePage
+    },
+    {
+        path: "/projects",
+        Component: ProjectsPage
     },
 ];

@@ -11,7 +11,7 @@ export default function SubTask({subTask, updateSubTask, deleteSubTask}) {
                 isUpdating ?
                 <AddOrUpdateTask task={subTask} setIsUpdating={setIsUpdating} methodTask={updateSubTask} isTaskOrSubTask={false} isAddOrUpdate={false}/>
                 :
-                <TaskData task={subTask} setIsUpdating={setIsUpdating} deleteTask={deleteSubTask} isTaskOrSubTask={false}/>
+                <TaskData task={subTask} setIsUpdating={setIsUpdating} deleteСurrentTask={deleteSubTask} isTaskOrSubTask={false} isScheduleTask={false}/>
             }
             <br/>
         </div>

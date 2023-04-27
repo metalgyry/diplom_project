@@ -40,11 +40,16 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
 
     const createTask = () => {
         let currentTask = {content: content, priority: priority};
-        if (!isAddOrUpdate) {
-            currentTask = {...currentTask, id_task: task.id_task};
-        }
         if(isTaskOrSubTask) {
             currentTask = {...currentTask, date: date};
+            if (!isAddOrUpdate) {
+                currentTask = {...currentTask, id_task: task.id_task};
+            }
+        }else {
+            currentTask = {...currentTask, id_task: task.id_task};
+            if (!isAddOrUpdate) {
+                currentTask = {...currentTask, id_subtask: task.id_subtask};
+            }
         }
         console.log(currentTask);
         methodTask(currentTask);

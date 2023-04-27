@@ -26,12 +26,12 @@ export default function Task({task, updateTask, deleteTask}) { // использ
                 isUpdating ?
                 <AddOrUpdateTask task={task} setIsUpdating={setIsUpdating} methodTask={updateTask} isTaskOrSubTask={true} isAddOrUpdate={false}/>
                 :
-                <TaskData task={task} setIsUpdating={setIsUpdating} deleteСurrentTask={deleteTask} isTaskOrSubTask={true}/>
+                <TaskData task={task} setIsUpdating={setIsUpdating} deleteСurrentTask={deleteTask} isTaskOrSubTask={true} isScheduleTask={false}/>
             }
             {arraySubTasks.map((subTask) => {
                 return <SubTask key={subTask.id_subtask} subTask={subTask} updateSubTask={updateSubTask} deleteSubTask={deleteSubTask}/>
             })}
-            <AddOrUpdateTask task={null} setIsUpdating={null} methodTask={createSubTask} isTaskOrSubTask={false} isAddOrUpdate={true}/>
+            <AddOrUpdateTask task={task} setIsUpdating={null} methodTask={createSubTask} isTaskOrSubTask={false} isAddOrUpdate={true}/>
             <br/>
         </div>
     )
