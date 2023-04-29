@@ -69,7 +69,7 @@ export default function AddProject({id_creator, name_creator, setIsCreating, add
     };
 
     const createProject = () => {
-        let newProject = {name: projectName, id_creator: id_creator, students: selectedStudents.map((student) => {return student.value})}; //full_name: student.label, 
+        let newProject = {name: projectName, id_creator: id_creator, name_creator: name_creator, students: selectedStudents.map((student) => {return student.value})}; //full_name: student.label, 
         console.log(newProject);
         addProject(newProject);
         //setProjectName("");

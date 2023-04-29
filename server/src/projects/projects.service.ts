@@ -28,15 +28,36 @@ export class ProjectsService {
                 return studentProjectsItem.id_group_project;
             });
             console.log(arrayIdProjects);
-            // const arrayIdStudent = studentProjects.map((studentProjectsItem) => {
-            //     return studentProjectsItem.id_student;
-            // });
+            
 
                             // МОЖНО ДОБАВИТЬ ВОЗМОЖНОСТЬ ПОЛУЧИТЬ ИМЕНА СОЗДАТЕЛЕЙ ПРОЕКТА
 
             const arrayProjects =  await this.prisma.groupProjects.findMany({
                 where: { id_group_project: { in: arrayIdProjects }},
             });
+            // --- этот код добавляет имя студента создавшего проект
+            // const arrayIdCreator = arrayProjects.map((arrayProjectsItem) => {
+            //     return arrayProjectsItem.id_creator;
+            // });
+            // console.log(arrayIdCreator);
+
+            // const arrayNameCreator = await this.prisma.students.findMany({
+            //     where: { id_student: {in: arrayIdCreator} },
+            //     select: { id_student: true, full_name: true },
+            // });
+            // console.log(arrayNameCreator);
+
+            // const resultArrayProjects = arrayProjects.map((project, index) => {
+            //     return {...project,
+            //         name_creator: arrayNameCreator.find((creator) => {
+            //             if(creator.id_student == project.id_creator){
+            //                 return true;
+            //             }else {
+            //                 return false;
+            //             }
+            //         }).full_name }
+            // });
+            // ---
             console.log(arrayProjects);
             return arrayProjects;
         } catch (error) {
@@ -55,7 +76,7 @@ export class ProjectsService {
         try {
             console.log(dataProject);
             const project = await this.prisma.groupProjects.create({
-                data: { name: dataProject.name, id_creator: dataProject.id_creator },
+                data: { name: dataProject.name, id_creator: dataProject.id_creator, name_creator: dataProject.name_creator },
             });
             const listStudent = dataProject.students.map((id_student) => {
                 return { id_group_project: project.id_group_project, id_student: id_student };

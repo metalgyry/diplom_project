@@ -2,12 +2,22 @@ import React from 'react'
 import DeleteButton from './DeleteButton';
 
 export default function ProjectData({project, selectProject, setIsUpdating, isMyProject, deleteProject, exitProject}) {
+    let name_creator = project.name_creator.split(' ');
+    name_creator = `${name_creator[0]} ${name_creator[1][0]}. ${name_creator[2][0]}.`
 
     return (
         <div className='project_data'>
             <div className='project_name' >
-                {project.name}
+                Название: {project.name}
             </div>
+            {
+                project.name_creator ?
+                    <div className='project_name_creator' >
+                        Создатель: {name_creator}
+                    </div>
+                :
+                    <></>
+            }
             <div className='project_change_button'>
                 {
                     isMyProject ?

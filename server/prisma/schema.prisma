@@ -52,6 +52,7 @@ model GroupProjects {
   id_group_project Int  @default(autoincrement()) @id
   name String
   id_creator Int
+  name_creator String
   students StudentProject[]
   tasks ProjectTasks[]
 
