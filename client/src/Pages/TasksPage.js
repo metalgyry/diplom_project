@@ -27,6 +27,7 @@ export default function TasksPage() {
 
   return (
     <div className='tasks_page'>
+      ПРИ ПЕРЕХОДЕ НА "/" ЛИБО ВООБЩЕ БЕЗ НЕЕ, ПОЯВЛЯЕТСЯ HEADER, НО А ВООБЩЕ ДОЛЖЕН ПРОИСХОДИТЬ ПЕРЕХОД НА "/TASKS"
       {coursesAndTasks.map((obj) => {
         return <Course key={obj.id_course} course={obj}/>  })
       }

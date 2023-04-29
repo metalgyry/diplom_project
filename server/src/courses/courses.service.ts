@@ -42,8 +42,14 @@ export class CoursesService {
 
             return coursesAndTasks;
           } catch (error) {
-            // TODO: Нет возвращаемой ошибки
             console.log(error);
+            throw new HttpException(
+                {
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
+                    error: 'Ошибка при получении списка курсов!',
+                }, 
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
           }
     }
 

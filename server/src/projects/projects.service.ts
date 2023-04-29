@@ -28,6 +28,12 @@ export class ProjectsService {
                 return studentProjectsItem.id_group_project;
             });
             console.log(arrayIdProjects);
+            // const arrayIdStudent = studentProjects.map((studentProjectsItem) => {
+            //     return studentProjectsItem.id_student;
+            // });
+
+                            // МОЖНО ДОБАВИТЬ ВОЗМОЖНОСТЬ ПОЛУЧИТЬ ИМЕНА СОЗДАТЕЛЕЙ ПРОЕКТА
+
             const arrayProjects =  await this.prisma.groupProjects.findMany({
                 where: { id_group_project: { in: arrayIdProjects }},
             });
@@ -47,9 +53,15 @@ export class ProjectsService {
 
     async createProject(dataProject: CreateProjectDto): Promise<GroupProjects> {
         try {
-            // добавление студентов в проект много записей создать
+            console.log(dataProject);
             const project = await this.prisma.groupProjects.create({
-                data: { ...dataProject },
+                data: { name: dataProject.name, id_creator: dataProject.id_creator },
+            });
+            const listStudent = dataProject.students.map((id_student) => {
+                return { id_group_project: project.id_group_project, id_student: id_student };
+            });
+            await this.prisma.studentProject.createMany({
+                data: listStudent,
             });
             return project;
         } catch (error) {

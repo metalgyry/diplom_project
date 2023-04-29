@@ -7,7 +7,7 @@ export default function ProjectsPage() {
     const [idCurrentProject, setIdCurrentProject] = useState(0);
 
     const selectedButton = (id_project) => {
-      setIdCurrentProject = id_project;
+      setIdCurrentProject(id_project);
       setIsProjectSelected(true);
     };
     

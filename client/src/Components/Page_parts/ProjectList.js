@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { allProjects, createProject, deleteProject, updateProject } from '../../http/userAPI';
 import { Context } from '../../index';
-import AddOrUpdateProject from './AddOrUpdateProject';
+import AddProject from './AddProject';
 import ProjectItem from './ProjectItem';
 
 export default function ProjectList({setSelectProject}) {
   const { userStore } = useContext(Context);
   const [arrayProjects, setArrayProjects] = useState([]);
+  const [isCreating, setIsCreating] = useState(false);
 
   const getData = async () => {
     try {
@@ -31,9 +32,9 @@ export default function ProjectList({setSelectProject}) {
     const methodCreateProject = async (project) => {
       console.log("CREATE NEW Project");
       try {
-          let newProject = {...project, id_creator: userStore.user.id_student};
-          console.log(newProject);
-          const response = await createProject(newProject);
+          //let newProject = {...project, id_creator: userStore.user.id_student};
+          console.log(project);
+          const response = await createProject(project);
           console.log(response.data);
           if(response.status === 200) {
             setArrayProjects([...arrayProjects, response.data]);
@@ -91,13 +92,18 @@ export default function ProjectList({setSelectProject}) {
 
     return (
       <div className='projects'>
-        НУЖНО AddOrUpdateProject РАЗДЕЛИТЬ Т.К. ПРИ СОЗДАНИИ ТАМ МОДАЛЬНОЕ ОКНО ПЛЮС АЛГОРИТМ СПИСКА СТУДЕНТОВ
         {arrayProjects.map((projectItem) => {
           return <ProjectItem key={projectItem.id_group_project} project={projectItem} selectProject={setSelectProject}
                   id_creator={userStore.user.id_student} updateProject={methodUpdateProject} deleteProject={methodDeleteProject}
                   />
         })}
-        <AddOrUpdateProject project={null} setIsUpdating={null} methodProject={methodCreateProject} isAddOrUpdate={true}/>
+        {
+          isCreating ?
+            <AddProject id_creator={userStore.user.id_student} name_creator={userStore.user.full_name} setIsCreating={setIsCreating} addProject={methodCreateProject} /> 
+          :
+          <button type='button' className='update_button' onClick={() => setIsCreating(true)}>СОЗДАТЬ</button>
+        }
+        
         <br/>
       </div>
     )

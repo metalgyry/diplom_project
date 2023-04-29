@@ -94,3 +94,39 @@ h1.main_title {
 .task_content {
     resize: none;
 }
+
+.add_project {
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_project_window {
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color:rosybrown;
+}
+
+.add_project_button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.project_name_change {
+    resize: none;
+}
