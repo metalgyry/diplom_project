@@ -1,8 +1,9 @@
 import React from 'react'
 import { priorityList } from '../variables';
+import DeleteButton from './DeleteButton';
 
 export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTaskOrSubTask, isScheduleTask}) {
-
+    
     const deleteTask = () => {
         let id;
         if(isTaskOrSubTask) {
@@ -27,7 +28,7 @@ export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTas
                             :
                             <>
                                 <button type='button' className='update_button' onClick={() => setIsUpdating(true)}>Изменить</button>
-                                <button type='button' className='delete_button' onClick={deleteTask}>Удалить</button>
+                                <DeleteButton textButton={'Удалить'} deleteMethod={deleteTask} id={null}/>
                             </>
                         }
                         

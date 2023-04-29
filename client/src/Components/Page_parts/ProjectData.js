@@ -1,6 +1,7 @@
 import React from 'react'
+import DeleteButton from './DeleteButton';
 
-export default function ProjectData({project, selectProject, setIsUpdating, isMyProject, deleteProject}) {
+export default function ProjectData({project, selectProject, setIsUpdating, isMyProject, deleteProject, exitProject}) {
 
     return (
         <div className='project_data'>
@@ -11,11 +12,11 @@ export default function ProjectData({project, selectProject, setIsUpdating, isMy
                 {
                     isMyProject ?
                         <>
-                        <button type='button' className='update_button' onClick={() => setIsUpdating(true)}>Изменить</button>
-                        <button type='button' className='delete_button' onClick={() => deleteProject(project.id_group_project)}>Удалить</button>
+                        <button type='button' className='update_project_button' onClick={() => setIsUpdating(true)}>Изменить</button>
+                        <DeleteButton textButton={'Удалить'} deleteMethod={deleteProject} id={project.id_group_project}/>
                         </>
                     :
-                        ''
+                        <DeleteButton textButton={'Выйти из проекта'} deleteMethod={exitProject} id={project.id_group_project}/>
                 }
             </div>
             <div className='project_enter_button'>

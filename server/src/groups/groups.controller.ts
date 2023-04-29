@@ -14,5 +14,4 @@ export class GroupsController {
       return groupStudents;
     }
 
-
 }

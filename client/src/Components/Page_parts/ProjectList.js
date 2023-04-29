@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { allProjects, createProject, deleteProject, updateProject } from '../../http/userAPI';
+import { allProjects, createProject, deleteProject, exitStudentProject, updateProject } from '../../http/userAPI';
 import { Context } from '../../index';
 import AddProject from './AddProject';
 import ProjectItem from './ProjectItem';
@@ -83,6 +83,21 @@ export default function ProjectList({setSelectProject}) {
       }
     };
 
+    const methodExitProject = async (id) => {
+      console.log("Exit Project");
+      try {
+          const response = await exitStudentProject(id);
+          console.log(response.data);
+          if(response.status === 200) {
+            setArrayProjects(arrayProjects.filter(project => project.id_group_project != id));
+          }else {
+              alert("Не удалось выйти из проекта!"); // измениить вывод из response ошибки по моему стандарту
+          }
+      } catch (error) {
+          alert("Ошибка: " + error.response.data.error);
+      }
+    };
+
     // TODO: сделать только подумать сперва т.к. придется также сделать функционал добавления ДО заполнения новых студентов и также
     // метод (наверно сделать) исключения студента создателем проекта
     //
@@ -94,7 +109,8 @@ export default function ProjectList({setSelectProject}) {
       <div className='projects'>
         {arrayProjects.map((projectItem) => {
           return <ProjectItem key={projectItem.id_group_project} project={projectItem} selectProject={setSelectProject}
-                  id_creator={userStore.user.id_student} updateProject={methodUpdateProject} deleteProject={methodDeleteProject}
+                  id_creator={userStore.user.id_student} updateProject={methodUpdateProject}
+                  deleteProject={methodDeleteProject} exitProject={methodExitProject}
                   />
         })}
         {

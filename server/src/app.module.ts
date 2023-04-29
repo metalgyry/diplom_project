@@ -10,6 +10,7 @@ import { CoursesModule } from './courses/courses.module';
 import { SubTasksModule } from "./subtasks/subtasks.module";
 import { ProjectsModule } from "./projects/projects.module";
 import { GroupsModule } from './groups/groups.module';
+import { StudentProjectsModule } from './student-projects/student-projects.module';
 
 
 @Module({
@@ -27,6 +28,7 @@ import { GroupsModule } from './groups/groups.module';
         CoursesModule,
         ProjectsModule,
         GroupsModule,
+        StudentProjectsModule,
     ],
     exports: [ PrismaService ]
 })
