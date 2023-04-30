@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { allGroupStudents } from '../../http/userAPI';
+import { allGroupStudents, allStudentsInGroupProject } from '../../http/userAPI';
 import Select from 'react-select';
 import '../../styles/all_style.css';
 import StudentListData from './StudentListData';
 
-export default function AddProject({id_creator, name_creator, setIsCreating, addProject}) {
+export default function AddProject({id_creator, name_creator, modifiedProject, setIsCreatingOrUpdating, methodProject, isAddOrUpdate}) {
     const [groupStudents, setGroupStudents] = useState([]);
-    const [selectedStudents, setSelectedStudents] = useState([{value: id_creator, label: name_creator + ' (Создатель)'},]);
+    const [selectedStudents, setSelectedStudents] = useState([]);
     const [currentStudent, setCurrentStudent] = useState(null);
     //
     const [submitButton, setSubmitButton] = useState(true);
-    const [projectName, setProjectName] = useState('');
-    let textAddButton = 'Создать';
+    const [projectName, setProjectName] = useState(isAddOrUpdate ? '' : modifiedProject.name);
+    let textAddButton = isAddOrUpdate ? 'Создать' : 'Изменить';
     let textCancelButton = 'Отмена';
+
+    if(isAddOrUpdate) {
+        setSelectedStudents([...selectedStudents, {value: id_creator, label: name_creator}]);
+    }
 
     const addStudentsList = () => {
         if(currentStudent) {
@@ -29,26 +33,34 @@ export default function AddProject({id_creator, name_creator, setIsCreating, add
     
     const getGroupStudents = async () => {
         try {
-          const response = await allGroupStudents();
-          if(response.status === 200) {
-            const data = response.data;
-            console.log(data);
+            const response = await allGroupStudents();
+            if(response.status === 200) {
+                const data = response.data;
+                console.log(data);
 
-            const students = data.map((student) => {
-                return {value: student.id_student, label: student.full_name};
-            });
-            const selectStudents = students.filter(student => student.value != id_creator);
-            console.log(selectStudents);
+                const students = data.map((student) => {
+                    return {value: student.id_student, label: student.full_name};
+                });
+                const selectStudents = students.filter(student => student.value != id_creator);
+                console.log(selectStudents);
 
-            setGroupStudents(selectStudents);
-          } else {
-            alert("Ошибка: " + response.data.error);
-            setIsCreating(false);
-          }
+                setGroupStudents(selectStudents);
+            } else {
+                alert("Ошибка: " + response.data.error);
+                setIsCreatingOrUpdating(false);
+            }
+
+            if(!isAddOrUpdate) {
+                const response = await allStudentsInGroupProject(modifiedProject.id_group_project);
+                setSelectedStudents([...selectedStudents, response.data.map((student) => {
+                    return {value: student.id_student, label: student.full_name}
+                })]);
+            }
+
         } catch (error) {
           console.log(error);
           alert("Ошибка: " + error.response.data.error);
-          setIsCreating(false);
+          setIsCreatingOrUpdating(false);
         }
       };
     
@@ -65,13 +77,16 @@ export default function AddProject({id_creator, name_creator, setIsCreating, add
     }, [projectName, selectedStudents]);
 
     const cancelButton = () => {
-        setIsCreating(false);
+        setIsCreatingOrUpdating(false);
     };
 
-    const createProject = () => {
-        let newProject = {name: projectName, id_creator: id_creator, name_creator: name_creator, students: selectedStudents.map((student) => {return student.value})}; //full_name: student.label, 
-        console.log(newProject);
-        addProject(newProject);
+    const methodCurrentProject = () => {
+        let project = {name: projectName, id_creator: id_creator, name_creator: name_creator, students: selectedStudents.map((student) => {return student.value})}; //full_name: student.label, 
+        if(!isAddOrUpdate) {
+            project = {...project, id_group_project: modifiedProject.id_group_project};
+        }
+        console.log(project);
+        methodProject(project);
         //setProjectName("");
         // Вроде как все очищается т.к. при нажатии закрытия модального окна и после его открытия все поял чистые
         cancelButton();
@@ -108,7 +123,7 @@ export default function AddProject({id_creator, name_creator, setIsCreating, add
                 </div>
                 <br/>
                 <div className='add_project_button'>
-                    <button type="button" className='add_button' onClick={createProject} disabled={submitButton}>{textAddButton}</button>
+                    <button type="button" className='add_or_update_button' onClick={methodCurrentProject} disabled={submitButton}>{textAddButton}</button>
                     <button type="button" className='cancel_button' onClick={cancelButton}>{textCancelButton}</button>
                 </div>
             </div>

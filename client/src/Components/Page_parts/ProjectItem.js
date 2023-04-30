@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import UpdateProject from './UpdateProject';
+import AddOrUpdateProject from './AddOrUpdateProject';
 import ProjectData from './ProjectData'
 
 export default function ProjectItem({project, selectProject, id_creator, updateProject, deleteProject, exitProject}) {
@@ -9,11 +9,12 @@ export default function ProjectItem({project, selectProject, id_creator, updateP
         <div className='project'>
             {
                 isUpdating ? 
-                    <UpdateProject project={project} setIsUpdating={setIsUpdating} updateProject={updateProject} />
+                    <AddOrUpdateProject id_creator={project.id_creator} name_creator={project.full_name}
+                        modifiedProject={project} setIsCreatingOrUpdating={setIsUpdating} methodProject={updateProject} isAddOrUpdate={false} />
                 :
-                    <ProjectData selectProject={selectProject} setIsUpdating={setIsUpdating}
+                    <ProjectData project={project} selectProject={selectProject} setIsUpdating={setIsUpdating}
                     isMyProject={(id_creator == project.id_creator) ? true : false}
-                    project={project} deleteProject={deleteProject} exitProject={exitProject}
+                     deleteProject={deleteProject} exitProject={exitProject}
                     />
             }
         </div>

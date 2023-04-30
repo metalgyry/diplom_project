@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { allProjects, createProject, deleteProject, exitStudentProject, updateProject } from '../../http/userAPI';
 import { Context } from '../../index';
-import AddProject from './AddProject';
+import AddOrUpdateProject from './AddOrUpdateProject';
 import ProjectItem from './ProjectItem';
 
 export default function ProjectList({setSelectProject}) {
@@ -115,7 +115,8 @@ export default function ProjectList({setSelectProject}) {
         })}
         {
           isCreating ?
-            <AddProject id_creator={userStore.user.id_student} name_creator={userStore.user.full_name} setIsCreating={setIsCreating} addProject={methodCreateProject} /> 
+            <AddOrUpdateProject id_creator={userStore.user.id_student} name_creator={userStore.user.full_name}
+              modifiedProject={null} setIsCreatingOrUpdating={setIsCreating} methodProject={methodCreateProject} isAddOrUpdate={true} /> 
           :
           <button type='button' className='update_button' onClick={() => setIsCreating(true)}>СОЗДАТЬ</button>
         }

@@ -5,6 +5,12 @@ export default function StudentListData({isCreator, student, deleteSelectedStude
     <div className='selected_student'>
         <div className='selected_name_student'>
             {student.label}
+            { 
+              isCreator ?
+              " (Создатель)"
+              :
+              ''
+            }
         </div>
         {
             isCreator ?

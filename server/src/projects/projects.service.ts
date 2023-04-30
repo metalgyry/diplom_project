@@ -1,12 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { GroupProjects, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { StudentProjectsService } from 'src/student-projects/student-projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 
 @Injectable()
 export class ProjectsService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService,
+        private studentProjectsService: StudentProjectsService) {}
 
     async allProjects(id_student: number): Promise<GroupProjects[] | null> {
         // у нас может и не быть задач
@@ -105,6 +107,9 @@ export class ProjectsService {
                 },
                 where: { id_group_project: dataProject.id_group_project }, // Number(id)
             });
+
+            await this.studentProjectsService.updateStudentInGroupProject(dataProject);
+
             return project;
         } catch (error) {
             console.log(error);

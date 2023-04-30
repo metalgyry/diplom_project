@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateStudentProjectDto } from './dto/update-student-project.dto';
 
 @Injectable()
 export class StudentProjectsService {
@@ -23,6 +24,59 @@ export class StudentProjectsService {
             );
         }
     }
+    
+    async getListStudentsInGroupProject(id_project: string): Promise<{id_student: number, full_name: string}[] | null> {
+        try {
+            const listStudents = await this.prisma.studentProject.findMany({
+                where: { id_group_project: Number(id_project) },
+                select: {id_student: true},
+            })
+            const listIdStudents = listStudents.map((student) => student.id_student);
 
+            const arrayNameStudents = await this.prisma.students.findMany({
+                where: { id_student: {in: listIdStudents} },
+                select: { id_student: true, full_name: true },
+            });
+            console.log(arrayNameStudents);
+
+            return arrayNameStudents;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(
+                {
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
+                    error: 'Ошибка при выходе из проекта!',
+                }, 
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
+    async updateStudentInGroupProject(dataUpdateStudentsProject: UpdateStudentProjectDto): Promise<Prisma.BatchPayload> {
+        try {
+            const deleteStudentsProjectCount = await this.prisma.studentProject.deleteMany({
+                where: { id_group_project: dataUpdateStudentsProject.id_group_project},
+            });
+            console.log(deleteStudentsProjectCount);
+
+            const listStudent = dataUpdateStudentsProject.id_student.map((id_student) => {
+                return { id_group_project: dataUpdateStudentsProject.id_group_project, id_student: id_student };
+            });
+
+            const updateStudentsProjectCount = await this.prisma.studentProject.createMany({
+                data: listStudent,
+            });
+            return updateStudentsProjectCount;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(
+                {
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
+                    error: 'Ошибка при обновлении списка студентов проекта!',
+                }, 
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+      }
 
 }

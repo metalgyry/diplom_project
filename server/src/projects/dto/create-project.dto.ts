@@ -3,5 +3,5 @@ export class CreateProjectDto {
     name: string
     id_creator: number
     name_creator: string
-    students : number[]
+    students: number[]
 }

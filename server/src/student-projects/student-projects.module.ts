@@ -8,6 +8,6 @@ import { StudentProjectsService } from './student-projects.service';
   controllers: [StudentProjectsController],
   providers: [StudentProjectsService, PrismaService],
   imports: [AuthModule],
-  exports: []
+  exports: [StudentProjectsService]
 })
 export class StudentProjectsModule {}
