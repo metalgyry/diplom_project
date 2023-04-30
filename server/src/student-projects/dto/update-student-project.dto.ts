@@ -1,4 +1,5 @@
-import { CreateStudentProjectDto } from "./create-student-project.dto"
-import { PartialType } from '@nestjs/mapped-types';
-
-export class UpdateStudentProjectDto extends PartialType(CreateStudentProjectDto) {}
+export class UpdateStudentProjectDto {
+    id_group_project: number
+    id_student: number
+    
+}

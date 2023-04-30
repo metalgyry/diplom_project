@@ -4,6 +4,7 @@ export default function StudentListData({isCreator, student, deleteSelectedStude
   return (
     <div className='selected_student'>
         <div className='selected_name_student'>
+            {'- '}
             {student.label}
             { 
               isCreator ?
@@ -18,7 +19,6 @@ export default function StudentListData({isCreator, student, deleteSelectedStude
             :
                 <button type="button" className='delete_selected_student_button' onClick={() => deleteSelectedStudent(student)}>Убрать</button>
         }
-        <br/>
     </div>
   )
 }

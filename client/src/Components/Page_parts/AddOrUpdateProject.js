@@ -14,10 +14,6 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
     let textAddButton = isAddOrUpdate ? 'Создать' : 'Изменить';
     let textCancelButton = 'Отмена';
 
-    if(isAddOrUpdate) {
-        setSelectedStudents([...selectedStudents, {value: id_creator, label: name_creator}]);
-    }
-
     const addStudentsList = () => {
         if(currentStudent) {
             setSelectedStudents([...selectedStudents, currentStudent]);
@@ -26,7 +22,7 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
         }
     };
 
-    const deleteStudentsList = (student) => { // нужен ли тут student?????
+    const deleteStudentsList = (student) => {
         setSelectedStudents(selectedStudents.filter(studentElement => studentElement.value != student.value ));
         setGroupStudents([...groupStudents, student]);
     };
@@ -38,23 +34,35 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
                 const data = response.data;
                 console.log(data);
 
-                const students = data.map((student) => {
+                let selectStudents = data.map((student) => {
                     return {value: student.id_student, label: student.full_name};
                 });
-                const selectStudents = students.filter(student => student.value != id_creator);
-                console.log(selectStudents);
+                // let selectStudents = students.filter(student => student.value != id_creator);
+                // console.log(selectStudents);
+
+                let listSelectedStudents = [];
+                if(!isAddOrUpdate) {
+                    const response = await allStudentsInGroupProject(modifiedProject.id_group_project);
+                    console.log(response.data);
+                    listSelectedStudents = response.data.map((student) => {
+                        return {value: student.id_student, label: student.full_name}
+                    });
+                    if(response.status === 200) {
+                        setSelectedStudents(listSelectedStudents);//[...selectedStudents, listStudents]
+                    } else {
+                        alert("Ошибка: " + response.data.error);
+                        setIsCreatingOrUpdating(false);
+                    } 
+                }
+                const listIdSelectedStudents = listSelectedStudents.map((student) => student.value);
+                const setListIdStudents = new Set(listIdSelectedStudents);
+                selectStudents = selectStudents.filter(student => !setListIdStudents.has(student.value));;
 
                 setGroupStudents(selectStudents);
+
             } else {
                 alert("Ошибка: " + response.data.error);
                 setIsCreatingOrUpdating(false);
-            }
-
-            if(!isAddOrUpdate) {
-                const response = await allStudentsInGroupProject(modifiedProject.id_group_project);
-                setSelectedStudents([...selectedStudents, response.data.map((student) => {
-                    return {value: student.id_student, label: student.full_name}
-                })]);
             }
 
         } catch (error) {
@@ -63,8 +71,19 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
           setIsCreatingOrUpdating(false);
         }
       };
-    
+
+    //   const listStudentInProject = async () => {
+        
+    //   } 
+
+    //   useEffect( () => {
+    //     listStudentInProject();
+    //   }, []);
+
       useEffect( () => {
+        if(isAddOrUpdate) {
+            setSelectedStudents([{value: id_creator, label: name_creator}]);
+        }
         getGroupStudents();
       }, []);
 

@@ -108,7 +108,9 @@ export class ProjectsService {
                 where: { id_group_project: dataProject.id_group_project }, // Number(id)
             });
 
-            await this.studentProjectsService.updateStudentInGroupProject(dataProject);
+            const updateListStudents = {id_group_project: dataProject.id_group_project, id_students: dataProject.students};
+
+            await this.studentProjectsService.updateStudentInGroupProject(updateListStudents);
 
             return project;
         } catch (error) {

@@ -7,6 +7,7 @@ import ProjectItem from './ProjectItem';
 export default function ProjectList({setSelectProject}) {
   const { userStore } = useContext(Context);
   const [arrayProjects, setArrayProjects] = useState([]);
+  const [isEmptyListProjects, setIsEmptyListProjects] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
   const getData = async () => {
@@ -15,6 +16,9 @@ export default function ProjectList({setSelectProject}) {
       if(response.status === 200) {
         const data = response.data;
         console.log(data);
+        if(data.length > 0) {
+          setIsEmptyListProjects(false);
+        }
         setArrayProjects(data);
       } else {
         alert("Ошибка: " + response.data.error);
@@ -38,6 +42,7 @@ export default function ProjectList({setSelectProject}) {
           console.log(response.data);
           if(response.status === 200) {
             setArrayProjects([...arrayProjects, response.data]);
+            setIsEmptyListProjects(false);
           }else {
               alert("Не удалось создать проект!"); // измениить вывод из response ошибки по моему стандарту
           }
@@ -75,6 +80,9 @@ export default function ProjectList({setSelectProject}) {
           console.log(response.data);
           if(response.status === 200) {
             setArrayProjects(arrayProjects.filter(project => project.id_group_project != id));
+            if((arrayProjects.length - 1) == 0) {
+              setIsEmptyListProjects(true);
+            }
           }else {
               alert("Не удалось удалить проект!"); // измениить вывод из response ошибки по моему стандарту
           }
@@ -104,15 +112,20 @@ export default function ProjectList({setSelectProject}) {
     // сделать кнопку выйти из проекта с последующим окном подтверждения, также
     //  сделать это и на сервере
     // ВЫЙТИ МОЖЕТ ТОЛЬКО !!! ____НЕ____ СОЗДАТЕЛЬ!!!
-
+    
     return (
       <div className='projects'>
-        {arrayProjects.map((projectItem) => {
-          return <ProjectItem key={projectItem.id_group_project} project={projectItem} selectProject={setSelectProject}
-                  id_creator={userStore.user.id_student} updateProject={methodUpdateProject}
-                  deleteProject={methodDeleteProject} exitProject={methodExitProject}
-                  />
-        })}
+        {
+          isEmptyListProjects ?
+            'Пока нет ни одного проекта.'
+          :
+            arrayProjects.map((projectItem) => {
+              return <ProjectItem key={projectItem.id_group_project} project={projectItem} selectProject={setSelectProject}
+                      id_creator={userStore.user.id_student} updateProject={methodUpdateProject}
+                      deleteProject={methodDeleteProject} exitProject={methodExitProject}
+                      />
+            })
+        }
         {
           isCreating ?
             <AddOrUpdateProject id_creator={userStore.user.id_student} name_creator={userStore.user.full_name}

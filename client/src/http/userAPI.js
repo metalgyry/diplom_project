@@ -77,7 +77,7 @@ export const exitStudentProject = async (id) => {
     return response;
 };
 
-export const allStudentsInGroupProject = async (id_project) => {
-    const response = await $authHost.get(`/student-projects/list-students/${id_project}`);
+export const allStudentsInGroupProject = async (id) => {
+    const response = await $authHost.get(`/student-projects/list-students/${id}`);
     return response;
 };
