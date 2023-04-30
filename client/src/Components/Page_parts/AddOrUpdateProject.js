@@ -40,7 +40,7 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
                 // let selectStudents = students.filter(student => student.value != id_creator);
                 // console.log(selectStudents);
 
-                let listSelectedStudents = [];
+                let listSelectedStudents = [{value: id_creator, label: name_creator}];
                 if(!isAddOrUpdate) {
                     const response = await allStudentsInGroupProject(modifiedProject.id_group_project);
                     console.log(response.data);
