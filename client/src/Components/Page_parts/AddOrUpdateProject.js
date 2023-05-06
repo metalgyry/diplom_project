@@ -88,7 +88,7 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
       }, []);
 
     useEffect(() => {
-        if( projectName.length > 0 && selectedStudents.length > 1 && selectedStudents.length < 5 ) {
+        if( projectName.length > 0 && selectedStudents.length > 1 && selectedStudents.length < 6 ) {
             setSubmitButton(false);
         }else {
             setSubmitButton(true);

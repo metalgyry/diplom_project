@@ -9,6 +9,6 @@ import { ProjectsService } from './projects.service';
   controllers: [ProjectsController],
   providers: [ProjectsService, PrismaService],
   imports: [AuthModule, StudentProjectsModule],
-  exports: []
+  exports: [ProjectsService]
 })
 export class ProjectsModule {}

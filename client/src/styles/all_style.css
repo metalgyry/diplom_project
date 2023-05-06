@@ -130,3 +130,8 @@ h1.main_title {
 .project_name_change {
     resize: none;
 }
+
+.in_project_header {
+    display: flex;
+    justify-content: space-between;
+}

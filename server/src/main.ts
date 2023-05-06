@@ -20,7 +20,7 @@ async function start() {
 
     const configService = app.get(ConfigService);
     app.enableCors({
-        origin: `http://localhost:${configService.get("REACT_APP_CLIENT_PORT")}`,
+        origin: `${configService.get("CLIENT_URL")}${configService.get("CLIENT_PORT")}`,
         credentials: true,
     });
     app.useGlobalPipes(new ValidationPipe());

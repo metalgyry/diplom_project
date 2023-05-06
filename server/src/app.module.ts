@@ -11,6 +11,7 @@ import { SubTasksModule } from "./subtasks/subtasks.module";
 import { ProjectsModule } from "./projects/projects.module";
 import { GroupsModule } from './groups/groups.module';
 import { StudentProjectsModule } from './student-projects/student-projects.module';
+import { ProjectTasksModule } from './project-tasks/project-tasks.module';
 
 
 @Module({
@@ -19,7 +20,7 @@ import { StudentProjectsModule } from './student-projects/student-projects.modul
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: "../.env",
+            //envFilePath: "../.env",
         }),
         UsersModule,
         AuthModule,
@@ -29,6 +30,7 @@ import { StudentProjectsModule } from './student-projects/student-projects.modul
         ProjectsModule,
         GroupsModule,
         StudentProjectsModule,
+        ProjectTasksModule,
     ],
     exports: [ PrismaService ]
 })

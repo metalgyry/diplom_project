@@ -10,12 +10,17 @@ export default function ProjectsPage() {
       setIdCurrentProject(id_project);
       setIsProjectSelected(true);
     };
+
+    const exitButton = () => {
+      setIdCurrentProject(0);
+      setIsProjectSelected(false);
+    };
     
     return (
       <div className='project_page'>
         {
           isProjectSelected ?
-          <Project setIsProjectSelected={setIsProjectSelected} id_project={idCurrentProject} />
+          <Project setIsProjectSelected={exitButton} id_project={idCurrentProject} />
           :
           <ProjectList setSelectProject={selectedButton} />
         }

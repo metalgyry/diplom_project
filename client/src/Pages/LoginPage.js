@@ -9,7 +9,6 @@ import '../styles/all_style.css';
 export default function LoginPage() {
   const navigate = useNavigate();
   const { userStore } = useContext(Context)
-  console.log(userStore.isAuth);
   /*
   if( localStorage.getItem("token") ) {
     router.push("/main");
