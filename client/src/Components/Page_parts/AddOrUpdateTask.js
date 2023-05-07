@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Select from 'react-select'
 import { optionsSelect } from '../variables';
 
@@ -6,10 +6,29 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
     const [clickAddOrUpdateButton, setClickAddOrUpdateButton] = useState(false);
     const [submitButton, setSubmitButton] = useState(true);
     const [content, setContent] = useState(() => {return (isAddOrUpdate ? '' : task.content)});
-    const [date, setDate] = useState(() => {return (isAddOrUpdate ? '' : task.date)});
+    const [date, setDate] = useState();//() => {return (isAddOrUpdate ? '' : task.date)}
     const [priority, setPriority] = useState(() => {return (isAddOrUpdate ? 2 : task.priority)});
     let textAddOrUpdateButton = '';
     let textCreateOrChangeButton = '';
+
+    useMemo( () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        let month = String(currentDate.getMonth() + 1);
+        let day = String(currentDate.getDate());
+        if(month.length == 1){
+            month = `0${month}`;
+        }
+        if(day.length == 1){
+            day = `0${day}`;
+        }
+        //console.log(`${year}-${month}-${day}`);
+        if(isAddOrUpdate){
+            setDate(`${year}-${month}-${day}`);
+        }else {
+            setDate(task.date);
+        }
+    },[]);
 
     if(isAddOrUpdate) {
         textAddOrUpdateButton = "Создать";
@@ -70,7 +89,10 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
                     <div className='choice_date_priority'>
                         {
                             isTaskOrSubTask ?
-                                <input value={date} type='date' min={''} max={''} className='task_date' required onChange={e => setDate(e.target.value)}/>
+                                <>
+                                    <label htmlFor="date">Выберите дату: </label>
+                                    <input value={date} type='date' id='date' min={date} max={''} className='task_date' required onChange={e => setDate(e.target.value)}/>
+                                </>
                             :
                             ''
                         }

@@ -12,8 +12,22 @@ export const priorityList = [
 ]
 
 export const periodsSelect = [
-    { value: 0, label: 'День' },
-    { value: 1, label: 'Неделя' },
-    { value: 2, label: 'Месяц' },
-    { value: 3, label: 'Семестр' },
+    { value: 0, label: 'Сегодня' },
+    { value: 1, label: 'Завтра' },
+    { value: 2, label: 'Неделя' },
+    { value: 3, label: 'До конца текущей недели' },
+    { value: 4, label: 'Месяц(30 дней)' },
+    { value: 5, label: 'До конца текущего месяца' },
+]
+
+export const statusOrDateSortTaskSelect = [
+    { value: 0, label: 'Дата(Сперва раньше)' },
+    { value: 1, label: 'Дата(Сперва позже)' },
+    { value: 2, label: 'Статус(По возрастанию)' },
+    { value: 3, label: 'Статус(По уменьшению)' },
+]
+
+export const statusOrDateSortSubTaskSelect = [
+    { value: 0, label: 'Статус(По возрастанию)' },
+    { value: 1, label: 'Статус(По уменьшению)' },
 ]

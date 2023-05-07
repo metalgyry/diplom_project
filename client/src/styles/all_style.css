@@ -46,6 +46,11 @@ h1.main_title {
 }
 
 .header_page {
+    /* position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -153,4 +158,9 @@ h1.main_title {
 .in_project_tasks_table {
     display: flex;
     justify-content: space-around;
+}
+
+.schedule_selectors {
+    display: flex;
+    justify-content: center;
 }
