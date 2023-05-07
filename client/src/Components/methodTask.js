@@ -3,7 +3,10 @@ import { createTaskOrSubTask, deleteTaskOrSubTask, updateTaskOrSubTask } from '.
 export const createNewTask = async (task, setArray, array, id_student, id_course, isTaskOrSubTask) => {
     console.log("CREATE NEW Task");
     try {
-        let newTask = {...task, id_student: id_student, id_course: id_course};
+        let newTask = {...task, id_student: id_student};
+        if(isTaskOrSubTask) {
+            newTask = {...newTask, id_course: id_course}
+        }
         console.log(newTask);
         const response = await createTaskOrSubTask(newTask, isTaskOrSubTask);
         console.log(response.data);

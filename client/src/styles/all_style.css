@@ -95,6 +95,15 @@ h1.main_title {
     resize: none;
 }
 
+.course_content_edit {
+    resize: none;
+}
+
+.add_course_area {
+    display: flex;
+    flex-direction: column;
+}
+
 .add_project {
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.5);;
@@ -134,4 +143,14 @@ h1.main_title {
 .in_project_header {
     display: flex;
     justify-content: space-between;
+}
+
+.zxc {
+    width: 200px;
+    height: 600px;
+}
+
+.in_project_tasks_table {
+    display: flex;
+    justify-content: space-around;
 }

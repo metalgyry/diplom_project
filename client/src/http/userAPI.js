@@ -10,6 +10,21 @@ export const getCoursesAndTasks = async () => {
     return response;
 };
 
+export const createCourse = async (course) => {    
+    const response = await $authHost.post("/courses/create", course);
+    return response;
+};
+
+export const updateCourse = async (course) => {
+    const response = await $authHost.patch(`/courses/update/`, course);
+    return response;
+};
+
+export const deleteCourse = async (id) => {
+    const response = await $authHost.delete(`/courses/delete/${id}`);
+    return response;
+};
+
 export const signout = async () => {
     const response = await $authHost.get("/auth/logout");
     localStorage.clear();

@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useProjectTasks } from '../useProjectTasks'
+import '../../styles/all_style.css';
+import ProjectColumn from './ProjectColumn';
 
 export default function Project({id_project, setIsProjectSelected}) {
-    const { projectName, projectStudents, projectTasks, projectTasksActions } = useProjectTasks(id_project);
-    if(projectName && projectStudents && projectTasks) {
-      console.log(projectName);
-      console.log(projectStudents);
-      console.log(projectTasks);
-    }
-    
+  const [projectTasks, setProjectTasks] = useState([[]]);
+    const {projectName, projectIdCreator, projectStudents, projectTasksActions } = useProjectTasks(id_project,projectTasks, setProjectTasks);
+    const [arr, setArr] = useState([5,5,5,5]);
+
+    const columnNames = ['Все задачи','Необходимо выполнить','В процессе','Выполнены'];
 
     return (
       <div>
         <div className='in_project_header'>
           <span className='in_project_name'>
+            {arr.map(el => el)}
             ВЕРНУТЬ SOCKET = NULL В useProjectTasks
             <br/>
             {`Проект: ${projectName }`} 
@@ -26,7 +27,6 @@ export default function Project({id_project, setIsProjectSelected}) {
           {'Участники: '}
           {projectStudents.map((student, index) => {
             let arrayName = student.full_name.split(' ');
-            console.log(arrayName);
             let end = '';
             if(index == (projectStudents.length - 1) ) {
               end = '.';
@@ -39,7 +39,12 @@ export default function Project({id_project, setIsProjectSelected}) {
           })}
         </div>
         <div className='in_project_tasks_table'>
-
+          {
+            columnNames.map((column, index) => {
+              return <ProjectColumn key={column} columnStatus={index} columnNames={column} projectIdCreator={projectIdCreator}
+                  tasks={projectTasks[index]} projectTasksActions={projectTasksActions}/>
+            })
+          }
         </div>
       </div>
     )

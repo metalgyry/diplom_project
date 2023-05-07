@@ -18,10 +18,13 @@ model Students {
   full_name String
   groups Groups @relation(fields: [id_group], references: [id_group])
   id_group  Int
-  //chat_message GroupChat[] этой связи нет т.к. сообщения чата связаны связью с группой
+  chatMessages GroupChat[]
+  courses Courses[]
   tasks Tasks[]
   subTasks SubTasks[]
   projects StudentProject[]
+  createdProjects GroupProjects[]
+  projectTasks ProjectTasks[]
 }
 
 
@@ -33,15 +36,17 @@ model GroupChat {
   id_message  Int @default(autoincrement()) @id
   id_group Int
   content String
+  student Students @relation(fields: [id_creator], references: [id_student])
+  id_creator Int
   full_name String
   date DateTime?   @default(now())
   @@map("Group chat")
 }
 
 model StudentProject {
-  groupProject GroupProjects @relation(fields: [id_group_project], references: [id_group_project])
+  groupProject GroupProjects @relation(fields: [id_group_project], references: [id_group_project], onDelete: Cascade)
   id_group_project Int
-  student Students @relation(fields: [id_student], references: [id_student])
+  student Students @relation(fields: [id_student], references: [id_student], onDelete: Cascade)
   id_student Int
 
   @@id([id_group_project, id_student])
@@ -51,6 +56,7 @@ model StudentProject {
 model GroupProjects {
   id_group_project Int  @default(autoincrement()) @id
   name String
+  student Students @relation(fields: [id_creator], references: [id_student], onDelete: Cascade)
   id_creator Int
   name_creator String
   students StudentProject[]
@@ -62,9 +68,11 @@ model GroupProjects {
 model ProjectTasks {
   id_task Int @default(autoincrement()) @id
   content String
-  student_name String
-  status Int? @default(1)
-  project GroupProjects @relation(fields: [id_group_project], references: [id_group_project])
+  student Students @relation(fields: [id_creator], references: [id_student])
+  id_creator Int
+  creator_name String
+  status Int? @default(0)
+  project GroupProjects @relation(fields: [id_group_project], references: [id_group_project], onDelete: Cascade)
   id_group_project Int
 
   @@map("Project tasks")
@@ -75,59 +83,61 @@ model Tasks {
   content String
   date String // Пока оставил строку т.к. не понятно как это еще будет работать
   priority Int @default(2)
-  student Students  @relation(fields: [id_student], references: [id_student])
+  student Students  @relation(fields: [id_student], references: [id_student], onDelete: Cascade)
   id_student Int
-  course Courses  @relation(fields: [id_course], references: [id_course])
+  course Courses  @relation(fields: [id_course], references: [id_course], onDelete: Cascade)
   id_course Int
   subTasks SubTasks[]
 }
 
 model SubTasks {
   id_subtask Int  @default(autoincrement()) @id
-  task Tasks  @relation(fields: [id_task], references: [id_task])
+  task Tasks  @relation(fields: [id_task], references: [id_task], onDelete: Cascade)
   id_task Int
   content String
   priority Int  @default(2)
-  student Students @relation(fields: [id_student], references: [id_student])
+  student Students @relation(fields: [id_student], references: [id_student], onDelete: Cascade)
   id_student Int
-  course Courses  @relation(fields: [id_course], references: [id_course])
-  id_course Int
+  //course Courses  @relation(fields: [id_course], references: [id_course])
+  //id_course Int
 }
 
 model Courses {
   id_course Int @default(autoincrement()) @id
   name String @unique
-  groups GroupCourses[]
+  student Students @relation(fields: [id_creator], references: [id_student], onDelete: Cascade)
+  id_creator Int
   tasks Tasks[]
-  subTasks SubTasks[]
-  schedule CourseSchedule[]
+  //groups GroupCourses[]
+  //subTasks SubTasks[]
+  //schedule CourseSchedule[]
 }
 
-model GroupCourses {
-  course Courses  @relation(fields: [id_course], references: [id_course])
-  id_course Int
-  group Groups  @relation(fields: [id_group], references: [id_group])
-  id_group Int
+// model GroupCourses {
+//   course Courses  @relation(fields: [id_course], references: [id_course])
+//   id_course Int
+//   group Groups  @relation(fields: [id_group], references: [id_group])
+//   id_group Int
 
-  @@id([id_course, id_group])
-  @@map("Group courses")
-}
+//   @@id([id_course, id_group])
+//   @@map("Group courses")
+// }
 
 model Groups {
   id_group Int  @id //@default(autoincrement()) тут нет, так как они будут индивидуальные, а именно, например: 1906, 1907 и т.д.
   name String @unique
   students Students[]
-  courses GroupCourses[]
+  //courses GroupCourses[]
 }
 
-model CourseSchedule {
-  id_course_sch Int @default(autoincrement()) @id
-  course Courses  @relation(fields: [id_course], references: [id_course])
-  id_course Int
-  day_of_week Int
-  hh_mm DateTime @db.Time
-  even_week Boolean @default(false)
-  odd_week  Boolean  @default(false)
+// model CourseSchedule {
+//   id_course_sch Int @default(autoincrement()) @id
+//   course Courses  @relation(fields: [id_course], references: [id_course], onDelete: Cascade)
+//   id_course Int
+//   day_of_week Int
+//   hh_mm DateTime @db.Time
+//   even_week Boolean @default(false)
+//   odd_week  Boolean  @default(false)
 
-  @@map("Course schedule")
-}
+//   @@map("Course schedule")
+// }

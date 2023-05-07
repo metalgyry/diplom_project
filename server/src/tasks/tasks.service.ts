@@ -74,9 +74,10 @@ export class TasksService {
     
       async deleteTask(id: string, id_student: number): Promise<Prisma.BatchPayload> {
         try {
-            await this.prisma.subTasks.deleteMany({
-                where: { id_task: Number(id), id_student: id_student },
-            });
+            // реализовано каскадное удаление, поэтому не понадобится
+            // await this.prisma.subTasks.deleteMany({
+            //     where: { id_task: Number(id), id_student: id_student },
+            // });
             const deleteTaskCount = await this.prisma.tasks.deleteMany({
                 where: { id_task: Number(id), id_student: id_student },
             });

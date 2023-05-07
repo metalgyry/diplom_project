@@ -25,7 +25,7 @@ export class ProjectTasksService {
         }
     }
 
-    async createProjectTask(dataProjectTask: Prisma.ProjectTasksCreateInput): Promise<ProjectTasks> {
+    async createProjectTask(dataProjectTask: Prisma.ProjectTasksCreateManyInput): Promise<ProjectTasks> {
         try {
             const projectTask = await this.prisma.projectTasks.create({
                 data: { ...dataProjectTask },
@@ -51,7 +51,7 @@ export class ProjectTasksService {
             const projectTask = await this.prisma.projectTasks.update({
                 data: {
                     content: dataProjectTask.content,
-                    student_name: dataProjectTask.student_name,
+                    //creator_name: dataProjectTask.creator_name,
                     //id_creator: dataProjectTask.id_creator,
                 },
                 where: { id_task: Number(dataProjectTask.id_task) },

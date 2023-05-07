@@ -49,11 +49,10 @@ export class ProjectTasksGateway
   }
 
   @SubscribeMessage("projectTasks:post")
-  async handleProjectTaskPost(
-    @MessageBody() task: Prisma.ProjectTasksCreateInput, @ConnectedSocket() client: Socket ): Promise<void> {
+  async handleProjectTaskPost(@MessageBody() task: Prisma.ProjectTasksCreateManyInput, @ConnectedSocket() client: Socket ): Promise<void> {
       const idProject = await this.getProjectInfo(client);
       const projectNewTask = await this.projectTasksService.createProjectTask(task);
-    this.server.in(idProject).emit("message:post", projectNewTask);
+      this.server.in(idProject).emit("projectTasks:post", projectNewTask);
   }
 
   @SubscribeMessage("projectTasks:patch")

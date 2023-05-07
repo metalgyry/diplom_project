@@ -7,7 +7,7 @@ import ProjectItem from './ProjectItem';
 export default function ProjectList({setSelectProject}) {
   const { userStore } = useContext(Context);
   const [arrayProjects, setArrayProjects] = useState([]);
-  const [isEmptyListProjects, setIsEmptyListProjects] = useState(false);
+  const [isEmptyListProjects, setIsEmptyListProjects] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
 
   const getData = async () => {
@@ -65,7 +65,7 @@ export default function ProjectList({setSelectProject}) {
               }
             }));
           }else {
-              alert("Не удалось изменить проект!"); // измениить вывод из response ошибки по моему стандарту
+            alert("Ошибка: " + response.data.error);
           }
       } catch (error) {
           alert("Ошибка: " + error.response.data.error);
@@ -84,7 +84,7 @@ export default function ProjectList({setSelectProject}) {
               setIsEmptyListProjects(true);
             }
           }else {
-              alert("Не удалось удалить проект!"); // измениить вывод из response ошибки по моему стандарту
+            alert("Ошибка: " + response.data.error);
           }
       } catch (error) {
           alert("Ошибка: " + error.response.data.error);
