@@ -35,15 +35,21 @@ export default function Course({course, updateCourse, deleteCourse}) {
                         <div className='course_name'>
                             {course.name}
                         </div>
-                        <button type="button" className='edit_course_button' onClick={() => {setIsUpdating(true)}}>{textUpdateButton}</button>
-                        <DeleteButton textButton={textDeleteButton} deleteMethod={deleteCourse} id={course.id_course}/>
+                        <div className='course_name_buttons'>
+                            <button type="button" className='edit_course_button' onClick={() => {setIsUpdating(true)}}>{textUpdateButton}</button>
+                            <DeleteButton textButton={textDeleteButton} deleteMethod={deleteCourse} id={course.id_course}/>
+                        </div>
                     </div>
+            }
+            {
+                <div className='course_title_tasks'>
+                    {'Задачи:'}
+                </div>
             }
             {arrayTasks.map((task) => {
                 return <Task key={task.id_task} task={task} updateTask={methodUpdateCurrentTask} deleteTask={methodDeleteCurrentTask}/>
             })}
             <AddOrUpdateTask task={null} setIsUpdating={null} methodTask={methodCreateNewTask} isTaskOrSubTask={true} isAddOrUpdate={true}/>
-            <br/><br/>
         </div>
     )
 }

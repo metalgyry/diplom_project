@@ -46,23 +46,28 @@ export default function SchedulePage() {
     const changePeriodTasks = (startDate, endDate) => {
         console.log(tasks);
         
-        let buffDate = 0;
-        setPeriodTasks(tasks.filter((task) => {
-            buffDate = new Date(task.date).setHours(0, 0, 0, 0);;
-            return ((startDate <= buffDate) && (buffDate <= endDate));
-        }));
+        
     };
 
-    useEffect(() => {
+    // const changeSortTasks = (sortFunction) => {
+    //     setPeriodTasks(periodTasks.sort(sortFunction));
+    // };
+
+    // useEffect(() =>{
+        
+    // },[sortTaskType]);
+
+    // const changeSortSubTasks = (sortFunction) => {
+    //     setPeriodTasks(periodTasks.map((task) => {
+    //         return {...task, subTasks: task.subTasks.sort(sortFunction)};
+    //     }));
+    // };
+
+    useEffect(() =>{
         console.log("date");
         const date = new Date();
-        // const year = date.getFullYear();
-        // const month = String(date.getMonth());// + 1
-        // const day = String(date.getDate());
-
         let startDate = date.setHours(0, 0, 0, 0);
         let endDate = date.setHours(0, 0, 0, 0);
-
         switch (period) {
             // case 0:// Сегодня
             //     startDate = date;
@@ -94,24 +99,12 @@ export default function SchedulePage() {
             default:
                 break;
         }
-        changePeriodTasks(startDate, endDate);
-    },[period]);
-
-    // const changeSortTasks = (sortFunction) => {
-    //     setPeriodTasks(periodTasks.sort(sortFunction));
-    // };
-
-    // useEffect(() =>{
+        let buffDate = 0;
+        let periodArrayTasks = tasks.filter((task) => {
+            buffDate = new Date(task.date).setHours(0, 0, 0, 0);;
+            return ((startDate <= buffDate) && (buffDate <= endDate));
+        });
         
-    // },[sortTaskType]);
-
-    // const changeSortSubTasks = (sortFunction) => {
-    //     setPeriodTasks(periodTasks.map((task) => {
-    //         return {...task, subTasks: task.subTasks.sort(sortFunction)};
-    //     }));
-    // };
-
-    useEffect(() =>{
         console.log("sort");
         console.log(sortTaskType);
         let sortFunction;
@@ -132,8 +125,8 @@ export default function SchedulePage() {
                 sortFunction = (a, b) => { return a.date <= b.date ? 1 : -1};
                 break; 
         }
-        console.log(periodTasks);
-        let newArrayTasks = periodTasks.sort(sortFunction);
+        console.log(periodArrayTasks);
+        let newArrayTasks = periodArrayTasks.sort(sortFunction);
         //setPeriodTasks(newArrayTasks);
 
         console.log("sortSub");
@@ -154,28 +147,26 @@ export default function SchedulePage() {
         setPeriodTasks(newArrayTasks.map((task) => {
             return {...task, subTasks: task.subTasks.sort(sortFunction)};
         }));
-    },[sortTaskType, sortSubTaskType]);
+    },[period, sortTaskType, sortSubTaskType]);
 
     // .css-1fdsijx-ValueContainer { text-align: center } ---> Чтобы оцентровать текст внутри <Select/>    
 
     return (
         <div className='schedule_page'>
             <div className='schedule_selectors'>
-                <div>
+                <div className='schedule_selector'>
                     <span className='period_select_title'>Выбор периода: </span>
                     <Select className='period_select_component' options={periodsSelect} defaultValue={periodsSelect[period]} onChange={(selectedOption) => setPeriod(selectedOption.value) }/>
                 </div>
-                <div>
+                <div className='schedule_selector'>
                     <span className='period_select_title'>Выбор сортировки задач: </span>
                     <Select className='sort_select_component' options={statusOrDateSortTaskSelect} defaultValue={statusOrDateSortTaskSelect[sortTaskType]} onChange={(selectedOption) => setSortTaskType(selectedOption.value) }/>
                 </div>
-                <div>
+                <div className='schedule_selector'>
                     <span className='period_select_title'>Выбор сортировки подзадач: </span>
                     <Select className='sort_select_component' options={statusOrDateSortSubTaskSelect} defaultValue={statusOrDateSortSubTaskSelect[sortSubTaskType]} onChange={(selectedOption) => setSortSubTaskType(selectedOption.value) }/>    
                 </div>
             </div>
-            <br/>
-            "Сделать АККОРДЕОН чтобы скрывать и показывать ПОДзадачи"
             <div className='schedule_tasks'>
                 {periodTasks.map((task) => {
                     return <TaskInSchedule key={task.id_task} task={task}/>  })

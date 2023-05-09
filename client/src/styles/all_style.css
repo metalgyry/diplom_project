@@ -56,7 +56,7 @@ h1.main_title {
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px 10px 10px;
-    margin: -10px -10px 0px -10px;
+    margin: -10px -8px 0px -10px;
     background-color: lightsteelblue;
 }
 
@@ -89,15 +89,17 @@ h1.main_title {
     margin-inline: 0px;
 }
 
-.tasks_page {
+.courses_page {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
-.task_content {
-    resize: none;
+.title_courses_page {
+    display: flex;
+    width: 65vw;
+    justify-content: space-between;
+    margin: 10px;
 }
 
 .course_content_edit {
@@ -112,7 +114,7 @@ h1.main_title {
 .add_project {
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.5);;
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     bottom: 0px;
@@ -123,6 +125,7 @@ h1.main_title {
 }
 
 .add_project_window {
+    width: 60vw;
     padding: 30px;
     border: 2px solid black;
     border-radius: 10px;
@@ -141,26 +144,426 @@ h1.main_title {
     align-items: center;
 }
 
-.project_name_change {
-    resize: none;
-}
-
-.in_project_header {
-    display: flex;
-    justify-content: space-between;
-}
-
 .zxc {
     width: 200px;
     height: 600px;
 }
 
+/*Курсы*/
+.course {
+    background: #f1c987;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px 0px 5px 0px;
+    width: 65vw;
+}
+.course_content {
+    max-width: 100%;
+    margin: 5px;
+    border-bottom: 2px solid;
+    display: flex;
+    justify-content: flex-start;
+}
+.course_name {
+    padding: 5px;   
+    min-width: 80%;
+    word-wrap: break-word;
+}
+.course_content:hover .course_name_buttons {
+    display: block;
+}
+.course_name_buttons {
+    display: none;
+}
+.add_course {
+    margin: 10px 10px 40px 10px;
+}
+.create_button {
+    padding: 6px 20px 6px 20px;
+    border-radius: 20px;
+    border: 2px solid;
+}
+.create_button:hover {
+    background-color: darkgray;
+}
+.course_title_tasks {
+    margin-left: 30px;
+    font-weight: bolder;
+}
+/*Задачи*/
+.task {
+    background-color: #eea226;
+    border-radius: 15px;
+    padding: 10px;  
+    margin: 5px 0px 5px 30px;
+}
+.task_data {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 2px solid;
+}
+.task_data:hover .task_change_buttons {
+    display: block;
+}
+.task_inform {
+    min-width: 80%;
+    word-wrap: break-word;
+    padding: 5px;
+}
+.task_content {
+    padding-bottom: 40px;
+}
+.task_date_priority {
+    min-width: 100%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+}
+.task_date {
+    
+}
+.task_change_buttons {
+    display: none;
+}
+.task_title_subtasks {
+    margin: 5px 0px 5px 0px;
+    margin-left: 30px;
+    font-weight: bolder;
+}
+/*Подзадачи*/
+.subtask {
+    background-color: #ffd590;
+    border-radius: 10px;
+    padding: 10px;  
+    margin: 5px 0px 5px 30px;
+}
+.subtask_data {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    /* border-bottom: 2px solid; */
+}
+.subtask_data:hover .subtask_change_buttons {
+    display: block;
+}
+.subtask_inform {
+    min-width: 80%;
+    word-wrap: break-word;
+    padding: 5px;
+}
+.subtask_content {
+    resize: none;
+    padding-bottom: 40px;
+}
+.subtask_priority {
+    min-width: 100%;
+    word-wrap: break-word;
+}
+.subtask_change_buttons {
+    display: none;
+}
+/*Добавление и изменение задач и подзадач*/
+.task_add_update_content {
+    width: 99%;
+    height: 11vh;
+    margin: 5px 0px 5px 0px;
+    resize: none;
+    border-radius: 10px;
+}
+
+.create_or_change_button {
+    padding: 5px 18px 5px 18px;
+    border: 2px solid;
+    border-radius: 20px;
+}
+.create_or_change_button:hover {
+    background-color: darkgray;
+}
+
+/*Окно изменения или добавления задач и подзадач*/
+.add_update_window {
+    background-color: antiquewhite;
+    border-radius: 8px;
+    padding: 12px;
+    margin-left: 30px;
+}
+.add_update_buttons {
+    display: flex;
+    padding: 10px 0px 0px 0px;
+    justify-content: flex-end;
+}
+.add_or_update_task {
+    
+}
+.add_or_update_button {
+    padding: 5px 0px 5px 0px;
+    padding-inline: 18px;
+    margin-left: 5px;
+    border: 2px solid;
+    border-radius: 20px;
+}
+.add_or_update_button:enabled:hover {
+    background-color: darkgray;
+}
+.cancel_button {
+    padding: 5px 0px 5px 0px;
+    padding-inline: 18px;
+    margin-left: 5px;
+    border: 2px solid;
+    border-radius: 20px;
+}
+.cancel_button:hover {
+    background-color: darkgray;
+}
+.div_create_or_change_button {
+    display: flex;
+    justify-content: center;
+}
+.create_or_change_button {
+    margin: 5px 0px 5px 0px;
+}
+
+/*Страница расписания задач*/
+.schedule_selectors {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px 10px 0px;
+}
+.schedule_selector {
+    margin: 0px 5px 0px 5px;
+}
+
+.schedule_tasks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.schedule_task {
+    width: 65vw;
+}
+
+/*Задачи и подзадачи в расписании*/
+.schedule_task {
+    background-color: #eea226;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 5px 0px 5px 20px;
+}
+.schedule_subtask_data {
+    background-color: #ffd590;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0px 5px 20px;
+}
+.task_name_course {
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+/*Добавление и изменение курса*/
+.course_content_edit {
+    width: 99%;
+    height: 11vh;
+    margin: 5px 0px 5px 0px;
+    resize: none;
+    border-radius: 10px;
+}
+
+/*Проекты*/
+.project_data {
+    width: 65vw;
+    margin: 5px 0px 10px 0px;
+    padding: 10px;
+    background-color: #f1c987;
+    border-radius: 15px;
+}
+.project_name_and_change_buttons {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.project_inform {
+    padding-inline: 10px;
+}
+.project_inform:hover .project_change_button {
+    display: block;
+}
+.project_name {
+    min-width: 80%;
+    word-wrap: break-word;
+    padding: 5px 0px 20px 0px;
+}
+.project_name_creator {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.project_change_button {
+    display: none;
+}
+.project_enter_and_exit_button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.enter_exit_button {
+    font-size: 16px;
+    padding: 5px 50px 5px 50px;
+    border-radius: 20px;
+    border: 2px solid;
+    margin: 5px;
+}
+.enter_exit_button:hover {
+    background-color: darkgray;
+}
+
+.subtask_data:hover .subtask_change_buttons {
+    display: block;
+}
+
+/*Модальное для создания и обновления проекта*/
+.name_project {
+    padding-bottom: 5px;
+}
+.project_name_change {
+    width: 100%;
+    resize: none;
+    border-radius: 5px;
+}
+.student_select {
+    display: flex;
+    justify-content: center;
+}
+.student_select_component {
+    width: 100%;
+}
+.project_add_student_button {
+    display: flex;
+    justify-content: flex-end;
+}
+.add_student_button {
+    border: 2px solid;
+    border-radius: 20px;
+    padding: 5px 18px 5px 18px;
+    margin: 10px 0px 5px 0px;
+}
+.add_student_button:enabled:hover {
+    background-color: darkgray;
+}
+.list_selected_student {
+    margin: 5px 0px 30px 0px;
+}
+.selected_student {
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+.delete_selected_student_button {
+    border: 2px solid;
+    border-radius: 20px;
+    padding: 2px 15px 3px 15px;
+}
+.delete_selected_student_button:hover {
+    background-color: darkgray;
+}
+
+/*На странице проекта, оппеделенного*/
+.in_project_title {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid;
+}
+.in_project_header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+.in_project_list_students {
+    
+}
+.in_project_exit_button {
+    border: 2px solid;
+    border-radius: 20px;
+    padding: 5px 18px 5px 18px;
+}
+.in_project_exit_button:hover {
+    background-color: darkgray;
+}
 .in_project_tasks_table {
     display: flex;
     justify-content: space-around;
 }
-
-.schedule_selectors {
+.project_column {
+    width: 24vw;
+    margin-inline: 5px;
+}
+.project_column_name {
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.project_column_tasks {
+    
+}
+.column_task {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    background-color: beige;
+    padding: 10px;
+    
+}
+.column_task_data {
+    width: 100%;
+}
+.column_task_content {
+    max-width: 100%;
+    word-wrap: break-word;
+    padding-bottom: 15px;
+}
+.column_task_creator_name {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0px 10px 0px;
+    opacity: 0.6;
+}
+.column_task_change_button {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0px 10px 0px;
+}
+.column_task_change_status_buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.change_status_button {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+/*Окно добавления и изменения задач проекта*/
+.create_project_task_button {
+    display: flex;
+    justify-content: center;
+    padding: 0px 0px 8px 0px;
+}
+.add_or_update_project_task {
+    width: 100%;
+    display: grid;
+}
+.project_task_inform {
+
+}
+.project_task_buttons {
+    display: flex;
+    justify-content: space-around;
+}
+.project_task_content {
+    width: 100%;
+    resize: none;
 }

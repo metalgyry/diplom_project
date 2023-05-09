@@ -10,6 +10,7 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
     const [currentStudent, setCurrentStudent] = useState(null);
     //
     const [submitButton, setSubmitButton] = useState(true);
+    const [submitStudentButton, setSubmitStudentButton] = useState(false);
     const [projectName, setProjectName] = useState(isAddOrUpdate ? '' : modifiedProject.name);
     let textAddButton = isAddOrUpdate ? 'Создать' : 'Изменить';
     let textCancelButton = 'Отмена';
@@ -87,6 +88,14 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
         getGroupStudents();
       }, []);
 
+      useEffect(() => {
+        if(selectedStudents.length > 0 && selectedStudents.length < 5) {
+            setSubmitStudentButton(false);  
+        }else {
+            setSubmitStudentButton(true);
+        }
+      }, [selectedStudents]);
+
     useEffect(() => {
         if( projectName.length > 0 && selectedStudents.length > 1 && selectedStudents.length < 6 ) {
             setSubmitButton(false);
@@ -121,18 +130,19 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
                 </div>
                 <textarea value={projectName} className='project_name_change' wrap='soft' cols={50} rows={3} autoFocus={true} required onChange={e => setProjectName(e.target.value)}></textarea>
                 <div className='add_select_students'>
-                    <br/>
                     <div className='name_select_student'>
                         Выберите студента(ов):
                     </div>
-                    НУЖНО ПОЧИТАТЬ И СДЕЛАТЬ ОЧИЩЕНИЕ SELECTа ПОСЛЕ ВЫБОРА(НАЖАТИЯ КНОПКИ)
-                    <Select className='student_select_component' options={groupStudents} onChange={(selectedOption) => setCurrentStudent(selectedOption) }/>
-                    <button type="button" className='add_student_button' onClick={addStudentsList}>Добавить</button>
-                    <br/>
+                    <div className='student_select'>
+                        <Select className='student_select_component' options={groupStudents} onChange={(selectedOption) => setCurrentStudent(selectedOption) }/>
+                    </div>
+                    <div className='project_add_student_button'>
+                        <button type="button" className='add_student_button' disabled={submitStudentButton} onClick={addStudentsList}>Добавить студента</button>
+                    </div>
                 </div>
                 <div className='list_selected_student'>
                     <div className='name_list_selected_student'>
-                        Студенты:
+                        Студенты(Максимум 5):
                     </div>
                     {
                         selectedStudents.map((student) => {
@@ -140,7 +150,6 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
                         })
                     }
                 </div>
-                <br/>
                 <div className='add_project_button'>
                     <button type="button" className='add_or_update_button' onClick={methodCurrentProject} disabled={submitButton}>{textAddButton}</button>
                     <button type="button" className='cancel_button' onClick={cancelButton}>{textCancelButton}</button>

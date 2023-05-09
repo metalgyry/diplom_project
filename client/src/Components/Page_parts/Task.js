@@ -28,11 +28,15 @@ export default function Task({task, updateTask, deleteTask}) { // использ
                 :
                 <TaskData task={task} setIsUpdating={setIsUpdating} deleteСurrentTask={deleteTask} isTaskOrSubTask={true} isScheduleTask={false}/>
             }
+            {
+                <div className='task_title_subtasks'>
+                    {'Подзадачи:'}
+                </div>
+            }
             {arraySubTasks.map((subTask) => {
                 return <SubTask key={subTask.id_subtask} subTask={subTask} updateSubTask={updateSubTask} deleteSubTask={deleteSubTask}/>
             })}
             <AddOrUpdateTask task={task} setIsUpdating={null} methodTask={createSubTask} isTaskOrSubTask={false} isAddOrUpdate={true}/>
-            <br/>
         </div>
     )
 }

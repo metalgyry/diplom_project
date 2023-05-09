@@ -5,6 +5,9 @@ import { Context } from '../../index';
 
 export default function ProjectColumn({columnStatus, columnNames, projectIdCreator, tasks, projectTasksActions}) {
     const { userStore } = useContext(Context);
+    console.log("ProjectColumn: ", tasks);
+    //console.log("ProjectColumn: ", tasks.length > 0);
+    
     //const [columnTasks, setColumnTasks] = useState([]);
 
     // useEffect(() => {
@@ -32,17 +35,7 @@ export default function ProjectColumn({columnStatus, columnNames, projectIdCreat
         <div className='project_column_name'>
             {columnNames}
         </div>
-        <div className='project_column_tasks'>
-            {
-                tasks ?
-                tasks.map((task) => {
-                    return <ProjectTask key={task.id_task} task={task} projectIdCreator={projectIdCreator}
-                        idStudent={userStore.user.id_student} projectTasksActions={projectTasksActions}
-                    />
-                })
-                :
-                ''
-            }
+        <div className='create_project_task_button'>
             {
                 (columnStatus == 0) ?
                     <AddOrUpdateProjectTask task={null} idCreator={userStore.user.id_student}
@@ -51,8 +44,18 @@ export default function ProjectColumn({columnStatus, columnNames, projectIdCreat
                 :
                     ''
             }
-            
-            <br/>
+        </div>
+        <div className='project_column_tasks'>
+            {
+                (tasks.length > 0) ?
+                tasks.map((task) => {
+                    return <ProjectTask key={task.id_task} task={task} projectIdCreator={projectIdCreator}
+                        idStudent={userStore.user.id_student} projectTasksActions={projectTasksActions}
+                    />
+                })
+                :
+                ''
+            }
         </div>
     </div>
   )

@@ -48,10 +48,12 @@ export default function AddOrUpdateProjectTask({task, idCreator, nameCreator, se
         <div className='add_or_update_project_task'>
             {
                 clickAddOrUpdateButton ?
-                <div>
-                    <textarea value={content} className='project_task_content' wrap='soft' rows={5} autoFocus={true} required onChange={e => setContent(e.target.value)}></textarea>                  
-                    <button type="button" className='add_or_update_button' onClick={createOrUpdateTask} disabled={submitButton}>{textAddOrUpdateButton}</button>
-                    <button type="button" className='cancel_button' onClick={cancelButton}>Отмена</button>
+                <div className='project_task_inform'>
+                    <textarea value={content} className='project_task_content' wrap='soft' rows={10} autoFocus={true} required onChange={e => setContent(e.target.value)}></textarea>                  
+                    <div className='project_task_buttons'>
+                        <button type="button" className='add_or_update_button' onClick={createOrUpdateTask} disabled={submitButton}>{textAddOrUpdateButton}</button>
+                        <button type="button" className='cancel_button' onClick={cancelButton}>Отмена</button>
+                    </div>
                 </div>
                 :
                 isAddOrUpdate ?

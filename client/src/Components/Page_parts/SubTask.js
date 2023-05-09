@@ -6,14 +6,13 @@ export default function SubTask({subTask, updateSubTask, deleteSubTask}) {
     const [isUpdating, setIsUpdating] = useState(false);
     
     return (
-        <div className='task'>
+        <div className='subtask'>
             {
                 isUpdating ?
                 <AddOrUpdateTask task={subTask} setIsUpdating={setIsUpdating} methodTask={updateSubTask} isTaskOrSubTask={false} isAddOrUpdate={false}/>
                 :
                 <TaskData task={subTask} setIsUpdating={setIsUpdating} deleteСurrentTask={deleteSubTask} isTaskOrSubTask={false} isScheduleTask={false}/>
             }
-            <br/>
         </div>
     )
 }

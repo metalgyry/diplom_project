@@ -84,8 +84,9 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
         <div className='add_or_update_task'>
             {
                 clickAddOrUpdateButton ?
-                <div>
-                    <textarea value={content} className='task_content' wrap='soft' cols={50} rows={8} autoFocus={true} required onChange={e => setContent(e.target.value)}></textarea>
+                <div className='add_update_window'>
+                    {'Содержимое: '}
+                    <textarea value={content} className='task_add_update_content' wrap='soft' autoFocus={true} required onChange={e => setContent(e.target.value)}></textarea>
                     <div className='choice_date_priority'>
                         {
                             isTaskOrSubTask ?
@@ -97,17 +98,20 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
                             ''
                         }
                         <div className='choice_priority'>
-                            Priority: 
+                            Приоритет: 
                             <Select className='priority_select' options={optionsSelect} defaultValue={optionsSelect[priority - 1]} onChange={(selectedOption) => setPriority(selectedOption.value) }/>
                         </div>
                     </div>
-                    
-                    <button type="button" className='add_or_update_button' onClick={createOrUpdateTask} disabled={submitButton}>{textAddOrUpdateButton}</button>
-                    <button type="button" className='cancel_button' onClick={cancelButton}>Отмена</button>
+                    <div className='add_update_buttons'>
+                        <button type="button" className='add_or_update_button' onClick={createOrUpdateTask} disabled={submitButton}>{textAddOrUpdateButton}</button>
+                        <button type="button" className='cancel_button' onClick={cancelButton}>Отмена</button>
+                    </div>
                 </div>
                 :
                 isAddOrUpdate ?
-                <button type="button" className='create_or_change_button' onClick={() => setClickAddOrUpdateButton(true)}>{textCreateOrChangeButton}</button>
+                <div className='div_create_or_change_button'>
+                    <button type="button" className='create_or_change_button' onClick={() => setClickAddOrUpdateButton(true)}>{textCreateOrChangeButton}</button>
+                </div>
                 :
                 setClickAddOrUpdateButton(true)
             }

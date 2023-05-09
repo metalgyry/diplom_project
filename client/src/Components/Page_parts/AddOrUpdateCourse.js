@@ -9,7 +9,7 @@ export default function AddOrUpdateCourse({course, setIsUpdating, methodCourse, 
 
     if(isAddOrUpdate) {
         textAddOrUpdateButton = "Создать";
-        textCreateOrChangeButton = "СОЗДАТЬ ";
+        textCreateOrChangeButton = "СОЗДАТЬ КУРС";
     }else {
         textAddOrUpdateButton = "Изменить";
     }
@@ -43,13 +43,16 @@ export default function AddOrUpdateCourse({course, setIsUpdating, methodCourse, 
     };
 
     return (
-        <div className='add_course'>
+        <div className='add_update_course'>
             {
                 clickAddButton ?
                     <div className='add_course_area'>
+                        {'Наименование курса: '}
                         <textarea value={name} className='course_content_edit' wrap='soft' cols={50} rows={5} autoFocus={true} required onChange={e => setContent(e.target.value)}></textarea>                  
-                        <button type="button" className='add_course_button' onClick={createOrUpdateCourse} disabled={submitButton}>{textAddOrUpdateButton}</button>
-                        <button type="button" className='cancel_button' onClick={cancelButton}>Отмена</button>
+                        <div className='add_update_buttons'>
+                            <button type="button" className='add_or_update_button' onClick={createOrUpdateCourse} disabled={submitButton}>{textAddOrUpdateButton}</button>
+                            <button type="button" className='cancel_button' onClick={cancelButton}>Отмена</button>
+                        </div>
                     </div>
                 :
                     isAddOrUpdate ?

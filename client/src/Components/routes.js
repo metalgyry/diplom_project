@@ -1,7 +1,7 @@
 import LoginPage from "../Pages/LoginPage";
 import ProjectsPage from "../Pages/ProjectsPage";
 import SchedulePage from "../Pages/SchedulePage";
-import TasksPage from "../Pages/TasksPage";
+import CoursesPage from "../Pages/CoursesPage";
 
 export const noAuthRouters = [
     {
@@ -13,7 +13,7 @@ export const noAuthRouters = [
 export const authRouters = [
     {
         path: "/tasks",
-        Component: TasksPage
+        Component: CoursesPage
     },
     {
         path: "/schedule",

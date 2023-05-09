@@ -8,6 +8,7 @@ export default function ProjectList({setSelectProject}) {
   const { userStore } = useContext(Context);
   const [arrayProjects, setArrayProjects] = useState([]);
   const [isEmptyListProjects, setIsEmptyListProjects] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
   const getData = async () => {
@@ -19,7 +20,8 @@ export default function ProjectList({setSelectProject}) {
         if(data.length > 0) {
           setIsEmptyListProjects(false);
         }
-        setArrayProjects(data);
+        setArrayProjects(data.reverse());
+        setIsLoading(true);
       } else {
         alert("Ошибка: " + response.data.error);
       }
@@ -41,7 +43,7 @@ export default function ProjectList({setSelectProject}) {
           const response = await createProject(project);
           console.log(response.data);
           if(response.status === 200) {
-            setArrayProjects([...arrayProjects, response.data]);
+            setArrayProjects([response.data, ...arrayProjects]);
             setIsEmptyListProjects(false);
           }else {
               alert("Не удалось создать проект!"); // измениить вывод из response ошибки по моему стандарту
@@ -115,26 +117,31 @@ export default function ProjectList({setSelectProject}) {
     
     return (
       <div className='projects'>
+        <div className='title_courses_page'>
+          { isLoading && <b>{'Проекты: '}</b> }
+          {
+            isCreating ?
+              <AddOrUpdateProject id_creator={userStore.user.id_student} name_creator={userStore.user.full_name}
+                modifiedProject={null} setIsCreatingOrUpdating={setIsCreating} methodProject={methodCreateProject} isAddOrUpdate={true} /> 
+            :
+            isLoading && <button type='button' className='create_button' onClick={() => setIsCreating(true)}>СОЗДАТЬ ПРОЕКТ</button>
+          }
+        </div>
         {
           isEmptyListProjects ?
-            'Пока нет ни одного проекта.'
+            <div className='empty_list_projects'>
+              {
+                isLoading && 'Пока нет ни одного проекта.'
+              }
+            </div>
           :
             arrayProjects.map((projectItem) => {
               return <ProjectItem key={projectItem.id_group_project} project={projectItem} selectProject={setSelectProject}
                       id_creator={userStore.user.id_student} updateProject={methodUpdateProject}
                       deleteProject={methodDeleteProject} exitProject={methodExitProject}
                       />
-            })
+            }) 
         }
-        {
-          isCreating ?
-            <AddOrUpdateProject id_creator={userStore.user.id_student} name_creator={userStore.user.full_name}
-              modifiedProject={null} setIsCreatingOrUpdating={setIsCreating} methodProject={methodCreateProject} isAddOrUpdate={true} /> 
-          :
-          <button type='button' className='update_button' onClick={() => setIsCreating(true)}>СОЗДАТЬ</button>
-        }
-        
-        <br/>
       </div>
     )
 }

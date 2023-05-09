@@ -4,10 +4,11 @@ import Course from '../Components/Page_parts/Course';
 import { getCoursesAndTasks, createCourse, updateCourse, deleteCourse } from '../http/userAPI';
 import { Context } from '../index';
 
-export default function TasksPage() {
+export default function CoursesPage() {
   const { userStore } = useContext(Context);
   const [coursesAndTasks, setCoursesAndTasks] = useState([]);
   const [isEmptyListCourses, setIsEmptyListCourses] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getData = async () => {
     try {
@@ -18,7 +19,8 @@ export default function TasksPage() {
         if(data.length > 0) {
           setIsEmptyListCourses(false);
         }
-        setCoursesAndTasks(data);
+        setCoursesAndTasks(data.reverse());
+        setIsLoading(true);
       } else {
         alert("Ошибка: " + response.data.error);
       }
@@ -41,7 +43,7 @@ export default function TasksPage() {
         setIsEmptyListCourses(false);
         const data = response.data;
         console.log(data);
-        setCoursesAndTasks([...coursesAndTasks, data]);
+        setCoursesAndTasks([data, ...coursesAndTasks]);
       } else {
         alert("Ошибка: " + response.data.error);
       }
@@ -89,22 +91,28 @@ export default function TasksPage() {
   };
 
   return (
-    <div className='tasks_page'>
-      ПРИ ПЕРЕХОДЕ НА "/" ЛИБО ВООБЩЕ БЕЗ НЕЕ, ПОЯВЛЯЕТСЯ HEADER, НО А ВООБЩЕ ДОЛЖЕН ПРОИСХОДИТЬ ПЕРЕХОД НА "/TASKS"
-      <br/><br/>СДЕЛАТЬ ПЕРВОЙ СТРАНИЦЕЙ СТРАНИЦУ С ЗАДАЧАМИ ПО !!!ПЕРИОДУ!!!<br/><br/>
+    <div className='courses_page'>
+      <div className='title_courses_page'>
+        { isLoading && <b>{'Курсы: '}</b> }
+        {
+          isLoading && <AddOrUpdateCourse course={null} setIsUpdating={null} methodCourse={methodCreateCourse} isAddOrUpdate={true} />
+        }
+      </div>
       {
         isEmptyListCourses ?
         <div className='empty_list_courses'>
-          {'Нет курсов'}
+          {
+            isLoading && 'Нет курсов'
+          }
         </div>
         :
-          coursesAndTasks.map((obj) => {
-            return <Course key={obj.id_course} course={obj} updateCourse={methodUpdateCourse} deleteCourse={methodDeleteCourse}/>  })
+          <>
+            {
+              coursesAndTasks.map((obj) => {
+                return <Course key={obj.id_course} course={obj} updateCourse={methodUpdateCourse} deleteCourse={methodDeleteCourse}/>  })
+            }
+          </>
       }
-      <br/>
-      <AddOrUpdateCourse course={null} setIsUpdating={null} methodCourse={methodCreateCourse} isAddOrUpdate={true} />
     </div>
   )
 }
-
-//alt для того чтобы писать в нескольких строках

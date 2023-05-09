@@ -36,6 +36,10 @@ export class ProjectTasksGateway
     const idProject = client.handshake.auth.id_group_project;
     const projectInfo = await this.projectsService.oneProjectAndIncludeOther(Number(idProject));
     this.server.in(idProject).emit("projectInfo:get", projectInfo);
+
+    const projectTasks = await this.projectTasksService.allProjectTasks(Number(idProject));
+    this.server.in(idProject).emit("projectTasks:get", projectTasks);
+
     //throw new WsException('Ошибка при получении задач проекта!');
     return String(idProject);
   };
@@ -44,36 +48,36 @@ export class ProjectTasksGateway
   async handleProjectInfoAndTasksGet(@ConnectedSocket() client: Socket): Promise<void> {
     const idProject = await this.getProjectInfo(client);
     console.log('ID: ', idProject);
-    const projectTasks = await this.projectTasksService.allProjectTasks(Number(idProject));
-    this.server.in(idProject).emit("projectTasks:get", projectTasks);
+    // const projectTasks = await this.projectTasksService.allProjectTasks(Number(idProject));
+    // this.server.in(idProject).emit("projectTasks:get", projectTasks);
   }
 
   @SubscribeMessage("projectTasks:post")
   async handleProjectTaskPost(@MessageBody() task: Prisma.ProjectTasksCreateManyInput, @ConnectedSocket() client: Socket ): Promise<void> {
-      const idProject = await this.getProjectInfo(client);
       const projectNewTask = await this.projectTasksService.createProjectTask(task);
-      this.server.in(idProject).emit("projectTasks:post", projectNewTask);
+      const idProject = await this.getProjectInfo(client);
+      // this.server.in(idProject).emit("projectTasks:post", projectNewTask);
   }
 
   @SubscribeMessage("projectTasks:patch")
   async handleProjectTaskPatch(@MessageBody() task: Prisma.ProjectTasksUncheckedUpdateWithoutProjectInput, @ConnectedSocket() client: Socket ): Promise<void> {
-    const idProject = await this.getProjectInfo(client);
     const projectUpdateTask = await this.projectTasksService.updateProjectTask(task);
-    this.server.in(idProject).emit("projectTasks:patch", projectUpdateTask);
+    const idProject = await this.getProjectInfo(client);
+    // this.server.in(idProject).emit("projectTasks:patch", projectUpdateTask);
   }
 
   @SubscribeMessage("projectTasksStatus:patch")
   async handleProjectTaskStatusPatch(@MessageBody() task: Prisma.ProjectTasksUncheckedUpdateWithoutProjectInput, @ConnectedSocket() client: Socket ): Promise<void> {
-    const idProject = await this.getProjectInfo(client);
     const projectUpdateTaskStatus = await this.projectTasksService.updateProjectTaskStatus(task);
-    this.server.in(idProject).emit("projectTasksStatus:patch", projectUpdateTaskStatus);
+    const idProject = await this.getProjectInfo(client);
+    // this.server.in(idProject).emit("projectTasksStatus:patch", projectUpdateTaskStatus);
   }
 
   @SubscribeMessage("projectTasks:delete")
   async handleMessageDelete(@MessageBody() id_task: number, @ConnectedSocket() client: Socket ): Promise<void>  {
-    const idProject = await this.getProjectInfo(client);
     const projectDeleteTask = await this.projectTasksService.deleteProjectTask(id_task);
-    this.server.in(idProject).emit("projectTasks:delete", projectDeleteTask);
+    const idProject = await this.getProjectInfo(client);
+    // this.server.in(idProject).emit("projectTasks:delete", projectDeleteTask);
   }
 
   afterInit(server: Server) {
