@@ -168,6 +168,7 @@ h1.main_title {
     padding: 5px;   
     min-width: 80%;
     word-wrap: break-word;
+    white-space: pre-wrap;
 }
 .course_content:hover .course_name_buttons {
     display: block;
@@ -210,6 +211,7 @@ h1.main_title {
 .task_inform {
     min-width: 80%;
     word-wrap: break-word;
+    white-space: pre-wrap;
     padding: 5px;
 }
 .task_content {
@@ -218,6 +220,7 @@ h1.main_title {
 .task_date_priority {
     min-width: 100%;
     word-wrap: break-word;
+    white-space: pre-wrap;
     margin-bottom: 10px;
 }
 .task_date {
@@ -251,6 +254,7 @@ h1.main_title {
 .subtask_inform {
     min-width: 80%;
     word-wrap: break-word;
+    white-space: pre-wrap;
     padding: 5px;
 }
 .subtask_content {
@@ -260,6 +264,7 @@ h1.main_title {
 .subtask_priority {
     min-width: 100%;
     word-wrap: break-word;
+    white-space: pre-wrap;
 }
 .subtask_change_buttons {
     display: none;
@@ -360,6 +365,7 @@ h1.main_title {
 .task_name_course {
     max-width: 100%;
     word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 /*Добавление и изменение курса*/
@@ -393,6 +399,7 @@ h1.main_title {
 .project_name {
     min-width: 80%;
     word-wrap: break-word;
+    white-space: pre-wrap;
     padding: 5px 0px 20px 0px;
 }
 .project_name_creator {
@@ -525,6 +532,7 @@ h1.main_title {
     max-width: 100%;
     word-wrap: break-word;
     padding-bottom: 15px;
+    white-space: pre-wrap;
 }
 .column_task_creator_name {
     display: flex;

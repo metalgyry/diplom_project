@@ -34,6 +34,7 @@ model Students {
 // НЕ СТИРАТЬ: ПЕРЕДЕЛАТЬ ТИП НА СХЕМЕ В ДОКУМЕНТАЦИИ У ДАТЫ ТИП НА СТРОКУ Т.К. Я САМ НА СЕРВЕРЕ БУДУ ЕЕ ФОРМИРОВАТЬ  
 model GroupChat {
   id_message  Int @default(autoincrement()) @id
+  group Groups @relation(fields: [id_group], references: [id_group])
   id_group Int
   content String
   student Students @relation(fields: [id_creator], references: [id_student])
@@ -127,6 +128,7 @@ model Groups {
   id_group Int  @id //@default(autoincrement()) тут нет, так как они будут индивидуальные, а именно, например: 1906, 1907 и т.д.
   name String @unique
   students Students[]
+  chat_messages GroupChat[]
   //courses GroupCourses[]
 }
 

@@ -31,7 +31,6 @@ export default function ProjectTask({task, projectIdCreator, idStudent, projectT
         }
         projectTasksActions.updateTaskStatus({...task, status: task.status + changeNum});
     };
-
     return (
         <div className='column_task'>
             {
