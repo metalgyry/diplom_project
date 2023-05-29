@@ -23,11 +23,11 @@ export const periodsSelect = [
 export const statusOrDateSortTaskSelect = [
     { value: 0, label: 'Дата(Сперва раньше)' },
     { value: 1, label: 'Дата(Сперва позже)' },
-    { value: 2, label: 'Статус(По возрастанию)' },
-    { value: 3, label: 'Статус(По уменьшению)' },
+    { value: 2, label: 'Приоритет(По возрастанию)' },
+    { value: 3, label: 'Приоритет(По уменьшению)' },
 ]
 
 export const statusOrDateSortSubTaskSelect = [
-    { value: 0, label: 'Статус(По возрастанию)' },
-    { value: 1, label: 'Статус(По уменьшению)' },
+    { value: 0, label: 'Приоритет(По возрастанию)' },
+    { value: 1, label: 'Приоритет(По уменьшению)' },
 ]

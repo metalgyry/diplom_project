@@ -97,7 +97,7 @@ export class CoursesService {
             throw new HttpException(
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
-                    error: 'Ошибка при обновлении проекта!',
+                    error: 'Ошибка при обновлении курса!',
                 }, 
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );
@@ -123,7 +123,7 @@ export class CoursesService {
             throw new HttpException(
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
-                    error: 'Ошибка при удалении проекта!',
+                    error: 'Ошибка при удалении курса!',
                 }, 
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );

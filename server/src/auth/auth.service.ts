@@ -20,6 +20,7 @@ export class AuthService {
      
     async generateToken(user: userDto): Promise<Tokens> {
         try {
+
             const payload = {id_student: user.id_student, login: user.login, full_name: user.full_name, id_group: user.id_group};
             const accessToken = await this.jwtService.signAsync(payload, { secret: this.configService.get('ACCESS_KEY'), expiresIn: ( this.configService.get("ACCESS_KEY_TIME") / 1000 ) });
             const refreshToken = await this.jwtService.signAsync(payload, { secret: this.configService.get('REFRESH_KEY'), expiresIn: ( this.configService.get("REFRESH_KEY_TIME") / 1000 ) });

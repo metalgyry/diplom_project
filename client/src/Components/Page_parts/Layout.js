@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Chat from '../../Pages/Chat'
 import Navigation from './Navigation'
 import UserInfo from './UserInfo'
 
@@ -11,6 +12,7 @@ export default function Layout() {
         <UserInfo/>
     </header>
     <main>
+        <Chat/>
         <Outlet/>
     </main>
     </>

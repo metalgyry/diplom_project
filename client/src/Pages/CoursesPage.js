@@ -9,7 +9,6 @@ export default function CoursesPage() {
   const [coursesAndTasks, setCoursesAndTasks] = useState([]);
   const [isEmptyListCourses, setIsEmptyListCourses] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   const getData = async () => {
     try {
       const response = await getCoursesAndTasks();

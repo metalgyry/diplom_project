@@ -18,7 +18,7 @@ model Students {
   full_name String
   groups Groups @relation(fields: [id_group], references: [id_group])
   id_group  Int
-  chatMessages GroupChat[]
+  chatMessages GroupChatMessages[]
   courses Courses[]
   tasks Tasks[]
   subTasks SubTasks[]
@@ -32,7 +32,7 @@ model Students {
 // !!!ВОЗМОЖНО ПРИДЕТСЯ МЕНЯТЬ НА ОБЩУЮ ТАБЛИЦУ!!!
 
 // НЕ СТИРАТЬ: ПЕРЕДЕЛАТЬ ТИП НА СХЕМЕ В ДОКУМЕНТАЦИИ У ДАТЫ ТИП НА СТРОКУ Т.К. Я САМ НА СЕРВЕРЕ БУДУ ЕЕ ФОРМИРОВАТЬ  
-model GroupChat {
+model GroupChatMessages {
   id_message  Int @default(autoincrement()) @id
   group Groups @relation(fields: [id_group], references: [id_group])
   id_group Int
@@ -41,7 +41,9 @@ model GroupChat {
   id_creator Int
   full_name String
   date DateTime?   @default(now())
-  @@map("Group chat")
+  updated Boolean @default(false)
+
+  @@map("Group chat messages")
 }
 
 model StudentProject {
@@ -128,7 +130,7 @@ model Groups {
   id_group Int  @id //@default(autoincrement()) тут нет, так как они будут индивидуальные, а именно, например: 1906, 1907 и т.д.
   name String @unique
   students Students[]
-  chat_messages GroupChat[]
+  chat_messages GroupChatMessages[]
   //courses GroupCourses[]
 }
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import Select from 'react-select';
 import TaskInSchedule from '../Components/Page_parts/TaskInSchedule';
 import { periodsSelect, statusOrDateSortTaskSelect, statusOrDateSortSubTaskSelect } from '../Components/variables';
@@ -101,7 +101,7 @@ export default function SchedulePage() {
         }
         let buffDate = 0;
         let periodArrayTasks = tasks.filter((task) => {
-            buffDate = new Date(task.date).setHours(0, 0, 0, 0);;
+            buffDate = new Date(task.date).setHours(0, 0, 0, 0);
             return ((startDate <= buffDate) && (buffDate <= endDate));
         });
         

@@ -8,7 +8,7 @@ export class UsersService {
 
     async getUserByLogin(login: string): Promise<Students | null> {
         try {
-            const user = await this.prisma.students.findUnique({ where: { login } });
+            let user = await this.prisma.students.findUnique({ where: { login } });
             return user;
         } catch (error) {
             console.log(error);

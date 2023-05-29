@@ -14,4 +14,12 @@ export class GroupsController {
       return groupStudents;
     }
 
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AccessJwtAuthGuard)
+    @Get('/name')
+    async getGroupName(@Req() req: Request) {
+      const groupStudents = await this.groupsService.getGroupName(req['user'].id_group);
+      return groupStudents;
+    }
+
 }

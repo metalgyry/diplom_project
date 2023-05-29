@@ -87,6 +87,11 @@ export const allGroupStudents = async (id) => {
     return response;
 };
 
+export const groupName = async () => {
+    const response = await $authHost.get('/groups/name');
+    return response;
+};
+
 export const exitStudentProject = async (id) => {
     const response = await $authHost.delete(`/student-projects/exit/${id}`);
     return response;

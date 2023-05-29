@@ -7,7 +7,7 @@ export default function Navigation() {
   return (
     <div className='navigation'>
         <NavLink to='/schedule' className={classNav}>Расписание задач</NavLink>
-        <NavLink to='/tasks' className={classNav}>Задачи</NavLink>
+        <NavLink to='/tasks' className={classNav}>Курсы</NavLink>
         <NavLink to='/projects' className={classNav}>Групповые проекты</NavLink>
     </div>
   )

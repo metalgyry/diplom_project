@@ -33,5 +33,23 @@ export class GroupsService {
           }
     }
 
-
+    async getGroupName(id_group: number): Promise<{name: string}> {
+      try {
+          const groupName = await this.prisma.groups.findUnique({
+            where: { id_group: id_group },
+            select: {name: true},
+          });
+          console.log(groupName);
+          return groupName;
+        } catch (error) {
+          console.log(error);
+          throw new HttpException(
+              {
+                  status: HttpStatus.INTERNAL_SERVER_ERROR,
+                  error: 'Ошибка при получении названия группы!',
+              }, 
+              HttpStatus.INTERNAL_SERVER_ERROR,
+          );
+        }
+  }
 }

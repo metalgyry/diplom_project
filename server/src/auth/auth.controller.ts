@@ -29,14 +29,14 @@ export class AuthController {
         res.json({accessToken: tokens.access_token, user});
     }
     
-    @HttpCode(HttpStatus.OK)
-    @Get('/login')
-    async logPage(@Res() res: Response, @Req() req: Request) {
-        console.log(req.headers.cookie);
-        const moreHeader = req.headers['authorization'].split(' ')[1];
-        console.log(moreHeader);
-        res.end();
-    }
+    // @HttpCode(HttpStatus.OK)
+    // @Get('/login')
+    // async logPage(@Res() res: Response, @Req() req: Request) {
+    //     console.log(req.headers.cookie);
+    //     const moreHeader = req.headers['authorization'].split(' ')[1];
+    //     console.log(moreHeader);
+    //     res.end();
+    // }
 
     @UseGuards(RefreshJwtAuthGuard)
     @Get('/refresh')
@@ -48,11 +48,11 @@ export class AuthController {
         res.json({accessToken: tokens.access_token});
     }
 
-    @UseGuards(AccessJwtAuthGuard)
-    @Get('/tasks')
-    async getTasks(@Req() req: Request){
-        return {message: "tasks page!"};
-    }
+    // @UseGuards(AccessJwtAuthGuard)
+    // @Get('/tasks')
+    // async getTasks(@Req() req: Request){
+    //     return {message: "tasks page!"};
+    // }
 
     @HttpCode(HttpStatus.OK)
     @Get('/logout')

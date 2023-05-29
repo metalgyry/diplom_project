@@ -12,6 +12,7 @@ import { ProjectsModule } from "./projects/projects.module";
 import { GroupsModule } from './groups/groups.module';
 import { StudentProjectsModule } from './student-projects/student-projects.module';
 import { ProjectTasksModule } from './project-tasks/project-tasks.module';
+import { GroupChatMessagesModule } from './group-chat-messages/group-chat-messages.module';
 
 
 @Module({
@@ -31,6 +32,7 @@ import { ProjectTasksModule } from './project-tasks/project-tasks.module';
         GroupsModule,
         StudentProjectsModule,
         ProjectTasksModule,
+        GroupChatMessagesModule,
     ],
     exports: [ PrismaService ]
 })
