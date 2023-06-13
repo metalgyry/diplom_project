@@ -55,7 +55,7 @@ export class AuthService {
             throw new HttpException(
                 {
                     status: HttpStatus.FORBIDDEN,
-                    error: 'Неверный логин(пользователь не найден)!',
+                    error: 'Неверный логин или пароль!',
                 }, HttpStatus.FORBIDDEN,
                 { cause: error }
             );

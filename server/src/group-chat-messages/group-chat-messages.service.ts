@@ -10,6 +10,7 @@ export class GroupChatMessagesService {
         try {
             const groupChatMessages = await this.prisma.groupChatMessages.findMany({
                 where: {id_group: id_group },
+                orderBy: { date: 'asc'}
             });
             return groupChatMessages;
         } catch (error) {
@@ -47,6 +48,7 @@ export class GroupChatMessagesService {
             const groupChatMessage = await this.prisma.groupChatMessages.update({
                 data: {
                     content: dataGroupChatMessages.content,
+                    updated: true,
                 },
                 where: { id_message: Number(dataGroupChatMessages.id_message) },
             });

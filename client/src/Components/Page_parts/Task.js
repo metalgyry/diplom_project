@@ -21,7 +21,7 @@ export default function Task({task, updateTask, deleteTask}) { // использ
     };
 
     return (
-        <div className='task'>
+        <div className={`task t_${task.priority == 1 ? 'low' : ''}${task.priority == 2 ? 'normal' : ''}${task.priority == 3 ? 'high' : ''}`}>
             {
                 isUpdating ?
                 <AddOrUpdateTask task={task} setIsUpdating={setIsUpdating} methodTask={updateTask} isTaskOrSubTask={true} isAddOrUpdate={false}/>

@@ -50,7 +50,7 @@ export default function ProjectTask({task, projectIdCreator, idStudent, projectT
                             {
                                 (((idStudent == projectIdCreator) || (task.id_creator == idStudent)) && (task.status == 0)) ?
                                     <>
-                                        <button type='button' className='update_button' onClick={() => setIsUpdating(true)}>Изменить</button>
+                                        <div className='update_button' title='Изменить' onClick={() => setIsUpdating(true)}></div>
                                         <DeleteButton textButton={'Удалить'} deleteMethod={projectTasksActions.deleteTask} id={task.id_task}/>
                                     </>
                                 :

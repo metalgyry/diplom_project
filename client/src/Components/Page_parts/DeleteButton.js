@@ -9,14 +9,14 @@ export default function DeleteButton({textButton, deleteMethod, id}) {
             setIsConfirmedDeleteButton(false);
         }, 3000);
     };
-
+//<button type='button' className='delete_project_button' onClick={clickDeleteButton}>{textButton}</button>
     return (
         <div className='delete_button_component'>
             {
                 isConfirmedDeleteButton ?
-                    <button type='button' className='confirm_delete_project_button' onClick={() => deleteMethod(id)}>Уверены?</button>
+                    <div type='button' title='Уверены?' className='confirm_delete_button' onClick={() => deleteMethod(id)}></div>
                 :
-                    <button type='button' className='delete_project_button' onClick={clickDeleteButton}>{textButton}</button>
+                    <div className='delete_button' title={textButton} onClick={clickDeleteButton}></div>
             }
         </div>
     )

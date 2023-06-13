@@ -17,7 +17,7 @@ export default function ProjectData({project, selectProject, setIsUpdating, isMy
                         {
                             isMyProject ?
                                 <>
-                                <button type='button' className='update_project_button' onClick={() => setIsUpdating(true)}>Изменить</button>
+                                <div title='Изменить' className='update_button' onClick={() => setIsUpdating(true)}></div>
                                 <DeleteButton textButton={'Удалить'} deleteMethod={deleteProject} id={project.id_group_project}/>
                                 </>
                             :
@@ -40,7 +40,7 @@ export default function ProjectData({project, selectProject, setIsUpdating, isMy
                     isMyProject ?
                         ''
                     :
-                        <ProjectExitButton textButton={'Выйти из проекта'} exitMethod={exitProject} id={project.id_group_project}/>
+                        <ProjectExitButton textButton={'Выйти'} exitMethod={exitProject} id={project.id_group_project}/>
                 }
             </div>
         </div>

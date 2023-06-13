@@ -16,7 +16,7 @@ export default function Project({id_project, setIsProjectSelected}) {
               {`Проект: ${projectName }`} 
             </span>
             <span className='in_project_exit_button_span'>
-              <button type="button" className='in_project_exit_button' onClick={() => setIsProjectSelected(false)}>Выйти из проекта</button>
+              <button type="button" className='in_project_exit_button' onClick={() => setIsProjectSelected(false)}>Выйти</button>
             </span>
           </div>
           <div className='in_project_list_students'>

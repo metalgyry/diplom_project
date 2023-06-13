@@ -167,6 +167,9 @@ export default function SchedulePage() {
                     <Select className='sort_select_component' options={statusOrDateSortSubTaskSelect} defaultValue={statusOrDateSortSubTaskSelect[sortSubTaskType]} onChange={(selectedOption) => setSortSubTaskType(selectedOption.value) }/>    
                 </div>
             </div>
+            <div className='title_list_tasks'>
+                <b>{'Задачи:'}</b>
+            </div>
             <div className='schedule_tasks'>
                 {periodTasks.map((task) => {
                     return <TaskInSchedule key={task.id_task} task={task}/>  })

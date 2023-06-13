@@ -16,7 +16,7 @@ export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTas
     };
 
     return (
-        <div className={`${isScheduleTask ? 'schedule_' : ''}${isTaskOrSubTask ? '' : 'sub'}task_data`}>
+        <div className={`${isScheduleTask ? 'schedule_' : ''}${isTaskOrSubTask ? '' : 'sub'}task_data st_${task.priority == 1 ? 'low' : ''}${task.priority == 2 ? 'normal' : ''}${task.priority == 3 ? 'high' : ''}`}>
             <div className={`${isTaskOrSubTask ? '' : 'sub'}task_inform`}>
                 <div className={`${isTaskOrSubTask ? '' : 'sub'}task_content`} >
                     {task.content}
@@ -25,7 +25,7 @@ export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTas
                     {
                         isTaskOrSubTask ?
                             <div className='task_date'>
-                                {`Дата: ${task.date}`}
+                                {`Дата: ${task.date.replaceAll('-','.')}`}
                             </div>
                         :
                             ''
@@ -42,7 +42,7 @@ export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTas
                             ''
                         :
                             <>
-                                <button type='button' className='update_button' onClick={() => setIsUpdating(true)}>Изменить</button>
+                                <div className='update_button' title='Изменить' onClick={() => setIsUpdating(true)}></div>
                                 <DeleteButton textButton={'Удалить'} deleteMethod={deleteTask} id={null}/>
                             </>
                     }          

@@ -14,6 +14,7 @@ main {
 }
 
 .window_content {
+    background-color: lightsteelblue;
     width: 380px;
     border: 3px solid black;
     border-radius: 5px;
@@ -29,6 +30,7 @@ h1.main_title {
 }
 
 .intext {
+    background-color: lightsteelblue;
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 20px;
@@ -39,9 +41,15 @@ h1.main_title {
 }
 
 .butt  {
+    border: 2px solid;
+    border-radius: 18px;
     margin: 10px;
     padding: 5px;
     padding-inline: 50px;
+}
+.butt:hover {
+    cursor: pointer;
+    background-color: rgb(209, 207, 207);
 }
 
 .form_button {
@@ -99,7 +107,7 @@ h1.main_title {
 }
 .title_courses_page {
     display: flex;
-    width: 65vw;
+    width: 95vw;
     justify-content: space-between;
     margin: 10px;
 }
@@ -127,7 +135,7 @@ h1.main_title {
 }
 
 .add_project_window {
-    width: 60vw;
+    width: 45vw;
     padding: 30px;
     border: 2px solid black;
     border-radius: 10px;
@@ -157,7 +165,7 @@ h1.main_title {
     border-radius: 20px;
     padding: 10px;
     margin: 5px 0px 5px 0px;
-    width: 65vw;
+    width: 95vw;
 }
 .course_content {
     max-width: 100%;
@@ -166,14 +174,24 @@ h1.main_title {
     display: flex;
     justify-content: flex-start;
 }
+.course_list_tasks {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 30px;
+    flex-direction: row;
+    justify-content: center;
+}
 .course_name {
     padding: 5px;   
-    min-width: 80%;
+    min-width: 93%;
     word-wrap: break-word;
     white-space: pre-wrap;
 }
+.add_update_course {
+    margin-right: 30px;
+}
 .course_content:hover .course_name_buttons {
-    display: block;
+    display: flex;
 }
 .course_name_buttons {
     display: none;
@@ -187,7 +205,8 @@ h1.main_title {
     border: 2px solid;
 }
 .create_button:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 .course_title_tasks {
     margin-left: 30px;
@@ -198,7 +217,9 @@ h1.main_title {
     background-color: #eea226;
     border-radius: 15px;
     padding: 10px;  
-    margin: 5px 0px 5px 30px;
+    margin: 5px 0px 5px 5px;
+    width: 28vw;
+    /* height: fit-content; */
 }
 .task_data {
     max-width: 100%;
@@ -286,24 +307,54 @@ h1.main_title {
     border-radius: 20px;
 }
 .create_or_change_button:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 
 /*Окно изменения или добавления задач и подзадач*/
-.add_update_window {
+.add_or_update_task_add {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+.add_or_update_task_update {
+    display: block;
+}
+.add_or_update_subtask_add {
+
+}
+.add_or_update_subtask_update {
+
+}
+.add_update_window_task_add {
+    background-color: antiquewhite;
+    border-radius: 8px;
+    padding: 12px;
+    max-width: 40vw;
+    width: 40vw;
+}
+.add_update_window_task_update {
+    background-color: #ffe3bd;
+    border-radius: 8px;
+    padding: 12px;
+}
+.add_update_window_subtask_add {
     background-color: antiquewhite;
     border-radius: 8px;
     padding: 12px;
     margin-left: 30px;
+}
+.add_update_window_subtask_update {
+    background-color: #ffe3bd;
+    border-radius: 8px;
+    padding: 12px;
 }
 .add_update_buttons {
     display: flex;
     padding: 10px 0px 0px 0px;
     justify-content: flex-end;
 }
-.add_or_update_task {
-    
-}
+
 .add_or_update_button {
     padding: 5px 0px 5px 0px;
     padding-inline: 18px;
@@ -312,7 +363,8 @@ h1.main_title {
     border-radius: 20px;
 }
 .add_or_update_button:enabled:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 .cancel_button {
     padding: 5px 0px 5px 0px;
@@ -322,7 +374,8 @@ h1.main_title {
     border-radius: 20px;
 }
 .cancel_button:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 .div_create_or_change_button {
     display: flex;
@@ -330,6 +383,7 @@ h1.main_title {
 }
 .create_or_change_button {
     margin: 5px 0px 5px 0px;
+    background-color: #ececec;
 }
 
 /*Страница расписания задач*/
@@ -341,14 +395,21 @@ h1.main_title {
 .schedule_selector {
     margin: 0px 5px 0px 5px;
 }
-
-.schedule_tasks {
+.title_list_tasks {
+    margin: 5px 0px 5px 0px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
+.schedule_tasks {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .schedule_task {
-    width: 65vw;
+    width: 29vw;
 }
 
 /*Задачи и подзадачи в расписании*/
@@ -356,7 +417,7 @@ h1.main_title {
     background-color: #eea226;
     border-radius: 15px;
     padding: 15px;
-    margin: 5px 0px 5px 20px;
+    margin: 5px 0px 5px 5px;
 }
 .schedule_subtask_data {
     background-color: #ffd590;
@@ -369,6 +430,33 @@ h1.main_title {
     word-wrap: break-word;
     white-space: pre-wrap;
 }
+/* Цвет задач и подзадач от приоритета */
+.t_low {
+    background-color: #eeac26;
+}
+.t_normal {
+    background-color: #eea226;
+}
+.t_high {
+    background-color: #ee8026;
+}
+.st_low {
+    background-color: #ffe6be;
+}
+.st_normal {
+    background-color: #ffd590;
+}
+.st_high {
+    background-color: #ffc360;
+}
+/* Продолжение про задачи в расписании */
+.schedule_task_data {
+    background: none;
+}
+/* Продолжение про задачи в курсах */
+.task_data {
+    background: none;
+}
 
 /*Добавление и изменение курса*/
 .course_content_edit {
@@ -380,9 +468,24 @@ h1.main_title {
 }
 
 /*Проекты*/
-.project_data {
+.title_project_list_page {
+    display: flex;
     width: 65vw;
-    margin: 5px 0px 10px 0px;
+    justify-content: space-between;
+    margin: 10px;
+}
+.projects_list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+.project {
+
+}
+.project_data {
+    width: 30vw;
+    margin: 5px 0px 5px 5px;
     padding: 10px;
     background-color: #f1c987;
     border-radius: 15px;
@@ -414,18 +517,21 @@ h1.main_title {
 }
 .project_enter_and_exit_button {
     display: flex;
-    justify-content: center;
     margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .enter_exit_button {
     font-size: 16px;
-    padding: 5px 50px 5px 50px;
+    padding: 5px 0px 5px 0px;
+    padding-inline: 3vw;
     border-radius: 20px;
     border: 2px solid;
     margin: 5px;
 }
 .enter_exit_button:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 
 .subtask_data:hover .subtask_change_buttons {
@@ -459,7 +565,8 @@ h1.main_title {
     margin: 10px 0px 5px 0px;
 }
 .add_student_button:enabled:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 .list_selected_student {
     margin: 5px 0px 30px 0px;
@@ -472,12 +579,14 @@ h1.main_title {
     margin: 10px;
 }
 .delete_selected_student_button {
+    height: fit-content;
     border: 2px solid;
     border-radius: 20px;
     padding: 2px 15px 3px 15px;
 }
 .delete_selected_student_button:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 
 /*На странице проекта, оппеделенного*/
@@ -491,23 +600,33 @@ h1.main_title {
     justify-content: space-between;
     padding-bottom: 10px;
 }
+.in_project_name {
+    word-wrap: break-word;
+    white-space: pre-wrap
+}
+.in_project_exit_button_span {
+    margin-right: 30px;
+}
 .in_project_list_students {
     
 }
 .in_project_exit_button {
+    height: fit-content;
     border: 2px solid;
     border-radius: 20px;
     padding: 5px 18px 5px 18px;
 }
 .in_project_exit_button:hover {
-    background-color: darkgray;
+    background-color: rgb(209, 207, 207);
+    cursor: pointer;
 }
 .in_project_tasks_table {
+    overflow: overlay;
     display: flex;
     justify-content: space-around;
 }
 .project_column {
-    width: 24vw;
+    width: 23vw;
     margin-inline: 5px;
 }
 .project_column_name {
@@ -585,6 +704,7 @@ h1.main_title {
 }
 .chat_module {
     position: fixed;
+    z-index: 1;
     top: 0px;
     display: flex;
     justify-content: flex-end;
@@ -592,7 +712,7 @@ h1.main_title {
 .tongue_chat {
     height: 36px;
     position: relative;
-    top: 14vh;
+    top: 92px;
     display: flex;
     background-color: burlywood;
     cursor: pointer;
@@ -610,7 +730,8 @@ h1.main_title {
 }
 .chat_window {
     height: 100vh;
-    z-index: 1;
+    width: 450px;
+    max-width: 60vw;
     background-color: #f1c987;
 }
 /*
@@ -628,6 +749,7 @@ h1.main_title {
 */
 .chat_header {
     display: flex;
+    height: 7vh;
 }
 .close_chat_button {
     cursor: pointer;
@@ -654,21 +776,21 @@ h1.main_title {
     border-bottom: 2px solid;
     background-color: lemonchiffon;
     padding: 5px;
-    height: 80%;
-    width: 40vw;
+    height: 80vh;
 }
 .add_or_update_chat_message {
-    height: 12%;
+    height: 11vh;
 }
 .message_add_update_content {
     resize: none;
     width: 100%;
-    height: 7vh;
+    height: 60%;
     background-color: #fffdec;
 }
 .add_or_update_button_message {
     margin-top: -5px;
     display: flex;
+    height: 40%;
 }
 .chat_create_or_change_button {
     width: 100%;
@@ -678,15 +800,22 @@ h1.main_title {
 /* Сообщение в чате */
 .chat_message {
     margin: 2px 0px 2px 0px;
-    width: 45%;
+    max-width: 80%;
+    min-width: 20%;
     border: 2px solid;
     border-radius: 10px;
     padding: 6px;
-    background-color: #ffd187;
+    background-color: #ffbc50;
+}
+.my_message .chat_message {
+    background-color: #ffd693;
 }
 .my_message {
     display: flex;
     justify-content: flex-end;
+}
+.my_message .other_message {
+    background-color: #ffbc50;
 }
 .other_message {
     display: flex;
@@ -708,6 +837,7 @@ h1.main_title {
     display: block;
 }
 .message_content {
+    padding-right: 2px;
     word-wrap: break-word;
     white-space: pre-wrap;
     min-width: 55%;
@@ -715,8 +845,167 @@ h1.main_title {
 .message_change_buttons {
     display: none;
 }
-.message_time_date {
+.message_time {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+}
+.message_upd_date {
     font-size: 12px;
     display: grid;
-    justify-items: end;
+}
+.message_upd_date {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* кнопка удаления и изменения */
+.delete_button {
+    border: 1px solid;
+    margin: 1px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-image: url(../icons/Delete.png);
+    background-size: cover;
+}
+.confirm_delete_button {
+    border: 1px solid;
+    margin: 1px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-image: url(../icons/Complete_Delete.png);
+    background-size: cover;
+}
+.update_button {
+    border: 1px solid;
+    margin: 1px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-image: url(../icons/Edit.png);
+    background-size: cover;
+}
+/* CSS для смартфона с шириной меньше 500(почему так хз) */
+@media (max-width: 600px) {
+    /* Панель навигации */
+    .navigation {
+        display: grid;
+    }
+    .nav_link {
+        padding-inline: 0px;
+    }
+    .exit_button button {
+        padding-inline: 30px;
+    }
+    /* Страница расписания */
+    .schedule_selectors {
+        flex-direction: column;
+    }
+    .schedule_task {
+        width: 90vw;
+        margin: 5px 0px 5px 0px;
+    }
+    .schedule_task .task_content {
+        padding-bottom: 20px;
+    }
+    .schedule_task .subtask_content {
+        padding-bottom: 20px;
+    }
+    .schedule_task .task_date_priority {
+        font-size: 14px;
+        margin-bottom: 0px;
+    }
+    .schedule_task .subtask_priority {
+        font-size: 14px;
+    }
+    /* Страница списка курсов */
+    .title_courses_page {
+        display: block;
+        margin: 5px;
+        width: 80vw;
+    }
+    .add_update_course {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 0px;
+    }
+    .course {
+        width: 90vw;
+    }
+    .course .task_content {
+        padding-bottom: 20px;
+    }
+    .course .course_name {
+        padding: 0px 0px 5px 0px;
+        min-width: 80%;
+    }
+    .course_list_tasks {
+        display: block;
+    }
+    .task {
+        width: auto;
+    }
+    .course .task_date_priority {
+        margin-bottom: 0px;
+    }
+    .course .subtask {
+        padding: 2px;
+    }
+    .course .subtask_content {
+        padding-bottom: 20px;
+    }
+    .add_or_update_task_add {
+        display: block;
+    }
+    .add_update_window_task_add {
+        width: auto;
+        max-width: none;
+        margin-left: 30px;
+    }
+    /* Страница групповых проектов */
+    .title_project_list_page {
+        margin: 5px;
+        width: 80vw;
+    }
+    .projects .project_data {
+        width: 90vw;
+    }
+    .project_enter_and_exit_button {
+        margin-top: 0px;
+    }
+    .projects .enter_exit_button {
+        padding: 5px 30px 5px 30px;
+        margin: 0px;
+        margin-inline: 2px;
+    }
+    /* Окно создания и изменения проекта из списка */
+    .add_project_window {
+        width: 90vw;
+        padding: 14px;
+    }
+    /* Проект отдельно каждый */
+    .in_project_name {
+        width: 60vw;
+    }
+
+    /* Чат */
+    .chat_window {
+        width: 100vw;
+        max-width: 100vw;
+    }
+
+    
+}
+/* При экране меньше 700 пикселей */
+@media (max-width: 700px) {
+    .in_project_tasks_table {
+        justify-content: start;
+    }
+    .project_column {
+        width: 240px;
+        min-width: 240px;
+    }
 }

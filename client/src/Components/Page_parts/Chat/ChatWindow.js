@@ -55,7 +55,7 @@ export default function ChatWindow({setIsOpenChat}) {
                     {'>'}
                 </div>
                 <div className='name_chat'>
-                    {nameGroup}
+                    {`Чат ${nameGroup}`}
                 </div>
             </div>
             <ChatListMessages id_student={userStore.user.id_student} messages={groupChatMessages}

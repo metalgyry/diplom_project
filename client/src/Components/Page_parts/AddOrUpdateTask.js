@@ -81,10 +81,10 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
     //  <-----contenteditable='true'---->
 
     return (
-        <div className='add_or_update_task'>
+        <div className={`add_or_update_${isTaskOrSubTask ? 'task' : 'subtask'}${isAddOrUpdate ? '_add' : '_update'}`}>
             {
                 clickAddOrUpdateButton ?
-                <div className='add_update_window'>
+                <div className={`add_update_window_${isTaskOrSubTask ? 'task' : 'subtask'}${isAddOrUpdate ? '_add' : '_update'}`}>
                     {'Содержимое: '}
                     <textarea value={content} className='task_add_update_content' wrap='soft' autoFocus={true} required onChange={e => setContent(e.target.value)}></textarea>
                     <div className='choice_date_priority'>

@@ -105,12 +105,12 @@ export default function CoursesPage() {
           }
         </div>
         :
-          <>
+          <div className='list_courses'>
             {
               coursesAndTasks.map((obj) => {
                 return <Course key={obj.id_course} course={obj} updateCourse={methodUpdateCourse} deleteCourse={methodDeleteCourse}/>  })
             }
-          </>
+          </div>
       }
     </div>
   )

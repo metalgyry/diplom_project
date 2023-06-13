@@ -27,16 +27,24 @@ export default function ChatMessage({message, updateMethod, deleteMethod, isMyMe
                         {
                             isMyMessage ?
                                 <div className='message_change_buttons'>
-                                    <button type='button' className='update_button' onClick={() => updateMethod(message)}>Изменить</button>
+                                    <div className='update_button' title='Изменить' onClick={() => updateMethod(message)}></div>
                                     <DeleteButton textButton={'Удалить'} deleteMethod={deleteMethod} id={message.id_message}/>
                                 </div>
                             :
                                 <></>
                         }
                     </div>
-                    <div className='message_time_date'>
-                        <div className='message_time'>
-                            {date[1].substr(0, 5)}
+                    <div className='message_time'>
+                        {date[1].substr(0, 5)}
+                    </div>
+                    <div className='message_upd_date'>
+                        <div className='upd_message'>
+                            {
+                                message.updated ?
+                                    'изменено'
+                                :
+                                    <></>
+                            }
                         </div>
                         <div className='message_date'>
                             {date[0].replaceAll('-','.')}

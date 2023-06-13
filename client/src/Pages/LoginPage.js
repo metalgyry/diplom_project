@@ -19,8 +19,8 @@ export default function LoginPage() {
   const [submitButton, setSubmitButton] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   
-  const [login, setLogin] = useState("metalgyry");
-  const [password, setPassword] = useState("metalgyry");
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if((regexLog.test(login)) && (regexPassword.test(password))) {

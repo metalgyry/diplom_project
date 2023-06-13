@@ -128,7 +128,7 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
                 <div className='name_project'>
                     Название проекта:
                 </div>
-                <textarea value={projectName} className='project_name_change' wrap='soft' cols={50} rows={3} autoFocus={true} required onChange={e => setProjectName(e.target.value)}></textarea>
+                <textarea value={projectName} className='project_name_change' wrap='soft' cols={50} rows={5} autoFocus={true} required onChange={e => setProjectName(e.target.value)}></textarea>
                 <div className='add_select_students'>
                     <div className='name_select_student'>
                         Выберите студента(ов):

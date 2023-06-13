@@ -10,7 +10,6 @@ export default function Course({course, updateCourse, deleteCourse}) {
     const { userStore } = useContext(Context)
     const [arrayTasks, setArrayTasks] = useState(course.tasks);
     const [isUpdating, setIsUpdating] = useState(false);
-    let textUpdateButton = 'Изменить';
     let textDeleteButton = 'Удалить';
 
     const methodCreateNewTask = (task) => {
@@ -36,7 +35,7 @@ export default function Course({course, updateCourse, deleteCourse}) {
                             {course.name}
                         </div>
                         <div className='course_name_buttons'>
-                            <button type="button" className='edit_course_button' onClick={() => {setIsUpdating(true)}}>{textUpdateButton}</button>
+                            <div className='update_button' title='Изменить' onClick={() => {setIsUpdating(true)}}></div>
                             <DeleteButton textButton={textDeleteButton} deleteMethod={deleteCourse} id={course.id_course}/>
                         </div>
                     </div>
@@ -46,9 +45,11 @@ export default function Course({course, updateCourse, deleteCourse}) {
                     {'Задачи:'}
                 </div>
             }
-            {arrayTasks.map((task) => {
-                return <Task key={task.id_task} task={task} updateTask={methodUpdateCurrentTask} deleteTask={methodDeleteCurrentTask}/>
-            })}
+            <div className='course_list_tasks'>
+                {arrayTasks.map((task) => {
+                    return <Task key={task.id_task} task={task} updateTask={methodUpdateCurrentTask} deleteTask={methodDeleteCurrentTask}/>
+                })}
+            </div>
             <AddOrUpdateTask task={null} setIsUpdating={null} methodTask={methodCreateNewTask} isTaskOrSubTask={true} isAddOrUpdate={true}/>
         </div>
     )

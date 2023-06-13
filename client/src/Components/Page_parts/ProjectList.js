@@ -117,7 +117,7 @@ export default function ProjectList({setSelectProject}) {
     
     return (
       <div className='projects'>
-        <div className='title_courses_page'>
+        <div className='title_project_list_page'>
           { isLoading && <b>{'Проекты: '}</b> }
           {
             isCreating ?
@@ -135,12 +135,14 @@ export default function ProjectList({setSelectProject}) {
               }
             </div>
           :
-            arrayProjects.map((projectItem) => {
-              return <ProjectItem key={projectItem.id_group_project} project={projectItem} selectProject={setSelectProject}
-                      id_creator={userStore.user.id_student} updateProject={methodUpdateProject}
-                      deleteProject={methodDeleteProject} exitProject={methodExitProject}
-                      />
-            }) 
+            <div className='projects_list'>
+              {arrayProjects.map((projectItem) => {
+                return <ProjectItem key={projectItem.id_group_project} project={projectItem} selectProject={setSelectProject}
+                        id_creator={userStore.user.id_student} updateProject={methodUpdateProject}
+                        deleteProject={methodDeleteProject} exitProject={methodExitProject}
+                        />
+              })}
+            </div> 
         }
       </div>
     )
