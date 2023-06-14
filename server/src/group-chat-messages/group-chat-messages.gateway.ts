@@ -28,8 +28,8 @@ export class GroupChatMessagesGateway implements OnGatewayInit, OnGatewayConnect
 
   private getGroupChatInfo = async (client: Socket): Promise<string> => {
     const idGroup = client.handshake.auth.id_group;
-    const groupChatMessages = await this.groupChatMessagesService.allGroupChatMessages(Number(idGroup));
-    this.server.in(idGroup).emit("groupChatMessages:get", groupChatMessages);
+    // const groupChatMessages = await this.groupChatMessagesService.allGroupChatMessages(Number(idGroup));
+    // this.server.in(idGroup).emit("groupChatMessages:get", groupChatMessages);
 
     //throw new WsException('Ошибка при получении задач проекта!');
     return String(idGroup);
@@ -39,29 +39,29 @@ export class GroupChatMessagesGateway implements OnGatewayInit, OnGatewayConnect
   async handleProjectInfoAndTasksGet(@ConnectedSocket() client: Socket): Promise<void> {
     const idGroup = await this.getGroupChatInfo(client);
     console.log('ID: ', idGroup);
-    // const groupChatMessages = await this.groupChatMessagesService.allGroupChatMessages(Number(idGroup));
-    // this.server.in(idGroup).emit("groupChatMessages:get", groupChatMessages);
+    const groupChatMessages = await this.groupChatMessagesService.allGroupChatMessages(Number(idGroup));
+    this.server.in(idGroup).emit("groupChatMessages:get", groupChatMessages);
   }
 
   @SubscribeMessage("groupChatMessages:post")
   async handleProjectTaskPost(@MessageBody() message: Prisma.GroupChatMessagesCreateManyInput, @ConnectedSocket() client: Socket ): Promise<void> {
       const groupChatNewMessage = await this.groupChatMessagesService.createGroupChatMessage(message);
       const idGroup = await this.getGroupChatInfo(client);
-      // this.server.in(idGroup).emit("groupChatMessages:post", groupChatNewMessage);
+      this.server.in(idGroup).emit("groupChatMessages:post", groupChatNewMessage);
   }
 
   @SubscribeMessage("groupChatMessages:patch")
   async handleProjectTaskPatch(@MessageBody() message: Prisma.GroupChatMessagesUncheckedUpdateWithoutGroupInput, @ConnectedSocket() client: Socket ): Promise<void> {
     const groupChatUpdateMessage = await this.groupChatMessagesService.updateGroupChatMessage(message);
     const idGroup = await this.getGroupChatInfo(client);
-    // this.server.in(idGroup).emit("groupChatMessages:patch", groupChatUpdateMessage);
+    this.server.in(idGroup).emit("groupChatMessages:patch", groupChatUpdateMessage);
   }
 
   @SubscribeMessage("groupChatMessages:delete")
   async handleMessageDelete(@MessageBody() id_message: number, @ConnectedSocket() client: Socket ): Promise<void>  {
     const groupChatDeleteMessage = await this.groupChatMessagesService.deleteGroupChatMessage(id_message);
     const idGroup = await this.getGroupChatInfo(client);
-    // this.server.in(idGroup).emit("groupChatMessages:delete", groupChatDeleteMessage);
+    this.server.in(idGroup).emit("groupChatMessages:delete", groupChatDeleteMessage);
   }
 
   afterInit(server: Server) {

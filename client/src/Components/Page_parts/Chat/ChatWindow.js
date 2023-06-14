@@ -6,12 +6,13 @@ import ChatListMessages from './ChatListMessages';
 import { Context } from '../../../index';
 
 export default function ChatWindow({setIsOpenChat}) {
-    const { userStore } = useContext(Context);
+    const { userStore, chatStore } = useContext(Context);
     const [isAddOrUpdateMessage, setIsAddOrUpdateMessage] = useState(true);
-    const [updatingMessage, setUpdatingMessage] = useState({});
+    // const [isLoadingChat, setIsLoadingChat] = useState(false);
+    //const [updatingMessage, setUpdatingMessage] = useState({});
     const [nameGroup, setNameGroup] = useState('');
 
-    const {groupChatMessages, groupChatMessagesActions} = useGroupChat(userStore.user.id_group)
+    const {groupChatMessages, groupChatMessagesActions} = useGroupChat(userStore.user.id_group, chatStore)
 
     const getNameGroup = async () => {
         try {
@@ -33,36 +34,44 @@ export default function ChatWindow({setIsOpenChat}) {
         getNameGroup();
     }, [])
 
+    const closeChat = () => {
+        chatStore.isLoadingChat = false;
+        setIsOpenChat(false);
+    };
+
     const addMessage = (content) => {
         groupChatMessagesActions.addMessage({id_group: userStore.user.id_group, content: content,
             id_creator: userStore.user.id_student, full_name: userStore.user.full_name});
+        console.log(chatStore.chat);
     };
 
     const updateMessage = (message) => {
-        setUpdatingMessage(message);
+        chatStore.updatingMessage = message;
+        // setUpdatingMessage(message);
         setIsAddOrUpdateMessage(false);
     };
 
     const messageIsUpdated = () => {
-        setUpdatingMessage({});
+        chatStore.updatingMessage = {};
+        // setUpdatingMessage({});
         setIsAddOrUpdateMessage(true);
     };
     
     return (
         <div className='chat_window'>
             <div className='chat_header'>
-                <div className='close_chat_button' title={'Закрыть чат'} onClick={() => {setIsOpenChat(false)}}>
+                <div className='close_chat_button' title={'Закрыть чат'} onClick={() => closeChat()}>
                     {'>'}
                 </div>
                 <div className='name_chat'>
                     {`Чат ${nameGroup}`}
                 </div>
             </div>
-            <ChatListMessages id_student={userStore.user.id_student} messages={groupChatMessages}
+            <ChatListMessages id_student={userStore.user.id_student} chatStore={chatStore}
                 updateMethod={updateMessage} deleteMethod={groupChatMessagesActions.deleteMessage}/>
             <AddOrUpdateChatMessage addMethod={addMessage} updateMethod={groupChatMessagesActions.updateMessage}
                 messageIsUpdated={messageIsUpdated} isAddOrUpdateMessage={isAddOrUpdateMessage}
-                updatingMessage={updatingMessage}/>
+                updatingMessage={chatStore.updatingMessage}/>
         </div>
     )
 }

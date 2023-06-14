@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 export default function AddOrUpdateChatMessage({addMethod, updateMethod, messageIsUpdated, updatingMessage, isAddOrUpdateMessage}) {
-    const [content, setContent] = useState(isAddOrUpdateMessage ? '' : updatingMessage.content);
+    const [content, setContent] = useState('');
     const [submitButton, setSubmitButton] = useState(true);
-    console.log("what",updatingMessage.content, isAddOrUpdateMessage, content);
     let add_message = 'Отправить';
     let update_message = 'Изменить';
 
@@ -15,6 +14,10 @@ export default function AddOrUpdateChatMessage({addMethod, updateMethod, message
         }
         stopUpdateMessage();
     };
+    
+    useEffect(() => {
+        setContent(isAddOrUpdateMessage ? '' : updatingMessage.content);
+    },[updatingMessage]);
 
     const stopUpdateMessage = () => {
         setContent('');

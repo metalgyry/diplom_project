@@ -1,6 +1,9 @@
 main {
     margin: 0px -8px 0px -8px;
 }
+body {
+    background-color: #f9fafd;
+}
 
 .window {
     position: absolute;
@@ -801,7 +804,7 @@ h1.main_title {
 .chat_message {
     margin: 2px 0px 2px 0px;
     max-width: 80%;
-    min-width: 20%;
+    min-width: 30%;
     border: 2px solid;
     border-radius: 10px;
     padding: 6px;
@@ -831,7 +834,7 @@ h1.main_title {
 .message_content_buttons {
     display: flex;
     justify-content: space-between;
-    margin: 5px 0px 5px 0px;
+    margin: 5px 0px 10px 0px;
 }
 .message_content_buttons:hover .message_change_buttons {
     display: block;
@@ -845,19 +848,24 @@ h1.main_title {
 .message_change_buttons {
     display: none;
 }
-.message_time {
-    display: flex;
-    justify-content: flex-end;
-    font-size: 12px;
-}
-.message_upd_date {
+.message_t_d {
     font-size: 12px;
     display: grid;
+    justify-content: end;
+    justify-items: end;
 }
-.message_upd_date {
+.message_time {
+
+}
+.message_date {
+    
+}
+.message_upd {
+    font-size: 12px;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
 }
+
 
 
 /* кнопка удаления и изменения */

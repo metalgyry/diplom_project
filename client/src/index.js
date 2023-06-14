@@ -9,7 +9,7 @@ export const Context = createContext(null)
 ReactDOMClient.createRoot(document.getElementById('root')).render(
     <Context.Provider value={{
         userStore: new User(),
-        chat: new Chat(),
+        chatStore: new Chat(),
     }}>
         <App />
     </Context.Provider>

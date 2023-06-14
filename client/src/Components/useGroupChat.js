@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 let socket;
 
-export const useGroupChat = (id_group) => {
+export const useGroupChat = (id_group, chatStore) => {
     console.log('groupChatMessages(id_group): ',id_group);
 
   if (!socket) {
@@ -33,21 +33,25 @@ export const useGroupChat = (id_group) => {
     socket.on("groupChatMessages:get", (groupChatListMessages) => {
       console.log("groupChatMessages:get: ", groupChatListMessages);
 
+      chatStore.chat = groupChatListMessages;
       setGroupChatMessages(groupChatListMessages);
     });
 
     socket.on("groupChatMessages:post", (groupChatNewMessage) => {
       console.log('groupChatNewMessage: ', groupChatNewMessage);
       
+      chatStore.addMessage(groupChatNewMessage);
       setGroupChatMessages([...groupChatMessages, groupChatNewMessage]);
     });
 
     socket.on("groupChatMessages:patch", (groupChatUpdateMessage) => {
       console.log("groupChatUpdateMessage", groupChatUpdateMessage);
 
+      chatStore.updateMessage(groupChatUpdateMessage);
+
       setGroupChatMessages(groupChatMessages.map((message) => {
         if (message.id_message == groupChatUpdateMessage.id_message) {
-            return {...message, groupChatUpdateMessage }; // Возможно неверно будет работать
+            return groupChatUpdateMessage; // Возможно неверно будет работать
         } else {
             return message;
         }
@@ -56,6 +60,9 @@ export const useGroupChat = (id_group) => {
 
     socket.on( "groupChatMessages:delete", (id) => {
       console.log('ID_DELETE: ', id);
+
+      chatStore.deleteMessage(id);
+
       setGroupChatMessages(groupChatMessages.filter(message => message.id_message != id));
     });
   },[socket]);
