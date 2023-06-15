@@ -40,6 +40,8 @@ export const useGroupChat = (id_group, chatStore) => {
     socket.on("groupChatMessages:post", (groupChatNewMessage) => {
       console.log('groupChatNewMessage: ', groupChatNewMessage);
       
+      chatStore.isLoadingChat = false;
+
       chatStore.addMessage(groupChatNewMessage);
       setGroupChatMessages([...groupChatMessages, groupChatNewMessage]);
     });
@@ -49,7 +51,7 @@ export const useGroupChat = (id_group, chatStore) => {
 
       chatStore.updateMessage(groupChatUpdateMessage);
 
-      setGroupChatMessages(groupChatMessages.map((message) => {
+      setGroupChatMessages(groupChatMessages.map((message) => { // Убрать везде работу с этим useState
         if (message.id_message == groupChatUpdateMessage.id_message) {
             return groupChatUpdateMessage; // Возможно неверно будет работать
         } else {

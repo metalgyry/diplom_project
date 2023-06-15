@@ -6,7 +6,7 @@ export default function ChatMessage({message, updateMethod, deleteMethod, isMyMe
     // console.log(isMyMessage);
 
     let arrayName = message.full_name.split(' ');
-    let date = message.date.split('T');
+    let date = new Date(message.date);
 
     return (
         <div className={`${isMyMessage ? 'my_message' : 'other_message'}`}>
@@ -36,12 +36,11 @@ export default function ChatMessage({message, updateMethod, deleteMethod, isMyMe
                     </div>
                     <div className='message_t_d'>
                         <div className='message_time'>
-                            {date[1].substr(0, 5)}
+                            {`${date.getHours()}:${date.getMinutes()}`}
                         </div>
                         <div className='message_date'>
-                            {date[0].replaceAll('-','.')}
+                            {`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}
                         </div>
-                        
                     </div>
                     <div className='message_upd'>
                                 {

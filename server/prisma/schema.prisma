@@ -27,11 +27,6 @@ model Students {
   projectTasks ProjectTasks[]
 }
 
-
-// ВОПРОС НАСЧЕТ БОЛЬШОГО КОЛИЧЕСТВА ТАБЛИЦ ДЛЯ КАЖДОЙ ГРУППЫ (ЧАТ)
-// !!!ВОЗМОЖНО ПРИДЕТСЯ МЕНЯТЬ НА ОБЩУЮ ТАБЛИЦУ!!!
-
-// НЕ СТИРАТЬ: ПЕРЕДЕЛАТЬ ТИП НА СХЕМЕ В ДОКУМЕНТАЦИИ У ДАТЫ ТИП НА СТРОКУ Т.К. Я САМ НА СЕРВЕРЕ БУДУ ЕЕ ФОРМИРОВАТЬ  
 model GroupChatMessages {
   id_message  Int @default(autoincrement()) @id
   group Groups @relation(fields: [id_group], references: [id_group])
@@ -40,7 +35,7 @@ model GroupChatMessages {
   student Students @relation(fields: [id_creator], references: [id_student])
   id_creator Int
   full_name String
-  date DateTime?   @default(now())
+  date DateTime? @db.Timestamptz(6)   @default(now())
   updated Boolean @default(false)
 
   @@map("Group chat messages")

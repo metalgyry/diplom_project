@@ -473,9 +473,12 @@ h1.main_title {
 /*Проекты*/
 .title_project_list_page {
     display: flex;
-    width: 65vw;
+    width: 95vw;
     justify-content: space-between;
     margin: 10px;
+}
+.title_project_list_page .create_button {
+    margin-right: 30px;
 }
 .projects_list {
     display: flex;
@@ -977,6 +980,9 @@ h1.main_title {
     .title_project_list_page {
         margin: 5px;
         width: 80vw;
+    }
+    .title_project_list_page .create_button {
+        margin-right: 0px;
     }
     .projects .project_data {
         width: 90vw;
