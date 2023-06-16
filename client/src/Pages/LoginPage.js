@@ -35,7 +35,11 @@ export default function LoginPage() {
 
     try {
       // возможно нужно использовать form, но это потом
-      const response = await signin(login, password);
+
+      let curPassword = password;
+      setPassword("");
+
+      const response = await signin(login, curPassword);
       console.log(response.data);
       if (response.status === 200) {
         localStorage.setItem("accessToken", response.data.accessToken);
