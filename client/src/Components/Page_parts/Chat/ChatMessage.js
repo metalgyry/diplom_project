@@ -16,7 +16,7 @@ export default function ChatMessage({message, updateMethod, deleteMethod, isMyMe
                         isMyMessage ? 
                             <></>
                         :
-                            `${arrayName[0]} ${arrayName[1][0]}. ${arrayName[2][0]}.`
+                            `${arrayName[1]} ${arrayName[0]}`
                     }
                 </div>
                 <div className='message_info'>
