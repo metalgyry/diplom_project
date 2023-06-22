@@ -1,5 +1,5 @@
 import React from 'react'
-import TaskData from './TaskData'
+import TaskData from '../CoursesPage/TaskData'
 
 export default function TaskInSchedule({task}) {
   return (

@@ -1,9 +1,9 @@
 import { createTaskOrSubTask, deleteTaskOrSubTask, updateTaskOrSubTask } from '../http/userAPI';
 
-export const createNewTask = async (task, setArray, array, id_student, id_course, isTaskOrSubTask) => {
+export const createNewTask = async (task, setArray, array, id_course, isTaskOrSubTask) => {
     console.log("CREATE NEW Task");
     try {
-        let newTask = {...task, id_student: id_student};
+        let newTask = task;
         if(isTaskOrSubTask) {
             newTask = {...newTask, id_course: id_course}
         }
@@ -13,7 +13,7 @@ export const createNewTask = async (task, setArray, array, id_student, id_course
         if(response.status === 200) {
             setArray([...array, response.data]);
         }else {
-            alert("Не удалось создать задачу!"); // измениить вывод из response ошибки по моему стандарту
+            alert("Не удалось создать задачу!");
         }
     } catch (error) {
         alert("Ошибка: " + error.response.data.error);
@@ -45,7 +45,7 @@ export const updateCurrentTask = async (changeTask, setArray, array, isTaskOrSub
             }
             
         }else {
-            alert("Не удалось изменить задачу!"); // измениить вывод из response ошибки по моему стандарту
+            alert("Не удалось изменить задачу!");
         }
     } catch (error) {
         alert("Ошибка: " + error.response.data.error);
@@ -66,7 +66,7 @@ export const deleteCurrentTask = async (id, setArray, array, isTaskOrSubTask) =>
                 setArray(array.filter(subtask => subtask.id_subtask != id));
             }
         }else {
-            alert("Не удалось удалить задачу!"); // измениить вывод из response ошибки по моему стандарту
+            alert("Не удалось удалить задачу!");
         }
     } catch (error) {
         alert("Ошибка: " + error.response.data.error);

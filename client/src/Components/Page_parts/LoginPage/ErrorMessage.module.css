@@ -1,8 +1,11 @@
 .error_message {
-    font-size: 30px;
+    font-size: 24px;
+    padding: 5px;
+    font-weight: bolder;
     color: crimson;
 }
 
 .error_message_border {
     border: 2px solid black;
+    border-radius: 16px;
 }

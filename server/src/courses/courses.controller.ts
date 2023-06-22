@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
-import { Courses, Prisma, SubTasks, Tasks } from '@prisma/client';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Courses } from '@prisma/client';
 import { AccessJwtAuthGuard } from '../auth/guards/auth.guard';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
@@ -13,7 +13,7 @@ export class CoursesController {
     @UseGuards(AccessJwtAuthGuard)
     @Get()
     async getCourses(@Req() req: Request): Promise<Courses[] | null> {
-      const courses = await this.coursesService.getCourses(req['user'].id_student);//, req['user'].id_group
+      const courses = await this.coursesService.getCourses(req['user'].id_student);
       return courses;
     }
 

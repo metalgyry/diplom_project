@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Project from '../Components/Page_parts/Project';
-import ProjectList from '../Components/Page_parts/ProjectList';
+import Project from '../Components/Page_parts/ProjectsPage/Project';
+import ProjectList from '../Components/Page_parts/ProjectsPage/ProjectList';
 
 export default function ProjectsPage() {
     const [isProjectSelected, setIsProjectSelected] = useState(false);

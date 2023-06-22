@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 let socket;
 
-export const useProjectTasks = (id_project) => {
+export const useProjectTasks = (id_project, projectStore) => {
     console.log('useProjectTasks(id_project): ',id_project);
 
   if (!socket) {
@@ -15,21 +15,13 @@ export const useProjectTasks = (id_project) => {
     });
   }
   
-  const [projectName, setProjectName] = useState('');
-  const [projectIdCreator, setProjectIdCreator] = useState(0);
-  const [projectStudents, setProjectStudents] = useState([]);
-  const [projectTasks, setProjectTasks] = useState([[]]);
-  //const [projectTasksQ, setProjectTasksQ] = useState([[]]);
-  
+  const [projectChange, setProjectChange] = useState(0);
 
   useEffect(() => {
     socket.connect();
-    console.log("session: ", projectTasks, projectStudents);
-
     socket.emit("projectInfoAndTasks:get");
 
     return () => {
-        // вроде как РАБОТАЕТ
         socket.offAny();
         socket.disconnect();
         socket = null;
@@ -38,96 +30,58 @@ export const useProjectTasks = (id_project) => {
 
   useEffect(() => {
     socket.on("projectInfo:get", (projectInfo) => {
-      console.log("projectInfo:get", projectTasks);
-      console.log(projectName);
-        setProjectName(projectInfo.name);
-        setProjectIdCreator(projectInfo.id_creator);
-        setProjectStudents(projectInfo.students);
+      console.log("projectInfo:get: ", projectInfo);
+
+      setProjectChange(projectChange => projectChange + 1);
+      projectStore.projectInfo = projectInfo;
     });
 
     socket.on("projectTasks:get", (projectListTasks) => {
       console.log("projectTasks:get: ", projectListTasks);
 
+      let projectTasks = projectListTasks.reverse();
       let array = [0,1,2,3];
       let newArray = array.map((element, index) => {
-        return projectListTasks.filter((task) => {
+        return projectTasks.filter((task) => {
           return task.status == index;
         });
       });
       console.log("newArray: ", newArray);
 
-      setProjectTasks(newArray);
+      setProjectChange(projectChange => projectChange + 1);
+      projectStore.projectTasks = newArray;
     });
 
     socket.on("projectTasks:post", (projectNewTask) => {
-      console.log('projectTasks: ', projectTasks);
       console.log('projectNewTask: ', projectNewTask);
 
-      const addTaskinArrayProject = projectTasks.map((arrayTasks, index) => {
-        if(index == projectNewTask.status){
-          return [...arrayTasks, projectNewTask];
-        }else {
-          return arrayTasks;
-        }
-      });
-      console.log("addTaskinArrayProject: ", addTaskinArrayProject);
-      setProjectTasks(addTaskinArrayProject);
+      setProjectChange(projectChange => projectChange + 1);
+      projectStore.addProjectTask(projectNewTask);
     });
 
     socket.on("projectTasks:patch", (projectUpdateTask) => {
       console.log("projectTasks:patch", projectUpdateTask);
-      
-      const updateContentTaskinArrayProject = projectTasks.map((arrayTasks, index) => {
-        if(projectUpdateTask.status == index) {
-          return arrayTasks.map((task) => {
-            if(task.id_task == projectUpdateTask.id_task) {
-              return {...task, content: projectUpdateTask.content,
-                  student_name: projectUpdateTask.student_name,
-                  // id_creator: projectUpdateTask.id_creator,
-              };
-            }else {
-              return task;
-            }
-          });
-        }else {
-          return arrayTasks;
-        }
-      });
-      console.log("updateContentTaskinArrayProject: ", updateContentTaskinArrayProject);
 
-      setProjectTasks();
+      setProjectChange(projectChange => projectChange + 1);
+      projectStore.updateProjectTask(projectUpdateTask);
+
     });
 
     socket.on("projectTasksStatus:patch", (projectUpdateTask) => {
+      console.log("projectTasksStatus:patch", projectUpdateTask);
 
-      // тут сперва удаление задачи с прошлым статусом
-      const newArray = projectTasks.map((arrayTasks) => {
-        return projectTasks.filter(task => task.id_task != projectUpdateTask.id_task);
-      });
-      // после вставка задачи с обновленным статусом
-      setProjectTasks(newArray.map((arrayTasks, index) => {
-        if(projectUpdateTask.status == index) {
-          return arrayTasks.map((task) => {
-            if(task.id_task == projectUpdateTask.id_task) {
-              return {...task, status: projectUpdateTask.status};
-            }else {
-              return task;
-            }
-          });
-        }else {
-          return arrayTasks;
-        }
-      }));
+      setProjectChange(projectChange => projectChange + 1);
+      projectStore.updateProjectTaskStatus(projectUpdateTask);
+
     });
 
     socket.on( "projectTasks:delete", (id) => {
-      console.log('ID_DELETE: ',id);
-      setProjectTasks(projectTasks.map((arrayTasks) => {
-        return projectTasks.filter(task => task.id_task != id);
-      }));
+      console.log('projectTasks:delete: ',id);
+
+      setProjectChange(projectChange => projectChange + 1);
+      projectStore.deleteProjectTask(id);
     });
   },[socket]);
-
 
 
   const addTask = useCallback((newTask) => {
@@ -157,5 +111,5 @@ export const useProjectTasks = (id_project) => {
     []
   );
 
-  return {projectName, projectIdCreator, projectTasks, projectStudents, projectTasksActions };
+  return { projectTasksActions };
 };

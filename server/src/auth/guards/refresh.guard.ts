@@ -15,25 +15,12 @@ export class RefreshJwtAuthGuard implements CanActivate {
         const cookie = req.headers.cookie;
         if(!cookie) {
             throw new UnauthorizedException({'message': 'Отсутствие Refresh токена!'});
-            //return false;
         }
         const fullRefreshToken = cookie.split('=');
         if(fullRefreshToken[0] !== 'refreshToken') {
             throw new UnauthorizedException({'message': 'Отсутствие RefreshToken токена(Не тот заголовок)!'});
         }
         const refreshToken = fullRefreshToken[1];
-        /*
-        let myToken: string;
-        for (let i = 0; i < accessToken.length; i++) {
-          const nameToken = accessToken[i].split('=')[0];
-          if(nameToken === 'authorization'){
-            myToken = accessToken[i];
-            break;
-          }
-        }
-        */
-        //console.log(accessToken);
-        //console.log(this.configService.get("ACCESS_KEY"));
 
         if (!refreshToken) {
             throw new UnauthorizedException({'message': 'Пользователь не авторизован(нет самого Refresh jwt токена)'});
@@ -48,10 +35,6 @@ export class RefreshJwtAuthGuard implements CanActivate {
         if(!user) {
             throw new UnauthorizedException({'message': 'Токен умер.'});
         }
-
-        //console.log('User:');
-        //console.log(user);
-        //console.log("________________________________");
 
         req.user = user;
         return true;

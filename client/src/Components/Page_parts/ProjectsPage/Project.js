@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useProjectTasks } from '../useProjectTasks'
-import '../../styles/all_style.css';
+import React, { useContext } from 'react'
+import { useProjectTasks } from '../../useProjectTasks'
+import '../../../styles/all_style.css';
 import ProjectColumn from './ProjectColumn';
+import { Context } from '../../../index';
 
 export default function Project({id_project, setIsProjectSelected}) {
-    const {projectName, projectIdCreator, projectStudents, projectTasks, projectTasksActions } = useProjectTasks(id_project);
+    const { projectStore } = useContext(Context);
+    const { projectTasksActions } = useProjectTasks(id_project, projectStore);
 
     const columnNames = ['Все задачи','Необходимо выполнить','В процессе','Выполнены'];
 
@@ -13,7 +15,7 @@ export default function Project({id_project, setIsProjectSelected}) {
         <div className='in_project_title'>
           <div className='in_project_header'>
             <span className='in_project_name'>
-              {`Проект: ${projectName }`} 
+              {`Проект: ${projectStore.projectInfo.name }`} 
             </span>
             <span className='in_project_exit_button_span'>
               <button type="button" className='in_project_exit_button' onClick={() => setIsProjectSelected(false)}>Выйти</button>
@@ -21,10 +23,10 @@ export default function Project({id_project, setIsProjectSelected}) {
           </div>
           <div className='in_project_list_students'>
             {'Участники: '}
-            {projectStudents.map((student, index) => {
+            {projectStore.projectInfo.students && projectStore.projectInfo.students.map((student, index) => {
               let arrayName = student.full_name.split(' ');
               let end = '';
-              if(index == (projectStudents.length - 1) ) {
+              if(index == (projectStore.projectInfo.students.length - 1) ) {
                 end = '.';
               }else {
                 end = '; ';
@@ -38,8 +40,8 @@ export default function Project({id_project, setIsProjectSelected}) {
         <div className='in_project_tasks_table'>
           {
             columnNames.map((column, index) => {
-              return <ProjectColumn key={column} columnStatus={index} columnNames={column} projectIdCreator={projectIdCreator}
-                  tasks={projectTasks[index] ? projectTasks[index] : []} projectTasksActions={projectTasksActions}/>
+              return <ProjectColumn key={column} columnStatus={index} columnNames={column} projectIdCreator={projectStore.projectInfo.id_creator}
+                  tasks={projectStore.projectTasks[index] ? projectStore.projectTasks[index] : []} projectTasksActions={projectTasksActions}/>
             })
           }
         </div>

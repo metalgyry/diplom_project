@@ -1,34 +1,35 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import Select from 'react-select'
-import { optionsSelect } from '../variables';
+import { optionsSelect } from '../../variables';
 
 export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTaskOrSubTask, isAddOrUpdate}) {
+    const cDate = new Date();
+    const minDate = `${cDate.getFullYear()}-${((cDate.getMonth()+1) < 10)?'0':''}${cDate.getMonth() + 1}-${(cDate.getDate() < 10)?'0':''}${cDate.getDate()}`;
     const [clickAddOrUpdateButton, setClickAddOrUpdateButton] = useState(false);
     const [submitButton, setSubmitButton] = useState(true);
     const [content, setContent] = useState(() => {return (isAddOrUpdate ? '' : task.content)});
-    const [date, setDate] = useState();//() => {return (isAddOrUpdate ? '' : task.date)}
+    const [date, setDate] = useState(isAddOrUpdate ? minDate : task.date);
     const [priority, setPriority] = useState(() => {return (isAddOrUpdate ? 2 : task.priority)});
     let textAddOrUpdateButton = '';
     let textCreateOrChangeButton = '';
 
-    useMemo( () => {
-        const currentDate = new Date();
-        const year = currentDate.getFullYear();
-        let month = String(currentDate.getMonth() + 1);
-        let day = String(currentDate.getDate());
-        if(month.length == 1){
-            month = `0${month}`;
-        }
-        if(day.length == 1){
-            day = `0${day}`;
-        }
-        //console.log(`${year}-${month}-${day}`);
-        if(isAddOrUpdate){
-            setDate(`${year}-${month}-${day}`);
-        }else {
-            setDate(task.date);
-        }
-    },[]);
+    // useMemo( () => {
+    //     const currentDate = new Date();
+    //     const year = currentDate.getFullYear();
+    //     let month = String(currentDate.getMonth() + 1);
+    //     let day = String(currentDate.getDate());
+    //     if(month.length == 1){
+    //         month = `0${month}`;
+    //     }
+    //     if(day.length == 1){
+    //         day = `0${day}`;
+    //     }
+    //     if(isAddOrUpdate){
+    //         setDate(`${year}-${month}-${day}`);
+    //     }else {
+    //         setDate(task.date);
+    //     }
+    // },[]);
 
     if(isAddOrUpdate) {
         textAddOrUpdateButton = "Создать";
@@ -78,8 +79,6 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
         cancelButton();
     }
 
-    //  <-----contenteditable='true'---->
-
     return (
         <div className={`add_or_update_${isTaskOrSubTask ? 'task' : 'subtask'}${isAddOrUpdate ? '_add' : '_update'}`}>
             {
@@ -92,7 +91,7 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
                             isTaskOrSubTask ?
                                 <>
                                     <label htmlFor="date">Выберите дату: </label>
-                                    <input value={date} type='date' id='date' min={date} max={''} className='task_date' required onChange={e => setDate(e.target.value)}/>
+                                    <input value={date} type='date' id='date' min={minDate} max={''} className='task_date' required onChange={e => setDate(e.target.value)}/>
                                 </>
                             :
                             ''
@@ -117,9 +116,4 @@ export default function AddOrUpdateTask({task, setIsUpdating, methodTask, isTask
             }
         </div>
     )
-    // <select size="1" name="priority"> // не доделан до активного элемента onChange...
-    //     <option value={1}>Низкий</option>
-    //     <option selected value={2}>Обычный</option>
-    //     <option value={3}>Высокий</option>
-    // </select>
 }

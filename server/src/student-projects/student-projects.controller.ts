@@ -26,8 +26,8 @@ export class StudentProjectsController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Get('/list-students/:id')
-    async getListStudentsInGroupProject(@Param('id') id: string) {//, @Req() req: Request
-        const listStudents = await this.studentProjectsService.getListStudentsInGroupProject(id);//, req['user'].id_student
+    async getListStudentsInGroupProject(@Param('id') id: string) {
+        const listStudents = await this.studentProjectsService.getListStudentsInGroupProject(id);
         return listStudents;
     }1
 

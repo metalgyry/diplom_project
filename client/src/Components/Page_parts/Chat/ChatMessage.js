@@ -2,9 +2,6 @@ import React from 'react'
 import DeleteButton from '../DeleteButton';
 
 export default function ChatMessage({message, updateMethod, deleteMethod, isMyMessage}) {
-    // console.log(message);
-    // console.log(isMyMessage);
-
     let arrayName = message.full_name.split(' ');
     let date = new Date(message.date);
 
@@ -36,10 +33,10 @@ export default function ChatMessage({message, updateMethod, deleteMethod, isMyMe
                     </div>
                     <div className='message_t_d'>
                         <div className='message_time'>
-                            {`${date.getHours()}:${date.getMinutes()}`}
+                            {`${(date.getHours() < 10)?"0":""}${date.getHours()}:${(date.getMinutes() < 10)?"0":""}${date.getMinutes()}`}
                         </div>
                         <div className='message_date'>
-                            {`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}
+                            {`${date.getFullYear()}.${((date.getMonth()+1) < 10)?"0":""}${date.getMonth()+1}.${(date.getDate() < 10)?"0":""}${date.getDate()}`}
                         </div>
                     </div>
                     <div className='message_upd'>

@@ -24,35 +24,18 @@ export class AuthController {
         const userData = await this.authService.login(userAuth);
         const tokens = await this.authService.generateToken(userData);
         res.cookie('refreshToken', tokens.refresh_token, {maxAge: this.configService.get("REFRESH_KEY_TIME"), httpOnly: true});
-        //res.setHeader('Set-Cookie', jwtToken);
         const user = new userDto(userData);
         res.json({accessToken: tokens.access_token, user});
     }
-    
-    // @HttpCode(HttpStatus.OK)
-    // @Get('/login')
-    // async logPage(@Res() res: Response, @Req() req: Request) {
-    //     console.log(req.headers.cookie);
-    //     const moreHeader = req.headers['authorization'].split(' ')[1];
-    //     console.log(moreHeader);
-    //     res.end();
-    // }
 
     @UseGuards(RefreshJwtAuthGuard)
     @Get('/refresh')
     async refresh(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
         console.log(req['user']);
-        console.log('____________________________');
         const tokens = await this.authService.generateToken(req['user']);
         res.cookie('refreshToken', tokens.refresh_token, {maxAge: this.configService.get("REFRESH_KEY_TIME"), httpOnly: true});
         res.json({accessToken: tokens.access_token});
     }
-
-    // @UseGuards(AccessJwtAuthGuard)
-    // @Get('/tasks')
-    // async getTasks(@Req() req: Request){
-    //     return {message: "tasks page!"};
-    // }
 
     @HttpCode(HttpStatus.OK)
     @Get('/logout')

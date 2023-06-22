@@ -42,8 +42,6 @@ export default function AddOrUpdateProjectTask({task, idCreator, nameCreator, se
         cancelButton();
     }
 
-    //  <-----contenteditable='true'---->
-
     return (
         <div className='add_or_update_project_task'>
             {

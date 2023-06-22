@@ -14,8 +14,6 @@ import { ProjectTasksService } from "./project-tasks.service";
 import { ProjectsService } from "src/projects/projects.service";
 import { Prisma } from "@prisma/client";
 
-//const users: Record<string, string> = {};
-
 @WebSocketGateway(Number(process.env.SERVER_SOCKET_PROJECT_PORT), {
   cors: {
     origin: `${process.env.CLIENT_URL}${process.env.CLIENT_PORT}`,
@@ -34,13 +32,6 @@ export class ProjectTasksGateway
 
   private getProjectInfo = async (client: Socket): Promise<string> => {
     const idProject = client.handshake.auth.id_group_project;
-    const projectInfo = await this.projectsService.oneProjectAndIncludeOther(Number(idProject));
-    this.server.in(idProject).emit("projectInfo:get", projectInfo);
-
-    const projectTasks = await this.projectTasksService.allProjectTasks(Number(idProject));
-    this.server.in(idProject).emit("projectTasks:get", projectTasks);
-
-    //throw new WsException('Ошибка при получении задач проекта!');
     return String(idProject);
   };
 
@@ -48,36 +39,38 @@ export class ProjectTasksGateway
   async handleProjectInfoAndTasksGet(@ConnectedSocket() client: Socket): Promise<void> {
     const idProject = await this.getProjectInfo(client);
     console.log('ID: ', idProject);
-    // const projectTasks = await this.projectTasksService.allProjectTasks(Number(idProject));
-    // this.server.in(idProject).emit("projectTasks:get", projectTasks);
+    const projectInfo = await this.projectsService.oneProjectAndIncludeOther(Number(idProject));
+    this.server.in(idProject).emit("projectInfo:get", projectInfo);
+    const projectTasks = await this.projectTasksService.allProjectTasks(Number(idProject));
+    this.server.in(idProject).emit("projectTasks:get", projectTasks);
   }
 
   @SubscribeMessage("projectTasks:post")
   async handleProjectTaskPost(@MessageBody() task: Prisma.ProjectTasksCreateManyInput, @ConnectedSocket() client: Socket ): Promise<void> {
       const projectNewTask = await this.projectTasksService.createProjectTask(task);
       const idProject = await this.getProjectInfo(client);
-      // this.server.in(idProject).emit("projectTasks:post", projectNewTask);
+      this.server.in(idProject).emit("projectTasks:post", projectNewTask);
   }
 
   @SubscribeMessage("projectTasks:patch")
   async handleProjectTaskPatch(@MessageBody() task: Prisma.ProjectTasksUncheckedUpdateWithoutProjectInput, @ConnectedSocket() client: Socket ): Promise<void> {
     const projectUpdateTask = await this.projectTasksService.updateProjectTask(task);
     const idProject = await this.getProjectInfo(client);
-    // this.server.in(idProject).emit("projectTasks:patch", projectUpdateTask);
+    this.server.in(idProject).emit("projectTasks:patch", projectUpdateTask);
   }
 
   @SubscribeMessage("projectTasksStatus:patch")
   async handleProjectTaskStatusPatch(@MessageBody() task: Prisma.ProjectTasksUncheckedUpdateWithoutProjectInput, @ConnectedSocket() client: Socket ): Promise<void> {
     const projectUpdateTaskStatus = await this.projectTasksService.updateProjectTaskStatus(task);
     const idProject = await this.getProjectInfo(client);
-    // this.server.in(idProject).emit("projectTasksStatus:patch", projectUpdateTaskStatus);
+    this.server.in(idProject).emit("projectTasksStatus:patch", projectUpdateTaskStatus);
   }
 
   @SubscribeMessage("projectTasks:delete")
   async handleMessageDelete(@MessageBody() id_task: number, @ConnectedSocket() client: Socket ): Promise<void>  {
     const projectDeleteTask = await this.projectTasksService.deleteProjectTask(id_task);
     const idProject = await this.getProjectInfo(client);
-    // this.server.in(idProject).emit("projectTasks:delete", projectDeleteTask);
+    this.server.in(idProject).emit("projectTasks:delete", projectDeleteTask);
   }
 
   afterInit(server: Server) {
@@ -92,22 +85,11 @@ export class ProjectTasksGateway
       console.log("ID(disconnecting): ", id_project);
       client.leave(String(id_project));
     });
-    
-    // const userName = client.handshake.query.userName as string;
-    // const socketId = client.id;
-    // users[socketId] = userName;
-
-    // client.broadcast.emit("log", `${userName} connected`);
   }
 
   handleDisconnect(@ConnectedSocket() client: Socket) {
     const id_project = client.handshake.auth.id_group_project;
     console.log("ID(handleDisconnect): ", id_project);
     client.leave(String(id_project));
-    // const socketId = client.id;
-    // const userName = users[socketId];
-    // delete users[socketId];
-
-    // client.broadcast.emit("log", `${userName} disconnected`);
   }
 }

@@ -9,7 +9,7 @@ export default function DeleteButton({textButton, deleteMethod, id}) {
             setIsConfirmedDeleteButton(false);
         }, 3000);
     };
-//<button type='button' className='delete_project_button' onClick={clickDeleteButton}>{textButton}</button>
+
     return (
         <div className='delete_button_component'>
             {

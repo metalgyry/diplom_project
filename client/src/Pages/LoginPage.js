@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Context } from '../index';
-import ErrorMessage from '../Components/Page_parts/ErrorMessage';
+import ErrorMessage from '../Components/Page_parts/LoginPage/ErrorMessage';
 import { regPassword, regLogin } from '../Components/regular';
 import { signin } from '../http/userAPI';
 import '../styles/all_style.css';
@@ -9,11 +9,6 @@ import '../styles/all_style.css';
 export default function LoginPage() {
   const navigate = useNavigate();
   const { userStore } = useContext(Context)
-  /*
-  if( localStorage.getItem("token") ) {
-    router.push("/main");
-  }
-  */
   const regexLog = regLogin;
   const regexPassword = regPassword;
   const [submitButton, setSubmitButton] = useState(true);
@@ -34,8 +29,6 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      // возможно нужно использовать form, но это потом
-
       let curPassword = password;
       setPassword("");
 

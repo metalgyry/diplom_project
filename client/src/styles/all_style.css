@@ -61,9 +61,6 @@ h1.main_title {
 }
 
 .header_page {
-    /* position: fixed;
-    right: 0px;
-    left: 0px; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -71,10 +68,6 @@ h1.main_title {
     padding: 10px 10px 10px 10px;
     margin: -10px -8px 0px -10px;
     background-color: lightsteelblue;
-}
-
-.navigation {
-
 }
 
 .action {
@@ -250,9 +243,6 @@ h1.main_title {
     white-space: pre-wrap;
     margin-bottom: 10px;
 }
-.task_date {
-    
-}
 .task_change_buttons {
     display: none;
 }
@@ -323,12 +313,6 @@ h1.main_title {
 }
 .add_or_update_task_update {
     display: block;
-}
-.add_or_update_subtask_add {
-
-}
-.add_or_update_subtask_update {
-
 }
 .add_update_window_task_add {
     background-color: antiquewhite;
@@ -486,9 +470,6 @@ h1.main_title {
     flex-direction: row;
     justify-content: center;
 }
-.project {
-
-}
 .project_data {
     width: 30vw;
     margin: 5px 0px 5px 5px;
@@ -613,9 +594,6 @@ h1.main_title {
 .in_project_exit_button_span {
     margin-right: 30px;
 }
-.in_project_list_students {
-    
-}
 .in_project_exit_button {
     height: fit-content;
     border: 2px solid;
@@ -640,9 +618,6 @@ h1.main_title {
     justify-content: center;
     margin-bottom: 10px;
     font-size: 20px;
-}
-.project_column_tasks {
-    
 }
 .column_task {
     display: flex;
@@ -691,9 +666,6 @@ h1.main_title {
     width: 100%;
     display: grid;
 }
-.project_task_inform {
-
-}
 .project_task_buttons {
     display: flex;
     justify-content: space-around;
@@ -740,19 +712,6 @@ h1.main_title {
     max-width: 60vw;
     background-color: #f1c987;
 }
-/*
-.tongue_chat:hover .title_tongue_chat {
-    opacity: 1;
-    width: 100px;
-}
-.title_tongue_chat {
-    white-space: nowrap;
-    opacity: 0;
-    width: 0px;
-    height: 0px;
-    transition: all 1s ease;
-}
-*/
 .chat_header {
     display: flex;
     height: 7vh;
@@ -857,19 +816,11 @@ h1.main_title {
     justify-content: end;
     justify-items: end;
 }
-.message_time {
-
-}
-.message_date {
-    
-}
 .message_upd {
     font-size: 12px;
     display: flex;
     justify-content: left;
 }
-
-
 
 /* кнопка удаления и изменения */
 .delete_button {
@@ -899,7 +850,7 @@ h1.main_title {
     background-image: url(../icons/Edit.png);
     background-size: cover;
 }
-/* CSS для смартфона с шириной меньше 500(почему так хз) */
+/* CSS для смартфона с шириной меньше 600 */
 @media (max-width: 600px) {
     /* Панель навигации */
     .navigation {
@@ -1007,14 +958,11 @@ h1.main_title {
     .in_project_name {
         width: 60vw;
     }
-
     /* Чат */
     .chat_window {
         width: 100vw;
         max-width: 100vw;
     }
-
-    
 }
 /* При экране меньше 700 пикселей */
 @media (max-width: 700px) {

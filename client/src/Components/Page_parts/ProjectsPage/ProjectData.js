@@ -1,5 +1,5 @@
 import React from 'react'
-import DeleteButton from './DeleteButton';
+import DeleteButton from '../DeleteButton';
 import ProjectExitButton from './ProjectExitButton';
 
 export default function ProjectData({project, selectProject, setIsUpdating, isMyProject, deleteProject, exitProject}) {

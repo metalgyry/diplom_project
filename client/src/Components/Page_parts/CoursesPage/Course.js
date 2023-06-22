@@ -1,19 +1,19 @@
-import React, { useContext, useState } from 'react'
-import { Context } from '../../index';
-import { createNewTask, updateCurrentTask, deleteCurrentTask } from '../methodTask';
+import React, { useState } from 'react'
+// import { Context } from '../../../index';
+import { createNewTask, updateCurrentTask, deleteCurrentTask } from '../../methodTask';
 import AddOrUpdateCourse from './AddOrUpdateCourse';
 import AddOrUpdateTask from './AddOrUpdateTask'
-import DeleteButton from './DeleteButton';
+import DeleteButton from '../DeleteButton';
 import Task from './Task';
 
 export default function Course({course, updateCourse, deleteCourse}) {
-    const { userStore } = useContext(Context)
+    // const { userStore } = useContext(Context)
     const [arrayTasks, setArrayTasks] = useState(course.tasks);
     const [isUpdating, setIsUpdating] = useState(false);
     let textDeleteButton = 'Удалить';
 
     const methodCreateNewTask = (task) => {
-        createNewTask(task, setArrayTasks, arrayTasks, userStore.user.id_student, course.id_course, true);
+        createNewTask(task, setArrayTasks, arrayTasks, course.id_course, true);
     };
 
     const methodUpdateCurrentTask = (changeTask) => {

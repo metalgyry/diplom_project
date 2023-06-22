@@ -27,7 +27,6 @@ $authHost.interceptors.response.use((config) => {
             return $authHost.request(error.config);
         }catch (e) {
             if(e.response.status === 401) {
-                //alert("Ошибка: пользователь не авторизован!");
                 await $authHost.get("/auth/logout");
                 localStorage.clear();
                 return window.location.href = `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_CLIENT_PORT}/login`;

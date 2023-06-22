@@ -67,7 +67,6 @@ export class GroupChatMessagesService {
     
       async deleteGroupChatMessage(id: number): Promise<number> {
         try {
-            // В СОКЕТАХ я жду что при удалении мне вернется id удаленного сообщения (оставил deleteMany, может буду проверять кто удалил)
             const deletegroupChatMessageCount = await this.prisma.groupChatMessages.deleteMany({
                 where: { id_message: Number(id) },
             });

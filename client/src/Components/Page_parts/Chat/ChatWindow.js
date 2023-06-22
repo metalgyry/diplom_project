@@ -8,24 +8,20 @@ import { Context } from '../../../index';
 export default function ChatWindow({setIsOpenChat}) {
     const { userStore, chatStore } = useContext(Context);
     const [isAddOrUpdateMessage, setIsAddOrUpdateMessage] = useState(true);
-    // const [isLoadingChat, setIsLoadingChat] = useState(false);
-    //const [updatingMessage, setUpdatingMessage] = useState({});
     const [nameGroup, setNameGroup] = useState('');
 
-    const {groupChatMessages, groupChatMessagesActions} = useGroupChat(userStore.user.id_group, chatStore)
+    const { groupChatMessagesActions } = useGroupChat(userStore.user.id_group, userStore.user.id_student, chatStore)
 
     const getNameGroup = async () => {
         try {
             const response = await groupName();
             if(response.status === 200) {
               const data = response.data;
-              console.log(data);
               setNameGroup(data.name);
             } else {
               alert("Ошибка: " + response.data.error);
             }
           } catch (error) {
-            console.log(error.response.data.error);
             alert("Ошибка: " + error.response.data.error);
           }
     };
@@ -47,13 +43,11 @@ export default function ChatWindow({setIsOpenChat}) {
 
     const updateMessage = (message) => {
         chatStore.updatingMessage = message;
-        // setUpdatingMessage(message);
         setIsAddOrUpdateMessage(false);
     };
 
     const messageIsUpdated = () => {
         chatStore.updatingMessage = {};
-        // setUpdatingMessage({});
         setIsAddOrUpdateMessage(true);
     };
     

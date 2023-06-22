@@ -21,7 +21,6 @@ import { GroupChatMessagesModule } from './group-chat-messages/group-chat-messag
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            //envFilePath: "../.env",
         }),
         UsersModule,
         AuthModule,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import AddOrUpdateProjectTask from './AddOrUpdateProjectTask'
-import DeleteButton from './DeleteButton';
+import DeleteButton from '../DeleteButton';
 
 export default function ProjectTask({task, projectIdCreator, idStudent, projectTasksActions}) {
     const [isUpdating, setIsUpdating] = useState(false);

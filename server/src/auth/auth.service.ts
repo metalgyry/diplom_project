@@ -60,16 +60,6 @@ export class AuthService {
                 { cause: error }
             );
         }
-        /*
-        if(!userWithPass){
-            throw new UnauthorizedException({message: 'Пользователя с таким логином не существует!'})
-        }
-        // тут может быть bcrypt() и тогда и в регистрации(если она будет)
-        if (userData.password != userWithPass.password) {
-        throw new UnauthorizedException({message: 'Неверный пароль!'});
-        }
-        return userWithPass;
-        */
     }
 
     async login(userData: loginDto): Promise<Students> {

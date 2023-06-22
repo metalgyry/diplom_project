@@ -8,13 +8,13 @@ import { SubTasksService } from './subtasks.service';
 export class SubTasksController {
     constructor(private subTasksService: SubTasksService ) {}
 
-    @HttpCode(HttpStatus.OK)
-    @UseGuards(AccessJwtAuthGuard)
-    @Get('/all')
-    async getSubTasks(@Req() req: Request) {
-      const subTasks = await this.subTasksService.allSubTasks(req['user'].id_student);
-      return subTasks;
-    }
+    // @HttpCode(HttpStatus.OK)
+    // @UseGuards(AccessJwtAuthGuard)
+    // @Get('/all')
+    // async getSubTasks(@Req() req: Request) {
+    //   const subTasks = await this.subTasksService.allSubTasks(req['user'].id_student);
+    //   return subTasks;
+    // }
 
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
@@ -27,7 +27,7 @@ export class SubTasksController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Patch('/update')
-    async updateOneSubTask(@Body() subTaskDto: UpdateSubTaskDto) {// @Param('id') id: string,
+    async updateOneSubTask(@Body() subTaskDto: UpdateSubTaskDto) {
         const SubTask = await this.subTasksService.updateSubTask(subTaskDto);
         return SubTask;
     }
@@ -36,8 +36,8 @@ export class SubTasksController {
     @UseGuards(AccessJwtAuthGuard)
     @Delete('/delete/:id')
     async deleteOneSubTask(@Param('id') id: string, @Req() req: Request) {
-        const deleteSubTaskCount = await this.subTasksService.deleteSubTask(id, req['user'].id_student);
-        return deleteSubTaskCount;
+        const deleteSubTask = await this.subTasksService.deleteSubTask(id, req['user'].id_student);
+        return deleteSubTask;
     }
 
 }

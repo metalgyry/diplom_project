@@ -9,16 +9,11 @@ export class GroupsService {
         try {
             const groupStudents = await this.prisma.groups.findUnique({
               where: { id_group: id_group },
-              //select: { students: true },
               include: { students: {
                 select: { id_student: true, full_name: true},
               } },
             });
-            // Возможно придется поменять на то что закомменчено
             const students = groupStudents.students;
-            // const students = groupStudents.students.map((student) => {
-            //   return { id_student: student.id_student, full_name: student.full_name};
-            // });
             console.log(students);
             return students;
           } catch (error) {

@@ -27,7 +27,7 @@ export class ProjectsController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Patch('/update')
-    async updateOneProjects(@Body() taskDto: UpdateProjectDto) {// @Param('id') id: string,
+    async updateOneProjects(@Body() taskDto: UpdateProjectDto) {
         const project = await this.projectsService.updateProject(taskDto);
         return project;
     }

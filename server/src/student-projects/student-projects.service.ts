@@ -9,7 +9,7 @@ export class StudentProjectsService {
     
     async exitStudentProject(id: string, id_student: number): Promise<Prisma.BatchPayload> {
         try {
-            const exitProject = await this.prisma.studentProject.deleteMany({
+            const exitProject = await this.prisma.studentProjects.deleteMany({
                 where: { id_group_project: Number(id), id_student: id_student },
             })
             return exitProject;
@@ -27,7 +27,7 @@ export class StudentProjectsService {
     
     async getListStudentsInGroupProject(id_project: string): Promise<{id_student: number, full_name: string}[] | null> {
         try {
-            const listStudents = await this.prisma.studentProject.findMany({
+            const listStudents = await this.prisma.studentProjects.findMany({
                 where: { id_group_project: Number(id_project) },
                 select: {id_student: true},
             })
@@ -55,7 +55,7 @@ export class StudentProjectsService {
     async updateStudentInGroupProject(dataUpdateStudentsProject: UpdateListStudentsDto): Promise<Prisma.BatchPayload> {
         try {
             console.log(dataUpdateStudentsProject);
-            const deleteStudentsProjectCount = await this.prisma.studentProject.deleteMany({
+            const deleteStudentsProjectCount = await this.prisma.studentProjects.deleteMany({
                 where: { id_group_project: dataUpdateStudentsProject.id_group_project},
             });
             console.log(deleteStudentsProjectCount);
@@ -64,7 +64,7 @@ export class StudentProjectsService {
                 return { id_group_project: dataUpdateStudentsProject.id_group_project, id_student: id_student };
             });
 
-            const updateStudentsProjectCount = await this.prisma.studentProject.createMany({
+            const updateStudentsProjectCount = await this.prisma.studentProjects.createMany({
                 data: listStudent,
             });
             return updateStudentsProjectCount;

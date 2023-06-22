@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import Select from 'react-select';
-import TaskInSchedule from '../Components/Page_parts/TaskInSchedule';
+import TaskInSchedule from '../Components/Page_parts/SchedulePage/TaskInSchedule';
 import { periodsSelect, statusOrDateSortTaskSelect, statusOrDateSortSubTaskSelect } from '../Components/variables';
 import { getCoursesAndTasks } from '../http/userAPI';
 
@@ -49,36 +49,18 @@ export default function SchedulePage() {
         
     };
 
-    // const changeSortTasks = (sortFunction) => {
-    //     setPeriodTasks(periodTasks.sort(sortFunction));
-    // };
-
-    // useEffect(() =>{
-        
-    // },[sortTaskType]);
-
-    // const changeSortSubTasks = (sortFunction) => {
-    //     setPeriodTasks(periodTasks.map((task) => {
-    //         return {...task, subTasks: task.subTasks.sort(sortFunction)};
-    //     }));
-    // };
-
     useEffect(() =>{
         console.log("date");
         const date = new Date();
         let startDate = date.setHours(0, 0, 0, 0);
         let endDate = date.setHours(0, 0, 0, 0);
         switch (period) {
-            // case 0:// Сегодня
-            //     startDate = date;
-            //     endDate = date;
-            //     break;
             case 1:// Завтра
                 startDate += (24*3600*1000);
                 endDate += (24*3600*1000);
                 break;
             case 2:// Неделя
-                endDate += (6*24*3600*1000); // 6 т.к. укитывается и сегодняшний день
+                endDate += (6*24*3600*1000); // 6 т.к. учитывается и сегодняшний день
                 break;
             case 3:// До конца текущей недели
                 let week = 7;
@@ -127,11 +109,9 @@ export default function SchedulePage() {
         }
         console.log(periodArrayTasks);
         let newArrayTasks = periodArrayTasks.sort(sortFunction);
-        //setPeriodTasks(newArrayTasks);
 
         console.log("sortSub");
         console.log(sortSubTaskType);
-        //let sortFunction;
         switch (sortSubTaskType) {
             case 0:// Статус(По возрастанию)
                 sortFunction = (a, b) => a.priority <= b.priority ? 1 : -1;
@@ -147,9 +127,7 @@ export default function SchedulePage() {
         setPeriodTasks(newArrayTasks.map((task) => {
             return {...task, subTasks: task.subTasks.sort(sortFunction)};
         }));
-    },[period, sortTaskType, sortSubTaskType]);
-
-    // .css-1fdsijx-ValueContainer { text-align: center } ---> Чтобы оцентровать текст внутри <Select/>    
+    },[period, sortTaskType, sortSubTaskType]);   
 
     return (
         <div className='schedule_page'>

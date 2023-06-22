@@ -7,7 +7,6 @@ export class ProjectTasksService {
     constructor(private prisma: PrismaService) {}
 
     async allProjectTasks(id_group_project: number): Promise<ProjectTasks[] | null> {
-        // у нас может и не быть задач
         try {
             const projectTasks = await this.prisma.projectTasks.findMany({
                 where: {id_group_project: id_group_project },
@@ -45,14 +44,9 @@ export class ProjectTasksService {
 
     async updateProjectTask(dataProjectTask: Prisma.ProjectTasksUncheckedUpdateWithoutProjectInput): Promise<ProjectTasks> {
         try {
-            // НЕ могу использовать Prisma.ProjectTasksUpdateInput т.к. нет возможности
-            //      воспользоваться полем id_task чтобы определить удаляемую задачу
-            // поэтому воспользовался Prisma.ProjectTasksUncheckedUpdateManyWithoutTasksInput с Number(id_task)
             const projectTask = await this.prisma.projectTasks.update({
                 data: {
                     content: dataProjectTask.content,
-                    //creator_name: dataProjectTask.creator_name,
-                    //id_creator: dataProjectTask.id_creator,
                 },
                 where: { id_task: Number(dataProjectTask.id_task) },
             });
@@ -71,9 +65,6 @@ export class ProjectTasksService {
 
       async updateProjectTaskStatus(dataProjectTask: Prisma.ProjectTasksUncheckedUpdateWithoutProjectInput): Promise<ProjectTasks> {
         try {
-            // НЕ могу использовать Prisma.ProjectTasksUpdateInput т.к. нет возможности
-            //      воспользоваться полем id_task чтобы определить удаляемую задачу
-            // поэтому воспользовался Prisma.ProjectTasksUncheckedUpdateManyWithoutTasksInput с Number(id_task)
             const projectTask = await this.prisma.projectTasks.update({
                 data: {
                     status: dataProjectTask.status,
@@ -95,7 +86,6 @@ export class ProjectTasksService {
     
       async deleteProjectTask(id: number): Promise<number> {
         try {
-            // В СОКЕТАХ я жду что при удалении мне вернется id удаленной задачи (оставил deleteMany, может буду проверять кто удалил)
             const deleteProjectTaskCount = await this.prisma.projectTasks.deleteMany({
                 where: { id_task: Number(id) },
             });

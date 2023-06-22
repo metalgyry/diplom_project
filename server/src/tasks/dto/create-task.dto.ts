@@ -3,6 +3,6 @@ export class CreateTaskDto {
     content: string
     date: string
     priority: number
-    id_student: number
+    // id_student: number
     id_course: number
 }

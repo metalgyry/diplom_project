@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { allProjects, createProject, deleteProject, exitStudentProject, updateProject } from '../../http/userAPI';
-import { Context } from '../../index';
+import { allProjects, createProject, deleteProject, exitStudentProject, updateProject } from '../../../http/userAPI';
+import { Context } from '../../../index';
 import AddOrUpdateProject from './AddOrUpdateProject';
 import ProjectItem from './ProjectItem';
 
@@ -38,7 +38,6 @@ export default function ProjectList({setSelectProject}) {
     const methodCreateProject = async (project) => {
       console.log("CREATE NEW Project");
       try {
-          //let newProject = {...project, id_creator: userStore.user.id_student};
           console.log(project);
           const response = await createProject(project);
           console.log(response.data);
@@ -46,7 +45,7 @@ export default function ProjectList({setSelectProject}) {
             setArrayProjects([response.data, ...arrayProjects]);
             setIsEmptyListProjects(false);
           }else {
-              alert("Не удалось создать проект!"); // измениить вывод из response ошибки по моему стандарту
+              alert("Не удалось создать проект!");
           }
       } catch (error) {
           alert("Ошибка: " + error.response.data.error);
@@ -101,19 +100,12 @@ export default function ProjectList({setSelectProject}) {
           if(response.status === 200) {
             setArrayProjects(arrayProjects.filter(project => project.id_group_project != id));
           }else {
-              alert("Не удалось выйти из проекта!"); // измениить вывод из response ошибки по моему стандарту
+              alert("Не удалось выйти из проекта!");
           }
       } catch (error) {
           alert("Ошибка: " + error.response.data.error);
       }
     };
-
-    // TODO: сделать только подумать сперва т.к. придется также сделать функционал добавления ДО заполнения новых студентов и также
-    // метод (наверно сделать) исключения студента создателем проекта
-    //
-    // сделать кнопку выйти из проекта с последующим окном подтверждения, также
-    //  сделать это и на сервере
-    // ВЫЙТИ МОЖЕТ ТОЛЬКО !!! ____НЕ____ СОЗДАТЕЛЬ!!!
     
     return (
       <div className='projects'>

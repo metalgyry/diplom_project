@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { allGroupStudents, allStudentsInGroupProject } from '../../http/userAPI';
+import { allGroupStudents, allStudentsInGroupProject } from '../../../http/userAPI';
 import Select from 'react-select';
-import '../../styles/all_style.css';
+import '../../../styles/all_style.css';
 import StudentListData from './StudentListData';
 
 export default function AddProject({id_creator, name_creator, modifiedProject, setIsCreatingOrUpdating, methodProject, isAddOrUpdate}) {
     const [groupStudents, setGroupStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [currentStudent, setCurrentStudent] = useState(null);
-    //
     const [submitButton, setSubmitButton] = useState(true);
     const [submitStudentButton, setSubmitStudentButton] = useState(false);
     const [projectName, setProjectName] = useState(isAddOrUpdate ? '' : modifiedProject.name);
@@ -38,8 +37,6 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
                 let selectStudents = data.map((student) => {
                     return {value: student.id_student, label: student.full_name};
                 });
-                // let selectStudents = students.filter(student => student.value != id_creator);
-                // console.log(selectStudents);
 
                 let listSelectedStudents = [{value: id_creator, label: name_creator}];
                 if(!isAddOrUpdate) {
@@ -49,7 +46,7 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
                         return {value: student.id_student, label: student.full_name}
                     });
                     if(response.status === 200) {
-                        setSelectedStudents(listSelectedStudents);//[...selectedStudents, listStudents]
+                        setSelectedStudents(listSelectedStudents);
                     } else {
                         alert("Ошибка: " + response.data.error);
                         setIsCreatingOrUpdating(false);
@@ -71,30 +68,22 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
           alert("Ошибка: " + error.response.data.error);
           setIsCreatingOrUpdating(false);
         }
-      };
+    };
 
-    //   const listStudentInProject = async () => {
-        
-    //   } 
-
-    //   useEffect( () => {
-    //     listStudentInProject();
-    //   }, []);
-
-      useEffect( () => {
+    useEffect( () => {
         if(isAddOrUpdate) {
             setSelectedStudents([{value: id_creator, label: name_creator}]);
         }
         getGroupStudents();
-      }, []);
+    }, []);  
 
-      useEffect(() => {
+    useEffect(() => {
         if(selectedStudents.length > 0 && selectedStudents.length < 5) {
             setSubmitStudentButton(false);  
         }else {
             setSubmitStudentButton(true);
         }
-      }, [selectedStudents]);
+    }, [selectedStudents]);  
 
     useEffect(() => {
         if( projectName.length > 0 && selectedStudents.length >= 1 && selectedStudents.length < 6 ) {
@@ -115,12 +104,8 @@ export default function AddProject({id_creator, name_creator, modifiedProject, s
         }
         console.log(project);
         methodProject(project);
-        //setProjectName("");
-        // Вроде как все очищается т.к. при нажатии закрытия модального окна и после его открытия все поял чистые
         cancelButton();
     }
-
-    //  <-----contenteditable='true'---->
 
     return (
         <div className='add_project'>

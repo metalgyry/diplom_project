@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
-import AddOrUpdateCourse from '../Components/Page_parts/AddOrUpdateCourse';
-import Course from '../Components/Page_parts/Course';
+import AddOrUpdateCourse from '../Components/Page_parts/CoursesPage/AddOrUpdateCourse';
+import Course from '../Components/Page_parts/CoursesPage/Course';
 import { getCoursesAndTasks, createCourse, updateCourse, deleteCourse } from '../http/userAPI';
 import { Context } from '../index';
 

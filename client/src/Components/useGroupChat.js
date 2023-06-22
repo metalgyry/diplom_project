@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 let socket;
 
-export const useGroupChat = (id_group, chatStore) => {
+export const useGroupChat = (id_group, id_student, chatStore) => {
     console.log('groupChatMessages(id_group): ',id_group);
 
   if (!socket) {
@@ -15,7 +15,7 @@ export const useGroupChat = (id_group, chatStore) => {
     });
   }
 
-  const [groupChatMessages, setGroupChatMessages] = useState([]);  
+  const [chatChange, setChatChange] = useState(0);
 
   useEffect(() => {
     socket.connect();
@@ -33,39 +33,37 @@ export const useGroupChat = (id_group, chatStore) => {
     socket.on("groupChatMessages:get", (groupChatListMessages) => {
       console.log("groupChatMessages:get: ", groupChatListMessages);
 
+      setChatChange(chatChange => chatChange + 1);
+      console.log(chatChange);
       chatStore.chat = groupChatListMessages;
-      setGroupChatMessages(groupChatListMessages);
     });
 
     socket.on("groupChatMessages:post", (groupChatNewMessage) => {
       console.log('groupChatNewMessage: ', groupChatNewMessage);
       
-      chatStore.isLoadingChat = false;
-
+      setChatChange(chatChange => chatChange + 1);
+      console.log(chatChange);
+      if(id_student == groupChatNewMessage.id_creator) {
+        chatStore.isLoadingChat = false;
+        console.log("its me");
+      }
       chatStore.addMessage(groupChatNewMessage);
-      setGroupChatMessages([...groupChatMessages, groupChatNewMessage]);
     });
 
     socket.on("groupChatMessages:patch", (groupChatUpdateMessage) => {
       console.log("groupChatUpdateMessage", groupChatUpdateMessage);
 
+      setChatChange(chatChange => chatChange + 1);
+      console.log(chatChange);
       chatStore.updateMessage(groupChatUpdateMessage);
-
-      setGroupChatMessages(groupChatMessages.map((message) => { // Убрать везде работу с этим useState
-        if (message.id_message == groupChatUpdateMessage.id_message) {
-            return groupChatUpdateMessage; // Возможно неверно будет работать
-        } else {
-            return message;
-        }
-      }));
     });
 
     socket.on( "groupChatMessages:delete", (id) => {
       console.log('ID_DELETE: ', id);
 
+      setChatChange(chatChange => chatChange + 1);
+      console.log(chatChange);
       chatStore.deleteMessage(id);
-
-      setGroupChatMessages(groupChatMessages.filter(message => message.id_message != id));
     });
   },[socket]);
 
@@ -93,5 +91,5 @@ export const useGroupChat = (id_group, chatStore) => {
     []
   );
 
-  return { groupChatMessages, groupChatMessagesActions };
+  return { groupChatMessagesActions };
 };

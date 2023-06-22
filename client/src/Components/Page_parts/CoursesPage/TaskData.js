@@ -1,6 +1,6 @@
 import React from 'react'
-import { priorityList } from '../variables';
-import DeleteButton from './DeleteButton';
+import { priorityList } from '../../variables';
+import DeleteButton from '../DeleteButton';
 
 export default function TaskData({task, setIsUpdating, deleteСurrentTask, isTaskOrSubTask, isScheduleTask}) {
     

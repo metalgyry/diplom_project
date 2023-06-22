@@ -8,13 +8,13 @@ import { TasksService } from './tasks.service';
 export class TasksController {
     constructor(private tasksService: TasksService ) {}
 
-    @HttpCode(HttpStatus.OK)
-    @UseGuards(AccessJwtAuthGuard)
-    @Get('/all')
-    async getTasks(@Req() req: Request) {
-      const tasks = await this.tasksService.allTasks(req['user'].id_student);
-      return tasks;
-    }
+    // @HttpCode(HttpStatus.OK)
+    // @UseGuards(AccessJwtAuthGuard)
+    // @Get('/all')
+    // async getTasks(@Req() req: Request) {
+    //   const tasks = await this.tasksService.allTasks(req['user'].id_student);
+    //   return tasks;
+    // }
 
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
@@ -27,7 +27,7 @@ export class TasksController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(AccessJwtAuthGuard)
     @Patch('/update')
-    async updateOneTask(@Body() taskDto: UpdateTaskDto) {// @Param('id') id: string,
+    async updateOneTask(@Body() taskDto: UpdateTaskDto) {
         const task = await this.tasksService.updateTask(taskDto);
         return task;
     }
@@ -36,8 +36,8 @@ export class TasksController {
     @UseGuards(AccessJwtAuthGuard)
     @Delete('/delete/:id')
     async deleteOneTask(@Param('id') id: string, @Req() req: Request) {
-        const deleteTaskCount = await this.tasksService.deleteTask(id, req['user'].id_student);
-        return deleteTaskCount;
+        const deleteTask = await this.tasksService.deleteTask(id, req['user'].id_student);
+        return deleteTask;
     }
 
 }

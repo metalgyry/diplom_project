@@ -4,8 +4,6 @@ import {JwtService} from "@nestjs/jwt";
 import { userDto } from "../dto/user.dto";
 import { ConfigService } from "@nestjs/config";
 
-// TODO: Поработать над ошибками т.к. не везде должны быть ошибки(наверно, надо обдумать) связанные с UnauthorizedException
-
 @Injectable()
 export class AccessJwtAuthGuard implements CanActivate {
     constructor( private jwtService: JwtService,
@@ -17,7 +15,6 @@ export class AccessJwtAuthGuard implements CanActivate {
         const authHeader = req.headers['authorization'];
         if(!authHeader) {
             throw new UnauthorizedException({'message': 'Отсутствие Access токена!'});
-            //return false;
         }
         const fullAccessToken = authHeader.split(' ');
         if(fullAccessToken[0] !== 'Bearer') {
@@ -30,18 +27,6 @@ export class AccessJwtAuthGuard implements CanActivate {
             );
         }
         const accessToken = fullAccessToken[1];
-        /*
-        let myToken: string;
-        for (let i = 0; i < accessToken.length; i++) {
-          const nameToken = accessToken[i].split('=')[0];
-          if(nameToken === 'authorization'){
-            myToken = accessToken[i];
-            break;
-          }
-        }
-        */
-        //console.log(accessToken);
-        //console.log(this.configService.get("ACCESS_KEY"));
 
         if (!accessToken) {
             throw new HttpException(
@@ -68,10 +53,6 @@ export class AccessJwtAuthGuard implements CanActivate {
                 HttpStatus.FORBIDDEN,
             );
         }
-
-        //console.log('User:');
-        //console.log(user);
-        //console.log("________________________________");
 
         req.user = user;
         return true;

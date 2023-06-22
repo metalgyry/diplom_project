@@ -28,10 +28,6 @@ export class GroupChatMessagesGateway implements OnGatewayInit, OnGatewayConnect
 
   private getGroupChatInfo = async (client: Socket): Promise<string> => {
     const idGroup = client.handshake.auth.id_group;
-    // const groupChatMessages = await this.groupChatMessagesService.allGroupChatMessages(Number(idGroup));
-    // this.server.in(idGroup).emit("groupChatMessages:get", groupChatMessages);
-
-    //throw new WsException('Ошибка при получении задач проекта!');
     return String(idGroup);
   };
 

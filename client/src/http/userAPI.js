@@ -1,7 +1,7 @@
 import { $host, $authHost } from "./index.js";
 
 export const signin = async (login, password) => {
-    const response = await $host.post("login/", { login: login, password: password }); // , { headers: { 'Content-Type': 'multipart/form-data'} }
+    const response = await $host.post("login/", { login: login, password: password });
     return response;
 };
 
@@ -32,10 +32,10 @@ export const signout = async () => {
     return response;
 };
 
-export const allTasks = async () => {
-    const response = await $authHost.get("/tasks/all");
-    return response;
-};
+// export const allTasks = async () => {
+//     const response = await $authHost.get("/tasks/all");
+//     return response;
+// };
 
 const choiceURL = (isTaskOrSubTask) => {
     if(isTaskOrSubTask) {
@@ -82,7 +82,7 @@ export const deleteProject = async (id) => {
     return response;
 };
 
-export const allGroupStudents = async (id) => {
+export const allGroupStudents = async () => {
     const response = await $authHost.get('/groups/students');
     return response;
 };
